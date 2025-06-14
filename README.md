@@ -31,7 +31,7 @@ This repository contains my personal NixOS configuration for a customized deskto
   - **`desktop/`**: Configuration for Hyprland, Waybar, and related tools.
   - **`editors/`**: Neovim and VSCode configurations.
   - **`programs/`**: Additional program configurations (e.g., Fastfetch, Ghostty).
-  - **`quickshell/`**: The current quickshell setup, thanks to [Rexcrazy804](https://github.com/Rexcrazy804) for creating it.
+  - **`quickshell/`**: The current quickshell setup, thanks to [Rexcrazy804](https://github.com/Rexcrazy804) for helping me quite a bit!
 
 - **`system/`** 🔧  
   System-wide configurations.
