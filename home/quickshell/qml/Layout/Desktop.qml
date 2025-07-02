@@ -20,10 +20,10 @@ Scope {
     // Wallpaper layer - one per screen
     Variants {
         model: Quickshell.screens
-        //Core.Wallpaper {
-        //    required property var modelData
-        //    screen: modelData
-        //}
+        Core.Wallpaper {
+            required property var modelData
+            screen: modelData
+        }
     }
 
     // Desktop UI layer per screen
