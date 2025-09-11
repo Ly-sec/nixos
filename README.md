@@ -4,6 +4,7 @@
 Click on the image to see the demo.
 
 > ⚠️ **DEPRECATED**
+> 
 > I am currently not using NixOS so please do not expect any changes anytime soon.
 
 # NixOS Configuration
