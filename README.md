@@ -3,8 +3,8 @@
 
 Click on the image to see the demo.
 
-> ⚠️ **Important:** This repository includes my personal `hardware-configuration.nix`, which is specific to my hardware setup.  
-> You **must replace it** with one generated for your system using `nixos-generate-config` to avoid compatibility issues.
+> ⚠️ **DEPRECATED**
+> I am currently not using NixOS so please do not expect any changes anytime soon.
 
 # NixOS Configuration
 
