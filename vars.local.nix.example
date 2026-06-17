@@ -4,4 +4,6 @@
 # Use this for machine-specific overrides only.
 
 {
+  # desktop = "hyprland";
+  # noctalia = "/path/to/noctalia";
 }

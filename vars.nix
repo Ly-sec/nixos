@@ -4,6 +4,12 @@
   stateVersion = "26.11";
   system = "x86_64-linux";
 
+  # Active compositor / desktop session. Override in vars.local.nix to switch.
+  # Options: niri, hyprland, sway, labwc, mango, plasma
+  desktop = "niri";
+
+  noctalia = "/mnt/storage/GitHub/noctalia-dev/noctalia/build-release/noctalia";
+
   git = {
     name = "Ly-sec";
     email = "itslysec@gmail.com";

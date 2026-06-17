@@ -64,6 +64,11 @@ in
           # Remove the "Firefox View" button/tab
           "browser.tabs.firefox-view" = false;
 
+          # Native vertical tabs (Firefox 136+)
+          "sidebar.revamp" = true;
+          "sidebar.verticalTabs" = true;
+          "sidebar.visibility" = "always-show";
+
           # Disable Pocket integration (saves articles to Firefox Account)
           "extensions.pocket.enabled" = false;
 

@@ -1,16 +1,20 @@
-{ pkgs, ... }:
+{ pkgs, vars, lib, ... }:
 
+let
+  desktops = import ../../lib/desktops.nix;
+  desktop = desktops.assertValid vars.desktop;
+in
 {
-  services.greetd = {
+  services.greetd = lib.mkIf (desktops.usesGreetd desktop) {
     enable = true;
     settings.default_session = {
-      command = "${pkgs.tuigreet}/bin/tuigreet --remember --asterisks --container-padding 2 --no-xsession-wrapper --cmd niri-session";
+      command = desktops.greetdSession desktop pkgs;
       user = "greeter";
     };
   };
 
   systemd.settings.Manager.DefaultTimeoutStopSec = "10s";
-  systemd.services.greetd.serviceConfig = {
+  systemd.services.greetd.serviceConfig = lib.mkIf (desktops.usesGreetd desktop) {
     Type = "idle";
     StandardInput = "tty";
     StandardOutput = "tty";

@@ -1,8 +1,13 @@
 { pkgs, inputs, lib, vars, ... }:
 
+let
+  desktops = import ../lib/desktops.nix;
+  desktop = desktops.assertValid vars.desktop;
+in
 {
   imports = [
-    ./niri/default.nix
+    ../desktops/shared/home.nix
+    (../desktops + "/${desktop}/home")
     ./editors/vscode.nix
     ./programs/ghostty.nix
     ./programs/fastfetch.nix

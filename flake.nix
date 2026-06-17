@@ -36,6 +36,8 @@
     }@inputs:
 
     let
+      desktops = import ./lib/desktops.nix;
+
       baseVars = import ./vars.nix;
       # Gitignored files are not in the flake store; load from the checkout on disk.
       configDir =
@@ -50,6 +52,7 @@
         else
           { };
       vars = baseVars // localVars;
+      desktop = desktops.assertValid vars.desktop;
     in
     {
       formatter =
@@ -60,29 +63,24 @@
           system = vars.system;
 
           specialArgs = {
-            inherit self inputs vars;
+            inherit self inputs vars desktop;
           };
 
           modules = [
             ./hosts/nixos/configuration.nix
 
-            home-manager.nixosModules.home-manager
+            (./desktops + "/${desktop}/nixos.nix")
 
-            niri.nixosModules.niri
+            home-manager.nixosModules.home-manager
 
             spicetify-nix.nixosModules.default
 
             {
-              programs.niri.package =
-                (inputs.niri.packages.${vars.system}.niri-unstable).overrideAttrs (_: {
-                  doCheck = false;
-                });
-
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.backupFileExtension = "backup";
               home-manager.extraSpecialArgs = {
-                inherit self inputs vars;
+                inherit self inputs vars desktop;
               };
 
               home-manager.users.${vars.username} =

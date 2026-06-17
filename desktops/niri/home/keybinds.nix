@@ -1,9 +1,9 @@
-{ config, pkgs, ... }:
+{ config, pkgs, vars, ... }:
 
 let
   inherit (config.lib.niri.actions) spawn;
 
-  noctalia = import ./noctalia-path.nix;
+  noctalia = import ../../../lib/noctalia.nix { inherit pkgs vars; };
   ghostty = "${pkgs.ghostty}/bin/ghostty";
   firefox = "${pkgs.firefox}/bin/firefox";
   nautilus = "${pkgs.nautilus}/bin/nautilus";
@@ -20,7 +20,7 @@ in
       };
       "Mod+Ctrl+Return" = {
         hotkey-overlay.title = "Open App Launcher: Noctalia";
-        action = spawn "bash" "-c" "${noctalia} msg panel-toggle launcher";
+        action = spawn "${noctalia.toggleLauncher}/bin/noctalia-toggle-launcher";
       };
       "Mod+B" = {
         hotkey-overlay.title = "Open Browser: Firefox";
