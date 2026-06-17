@@ -14,13 +14,13 @@ in
 
   programs.git = {
     enable = true;
-    userName = vars.git.name;
-    userEmail = vars.git.email;
     signing = {
       key = vars.git.signingKey;
       signByDefault = true;
     };
     settings = {
+      user.name = vars.git.name;
+      user.email = vars.git.email;
       gpg.format = "openpgp";
       init.defaultBranch = "main";
       pull.rebase = false;

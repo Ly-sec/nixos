@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, lib, ... }:
 let
   pywalfoxNativeMessagingHost = pkgs.writeTextDir "lib/mozilla/native-messaging-hosts/pywalfox.json" (
     builtins.toJSON {
@@ -13,6 +13,7 @@ in
 {
   programs.firefox = {
     enable = true;
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
     nativeMessagingHosts = [ pywalfoxNativeMessagingHost ];
 
     profiles = {
@@ -138,4 +139,13 @@ in
       };
     };
   };
+
+  home.activation.migrateFirefoxProfile = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
+    legacy="$HOME/.mozilla/firefox"
+    target="${config.programs.firefox.configPath}"
+    if [ -d "$legacy" ] && [ ! -e "$target" ]; then
+      $DRY_RUN_CMD mkdir -p "$(dirname "$target")"
+      $DRY_RUN_CMD mv "$legacy" "$target"
+    fi
+  '';
 }

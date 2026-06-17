@@ -12,7 +12,7 @@ with pkgs;
   pywalfox-native
   gh
   gcc
-  clang-tools
+  llvmPackages_22.clang-tools
   just
   lefthook
   nixfmt
