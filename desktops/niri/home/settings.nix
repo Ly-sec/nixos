@@ -44,6 +44,8 @@
         { proportion = 0.66667; }
       ];
 
+      default-column-width = { proportion = 0.4; };
+
       struts = { };
 
       focus-ring.enable = true;

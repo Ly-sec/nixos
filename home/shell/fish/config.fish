@@ -1,5 +1,8 @@
 function fish_greeting
-    fastfetch
+    if test -t 1
+        # microfetch uses ANSI palette slots; Ghostty's theme maps them.
+        env -u NO_COLOR microfetch
+    end
 end
 
 if status is-interactive

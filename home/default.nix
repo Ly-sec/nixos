@@ -10,7 +10,7 @@ in
     (../desktops + "/${desktop}/home")
     ./editors/vscode.nix
     ./programs/ghostty.nix
-    ./programs/fastfetch.nix
+    ./programs/microfetch.nix
     ./programs/firefox.nix
     ./programs/fluxer.nix
     ./programs/spicetify.nix
