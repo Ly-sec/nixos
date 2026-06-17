@@ -1,31 +1,31 @@
-{ config, pkgs, vars, ... }:
+{ config, pkgs, ... }:
 
 let
   inherit (config.lib.niri.actions) spawn;
 
+  noctalia = import ./noctalia-path.nix;
   ghostty = "${pkgs.ghostty}/bin/ghostty";
   firefox = "${pkgs.firefox}/bin/firefox";
   nautilus = "${pkgs.nautilus}/bin/nautilus";
-
-  noctalia-launcher =
-    spawn "bash" "-c" "${vars.noctalia} msg panel-toggle launcher";
 in
 {
-  programs.niri.settings.binds = with config.lib.niri.actions; {
-    "Mod+Shift+Escape".action = show-hotkey-overlay;
+  programs.niri.settings.binds =
+    with config.lib.niri.actions;
+    {
+      "Mod+Shift+Escape".action = show-hotkey-overlay;
 
-    "Mod+Return" = {
-      hotkey-overlay.title = "Open Terminal: Ghostty";
-      action = spawn ghostty;
-    };
-    "Mod+Ctrl+Return" = {
-      hotkey-overlay.title = "Open App Launcher: Noctalia";
-      action = noctalia-launcher;
-    };
-    "Mod+B" = {
-      hotkey-overlay.title = "Open Browser: Firefox";
-      action = spawn firefox;
-    };
+      "Mod+Return" = {
+        hotkey-overlay.title = "Open Terminal: Ghostty";
+        action = spawn ghostty;
+      };
+      "Mod+Ctrl+Return" = {
+        hotkey-overlay.title = "Open App Launcher: Noctalia";
+        action = spawn "bash" "-c" "${noctalia} msg panel-toggle launcher";
+      };
+      "Mod+B" = {
+        hotkey-overlay.title = "Open Browser: Firefox";
+        action = spawn firefox;
+      };
     "Mod+E" = {
       hotkey-overlay.title = "File Manager: Nautilus";
       action = spawn nautilus;
@@ -161,5 +161,5 @@ in
       repeat = false;
       action = toggle-overview;
     };
-  };
+    };
 }

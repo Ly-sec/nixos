@@ -1,0 +1,12 @@
+# Copy to vars.local.nix in this directory (gitignored).
+# Set NIXOS_CONFIG if your checkout is not at ~/nixos.
+
+{
+  git = {
+    name = "Your Name";
+    email = "you@example.com";
+    signingKey = "YOUR_GPG_FINGERPRINT";
+  };
+
+  gpgPrivateKey = "/path/to/private-key.asc";
+}

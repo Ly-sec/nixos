@@ -36,7 +36,20 @@
     }@inputs:
 
     let
-      vars = import ./vars.nix;
+      baseVars = import ./vars.nix;
+      # Gitignored files are not in the flake store; load from the checkout on disk.
+      configDir =
+        let
+          env = builtins.getEnv "NIXOS_CONFIG";
+        in
+        if env != "" then env else "/home/${baseVars.username}/nixos";
+      localVarsPath = /. + configDir + "/vars.local.nix";
+      localVars =
+        if builtins.pathExists localVarsPath then
+          import localVarsPath
+        else
+          { };
+      vars = baseVars // localVars;
     in
     {
       formatter =
