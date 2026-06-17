@@ -1,93 +1,103 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
-  programs.niri = {
-    enable = true;
-    package = pkgs.niri;
-    settings = {
-      workspaces = {
-        "browser" = {};
-        "vesktop" = {};
-      };
+  programs.niri.settings = {
+    prefer-no-csd = true;
+    screenshot-path = null;
 
-      prefer-no-csd = true;
-
-      hotkey-overlay = {
-        skip-at-startup = true;
-      };
-
-      layout = {
-
-        background-color = "#00000000";
-
-        focus-ring = {
-          enable = true;
-          width = 3;
-          active = {
-            color = "#A8AEFF";
-          };
-          inactive = {
-            color = "#505050";
-          };
+    outputs = {
+      "DP-1" = {
+        mode = {
+          width = 2560;
+          height = 1440;
+          refresh = 359.979;
         };
-
-        gaps = 6;
-
-        struts = {
-          left = 20;
-          right = 20;
-          top = 20;
-          bottom = 20;
+        scale = 1.0;
+      };
+      "DP-2" = {
+        mode = {
+          width = 1920;
+          height = 1080;
+          refresh = 164.917;
         };
+        scale = 1.0;
+      };
+    };
+
+    workspaces = {
+      browser = { };
+      chat = { };
+      vesktop = { open-on-output = "DP-2"; };
+      fluxer = { open-on-output = "DP-2"; };
+    };
+
+    hotkey-overlay.skip-at-startup = true;
+
+    layout = {
+      gaps = 14;
+      center-focused-column = "never";
+      background-color = "transparent";
+
+      preset-column-widths = [
+        { proportion = 0.33333; }
+        { proportion = 0.5; }
+        { proportion = 0.66667; }
+      ];
+
+      struts = { };
+
+      focus-ring = {
+        enable = true;
+        active = { color = "#4e92e8"; };
+        inactive = { color = "#111010"; };
+        urgent = { color = "#d45a48"; };
       };
 
-      input = {
-        keyboard.xkb.layout = "de";
-        touchpad = {
-          click-method = "button-areas";
-          dwt = true;
-          dwtp = true;
-          natural-scroll = true;
-          scroll-method = "two-finger";
-          tap = true;
-          tap-button-map = "left-right-middle";
-          middle-emulation = true;
-          accel-profile = "adaptive";
-        };
-        focus-follows-mouse.enable = true;
-        warp-mouse-to-focus.enable = false;
+      border = {
+        active = { color = "#4e92e8"; };
+        inactive = { color = "#111010"; };
+        urgent = { color = "#d45a48"; };
       };
 
-      outputs = {
-        "DP-1" = {
-          mode = {
-            width = 2560;
-            height = 1440;
-            refresh = 359.97900;
-          };
-          scale = 1.0;
-          position = { x = 0; y = 0; };
-        };
+      shadow.color = "#11101070";
+
+      tab-indicator = {
+        active = { color = "#4e92e8"; };
+        inactive = { color = "#053b7e"; };
+        urgent = { color = "#d45a48"; };
       };
 
-      cursor = {
-        size = 20;
-        theme = "Adwaita";
-      };
+      insert-hint.display = { color = "#4e92e880"; };
+    };
 
-      environment = {
-        CLUTTER_BACKEND = "wayland";
-        GDK_BACKEND = "wayland,x11";
-        MOZ_ENABLE_WAYLAND = "1";
-        NIXOS_OZONE_WL = "1";
-        QT_QPA_PLATFORM = "wayland";
-        QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-        ELECTRON_OZONE_PLATFORM_HINT = "auto";
-
-        XDG_SESSION_TYPE = "wayland";
-        XDG_CURRENT_DESKTOP = "niri";
-        DISPLAY = ":0";
+    input = {
+      keyboard = {
+        xkb.layout = "de";
+        numlock = true;
       };
+      touchpad = {
+        tap = true;
+        natural-scroll = true;
+      };
+      focus-follows-mouse.enable = true;
+      workspace-auto-back-and-forth = true;
+    };
+
+    cursor = {
+      theme = "Bibata-Modern-Ice";
+      size = 24;
+    };
+
+    environment = {
+      ELECTRON_OZONE_PLATFORM_HINT = "auto";
+      QT_QPA_PLATFORM = "wayland";
+      QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+      XDG_SESSION_TYPE = "wayland";
+      XDG_CURRENT_DESKTOP = "niri";
+      XCURSOR_SIZE = "24";
+      XCURSOR_THEME = "Bibata-Modern-Ice";
+      QT_QPA_PLATFORMTHEME = "gtk3";
+      EDITOR = "code";
     };
   };
 }

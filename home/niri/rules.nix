@@ -1,54 +1,31 @@
+{ ... }:
+
 {
-  config,
-  pkgs,
-  ...
-}: {
   programs.niri.settings = {
-    layer-rules = [
-      {
-        matches = [
-          {
-            namespace = "^quickshell-wallpaper$";
-          }
-        ];
-        #place-within-backdrop = true;
-      }
-      {
-        matches = [
-          {
-            namespace = "^quickshell-overview$";
-          }
-        ];
-        place-within-backdrop = true;
-      }
-      {
-        matches = [
-          {
-            namespace = "^swww-daemon$";
-          }
-        ];
-        place-within-backdrop = true;
-      }
-    ];
-    
     window-rules = [
       {
-        matches = [
-          { app-id = "firefox"; }
-        ];
-        open-on-workspace = "browser";
-      }
-
-      # Vesktop
-      {
-        matches = [
-          { app-id = "vesktop"; }
-        ];
+        matches = [ { at-startup = true; app-id = "vesktop"; } ];
+        open-on-output = "DP-2";
         open-on-workspace = "vesktop";
+        open-maximized = true;
       }
-
       {
-        matches = [{}];
+        matches = [ { at-startup = true; app-id = "fluxer-canary"; } ];
+        open-on-output = "DP-2";
+        open-on-workspace = "fluxer";
+        open-maximized = true;
+      }
+      {
+        matches = [ { app-id = "zen"; } ];
+        open-on-workspace = "browser";
+        open-maximized = true;
+      }
+      {
+        matches = [ { app-id = "zen"; title = "^Picture-in-Picture$"; } ];
+        open-floating = true;
+      }
+      {
+        matches = [ { } ];
         geometry-corner-radius = {
           top-left = 20.0;
           top-right = 20.0;
@@ -56,6 +33,20 @@
           bottom-right = 20.0;
         };
         clip-to-geometry = true;
+      }
+      {
+        matches = [ { app-id = "^dev\\.faetalize\\.waytator$"; } ];
+        open-floating = true;
+      }
+    ];
+
+    layer-rules = [
+      {
+        matches = [ { namespace = "^noctalia-(main|notifications|dock)$"; } ];
+      }
+      {
+        matches = [ { namespace = "^noctalia-backdrop"; } ];
+        place-within-backdrop = true;
       }
     ];
   };

@@ -1,63 +1,57 @@
 {
-  description = "Nixos config flake";
+  description = "My NixOS config";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-    hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
     nur.url = "github:nix-community/NUR";
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-    nixvim.url = "github:nix-community/nixvim";
-
-    matugen.url = "github:InioX/matugen";
-
-    niri.url = "github:sodiboo/niri-flake";
-
-    stylix = {
-      url = "github:danth/stylix";
+    niri = {
+      url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    quickshell = {
-      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    moonlight = {
-      url = "github:moonlight-mod/moonlight";
+    fluxer = {
+      url = "github:Hy4ri/fluxer-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, chaotic, nur, nixvim, niri, quickshell, ... }@inputs: {
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      nur,
+      niri,
+      spicetify-nix,
+      fluxer,
+      ...
+    }@inputs:
+    let
+      vars = import ./vars.nix;
+    in
+    {
+      formatter = nixpkgs.legacyPackages.${vars.system}.alejandra;
 
-    # Expose NixOS configuration
-    nixosConfigurations.default = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = { inherit self inputs; };
-      modules = [
-        ./hosts/default/configuration.nix
-        inputs.stylix.nixosModules.stylix
-        inputs.home-manager.nixosModules.default
-        inputs.spicetify-nix.nixosModules.default
-        chaotic.nixosModules.default
-
-        ({pkgs, ...}: {
-          environment.systemPackages = [
-            (quickshell.packages.${pkgs.system}.default.override {
-              withJemalloc = true;
-              withQtSvg = true;
-              withWayland = true;
-              withX11 = false;
-              withPipewire = true;
-              withPam = true;
-              withHyprland = true;
-              withI3 = false;
-            })
-          ];
-        })
-      ];
+      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+        system = vars.system;
+        specialArgs = { inherit self inputs vars; };
+        modules = [
+          ./hosts/nixos/configuration.nix
+          home-manager.nixosModules.home-manager
+          niri.nixosModules.niri
+          spicetify-nix.nixosModules.default
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
+            home-manager.extraSpecialArgs = { inherit self inputs vars; };
+            home-manager.users.${vars.username} = import ./home/default.nix;
+          }
+        ];
+      };
     };
-  };
 }

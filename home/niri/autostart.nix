@@ -1,14 +1,10 @@
-{ lib, pkgs, ... }:
+{ vars, ... }:
 
 {
   programs.niri.settings.spawn-at-startup = [
-    { command = ["systemctl" "--user" "start" "hyprpolkitagent"]; }
-    { command = ["arrpc"]; }
-    { command = ["xwayland-satellite"]; }
-    { command = ["qs"]; }
-    { command = ["vesktop"]; }
-    { command = ["swww-daemon"]; }
-    #{ command = ["${pkgs.swaybg}/bin/swaybg" "-o" "DP-1" "-i" "/home/lysec/nixos/assets/wallpapers/clouds.png" "-m" "fill"]; }
-    #{ command = ["sh" "-c" "swww-daemon & swww img /home/lysec/nixos/wallpapers/cloud.png"]; }
+    { command = [ "xwayland-satellite" ]; }
+    { sh = vars.noctalia; }
+    { sh = "sleep 1; fluxer-canary"; }
+    { sh = "sleep 3; vesktop"; }
   ];
 }

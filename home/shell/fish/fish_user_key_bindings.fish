@@ -1,0 +1,1 @@
+bind \ee 'emacs -nw .'

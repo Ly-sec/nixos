@@ -6,7 +6,7 @@
       font-size = 11;
       font-family = "JetBrainsMono Nerd Font";
 
-      theme = "wallust";
+      theme = "Adwaita Dark";
 
       window-decoration = false;
 
