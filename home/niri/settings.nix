@@ -46,28 +46,7 @@
 
       struts = { };
 
-      focus-ring = {
-        enable = true;
-        active = { color = "#4e92e8"; };
-        inactive = { color = "#111010"; };
-        urgent = { color = "#d45a48"; };
-      };
-
-      border = {
-        active = { color = "#4e92e8"; };
-        inactive = { color = "#111010"; };
-        urgent = { color = "#d45a48"; };
-      };
-
-      shadow.color = "#11101070";
-
-      tab-indicator = {
-        active = { color = "#4e92e8"; };
-        inactive = { color = "#053b7e"; };
-        urgent = { color = "#d45a48"; };
-      };
-
-      insert-hint.display = { color = "#4e92e880"; };
+      focus-ring.enable = true;
     };
 
     input = {

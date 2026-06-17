@@ -6,7 +6,7 @@
       font-size = 11;
       font-family = "JetBrainsMono Nerd Font";
 
-      theme = "Adwaita Dark";
+      theme = "noctalia";
 
       window-decoration = false;
 

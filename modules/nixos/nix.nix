@@ -10,7 +10,6 @@
     })
   ];
 
-  # fetchGit (niri/rust deps, etc.) needs git on nix-daemon's PATH
   systemd.services.nix-daemon.path = [ pkgs.git ];
 
   nix.settings = {
@@ -25,4 +24,6 @@
   };
 
   nixpkgs.config.allowUnfree = true;
+
+  programs.nix-ld.enable = true;
 }

@@ -2,8 +2,7 @@
 
 {
   imports = [
-    # ../../hardware/hardware-configuration.nix
-
+    ../../hardware/hardware-configuration.nix
     ../../hardware/storage.nix
     ../../modules/nixos/hardware-physical.nix
     ../../modules/nixos/boot.nix

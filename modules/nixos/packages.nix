@@ -15,5 +15,6 @@
     spicetify-cli
     ddcutil
     bluez
+    
   ];
 }

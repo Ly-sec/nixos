@@ -6,7 +6,8 @@
   niri-flake.cache.enable = true;
   programs.niri.enable = true;
 
-  # Required for XWayland support under Niri.
+  systemd.user.services.niri-flake-polkit.enable = false;
+
   services.xserver = {
     enable = true;
     xkb = {
