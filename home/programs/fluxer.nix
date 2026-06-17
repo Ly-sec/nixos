@@ -9,12 +9,16 @@ in
       name = "fluxer-canary";
       runtimeInputs = [ fluxerCanary ];
       text = ''
-        if [ "$XDG_CURRENT_DESKTOP" = "niri" ]; then
-          exec ${fluxerCanary}/bin/fluxer-canary --ozone-platform=x11 "$@"
-        else
-          exec ${fluxerCanary}/bin/fluxer-canary "$@"
-        fi
+        export ELECTRON_OZONE_PLATFORM_HINT=x11
+        exec ${fluxerCanary}/bin/fluxer-canary "$@"
       '';
     })
   ];
+
+  # Fluxer rewrites this with a broken direct opt/ path; keep it hidden since niri starts it.
+  xdg.configFile."autostart/fluxer-canary.desktop".text = ''
+    [Desktop Entry]
+    Type=Application
+    Hidden=true
+  '';
 }

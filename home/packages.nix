@@ -12,9 +12,11 @@ with pkgs;
   pywalfox-native
   gh
   gcc
+  clang-tools
   just
   lefthook
   nixfmt
+  nwg-look
   jq
   ripgrep
   tree

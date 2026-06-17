@@ -10,10 +10,10 @@
     ./programs/fluxer.nix
     ./programs/spicetify.nix
     ./programs/vesktop/default.nix
+    ./programs/git.nix
     ./shell/fish.nix
     inputs.spicetify-nix.homeManagerModules.default
-  ]
-  ++ lib.optional (vars ? git) ./programs/git.nix;
+  ];
 
   home.username = vars.username;
   home.homeDirectory = "/home/${vars.username}";
