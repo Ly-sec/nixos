@@ -1,14 +1,5 @@
-{ pkgs, vars, ... }:
-
-let
-  noctalia = import ../../lib/noctalia.nix { inherit pkgs vars; };
-in
+{ vars, ... }:
 {
-  home.packages = [
-    noctalia.autostart
-    noctalia.toggleLauncher
-  ];
-
   home.sessionVariables = {
     ELECTRON_OZONE_PLATFORM_HINT = "x11";
     QT_QPA_PLATFORM = "wayland";
@@ -18,13 +9,11 @@ in
     QT_QPA_PLATFORMTHEME = "gtk3";
   };
 
-  # Fallback autostart for sessions without compositor-native startup (Plasma, Mango via dex).
   xdg.configFile."autostart/noctalia.desktop".text = ''
     [Desktop Entry]
     Type=Application
     Name=Noctalia
-    Comment=Desktop shell
-    Exec=${noctalia.autostart}/bin/noctalia-autostart
+    Exec=${vars.noctalia}
     X-GNOME-Autostart-enabled=true
     OnlyShowIn=KDE;GNOME;XFCE;
   '';

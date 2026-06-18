@@ -1,7 +1,6 @@
 { pkgs, vars, ... }:
 
 let
-  noctalia = import ../../../lib/noctalia.nix { inherit pkgs vars; };
   ghostty = "${pkgs.ghostty}/bin/ghostty";
   firefox = "${pkgs.firefox}/bin/firefox";
 in
@@ -13,7 +12,7 @@ in
       monitor = ",preferred,auto,1";
 
       exec-once = [
-        "${noctalia.autostart}/bin/noctalia-autostart"
+        vars.noctalia
       ];
 
       env = [
@@ -46,7 +45,7 @@ in
       bind = [
         "$mod, Return, exec, ${ghostty}"
         "$mod, B, exec, ${firefox}"
-        "$mod, Ctrl, Return, exec, ${noctalia.toggleLauncher}/bin/noctalia-toggle-launcher"
+        "$mod, Ctrl, Return, exec, ${vars.noctalia} msg panel-toggle launcher"
         "$mod, Q, killactive,"
         "$mod, M, exit,"
       ];

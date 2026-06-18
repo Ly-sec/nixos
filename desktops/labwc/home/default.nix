@@ -1,14 +1,13 @@
 { pkgs, vars, ... }:
 
 let
-  noctalia = import ../../../lib/noctalia.nix { inherit pkgs vars; };
   ghostty = "${pkgs.ghostty}/bin/ghostty";
   firefox = "${pkgs.firefox}/bin/firefox";
 in
 {
   xdg.configFile."labwc/autostart".source =
     pkgs.writeShellScript "labwc-autostart" ''
-      ${noctalia.autostart}/bin/noctalia-autostart &
+      ${vars.noctalia} &
     '';
 
   xdg.configFile."labwc/rc".text = ''
@@ -33,7 +32,7 @@ in
 
     bind Super_L Control_R Return {
       action Execute
-      command ${noctalia.toggleLauncher}/bin/noctalia-toggle-launcher
+      command ${vars.noctalia} msg panel-toggle launcher
     }
 
     bind Super_L q {

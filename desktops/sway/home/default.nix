@@ -1,7 +1,6 @@
 { pkgs, vars, ... }:
 
 let
-  noctalia = import ../../../lib/noctalia.nix { inherit pkgs vars; };
   ghostty = "${pkgs.ghostty}/bin/ghostty";
   firefox = "${pkgs.firefox}/bin/firefox";
 in
@@ -29,14 +28,14 @@ in
       keybindings = {
         "Mod4+Return" = "exec ${ghostty}";
         "Mod4+b" = "exec ${firefox}";
-        "Mod4+Control+Return" = "exec ${noctalia.toggleLauncher}/bin/noctalia-toggle-launcher";
+        "Mod4+Control+Return" = "exec ${vars.noctalia} msg panel-toggle launcher";
         "Mod4+Shift+q" = "kill";
         "Mod4+Shift+e" = "exit";
       };
     };
 
     extraConfig = ''
-      exec ${noctalia.autostart}/bin/noctalia-autostart
+      exec ${vars.noctalia}
     '';
   };
 }
