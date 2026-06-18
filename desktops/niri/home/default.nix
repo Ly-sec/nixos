@@ -5,5 +5,6 @@
     ./keybinds.nix
     ./rules.nix
     ./autostart.nix
+    ./noctalia-include.nix
   ];
 }

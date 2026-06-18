@@ -1,49 +1,95 @@
-![NixOS Configuration](https://i.imgur.com/LcVA9sp.jpeg)
-[Video](https://files.catbox.moe/3zeqvz.mp4)
+![NixOS Configuration](https://i.imgur.com/4PyePGk.jpeg)
 
-Click on the image to see the demo.
+# NixOS configuration
 
-> ⚠️ **DEPRECATED**
-> 
-> I am currently not using NixOS so please do not expect any changes anytime soon.
+Personal NixOS flake with home-manager. One host (`nixos`), multiple Wayland compositors, and shared home-manager modules for apps and shell tooling.
 
-# NixOS Configuration
+## Layout
 
-This repository contains my personal NixOS configuration for a customized desktop and development environment. 🎨💻
+```
+.
+├── flake.nix              # Flake inputs and nixosConfigurations.nixos
+├── vars.nix               # Shared settings (username, desktop, paths, git)
+├── vars.local.nix.example # Template for machine-local overrides (gitignored)
+├── hosts/nixos/           # Host entry point
+├── hardware/              # Machine hardware and storage
+├── modules/nixos/         # System modules (boot, greeter, locale, services, …)
+├── desktops/<name>/       # Per-compositor nixos.nix + home/ modules
+├── home/                  # Shared home-manager config (programs, shell, editors)
+└── lib/                   # Small helpers (desktops, fluxer wrapper)
+```
 
-## Directory Structure
+The active compositor is selected in `vars.desktop`. Only that desktop's `desktops/<name>/nixos.nix` is imported at build time, so switching desktops does not pull every compositor into the closure.
 
-- **`assets/`** 🎨  
-  Contains custom icons and wallpapers.
+Supported values: `niri`, `hyprland`, `sway`, `labwc`, `mango`, `plasma`.
 
-  - **`icons/`**: Custom icon set.
-  - **`wallpapers/`**: Collection of wallpapers.
+## Configuration
 
-- **`dev-shells/`** 🧑‍💻  
-  Development environments.
+Edit `vars.nix` for values you are happy to commit. For machine-specific overrides, copy `vars.local.nix.example` to `vars.local.nix` (gitignored):
 
-- **`hosts/`** 🖥️  
-  Host-specific configurations.
+```nix
+{
+  desktop = "hyprland";
+  noctalia = "/path/to/noctalia";
+}
+```
 
-  - **`default/`**: Default host configuration including `hardware-configuration.nix`, `home.nix`, and `packages.nix`.
+If the checkout is not at `~/nixos`, set `NIXOS_CONFIG` to its path before rebuilding so `vars.local.nix` is found.
 
-- **`modules/`** ⚙️  
-  Custom NixOS modules for desktop, editors, programs, and more.
+Important `vars` fields:
 
-  - **`desktop/`**: Configuration for Hyprland, Waybar, and related tools.
-  - **`editors/`**: Neovim and VSCode configurations.
-  - **`programs/`**: Additional program configurations (e.g., Fastfetch, Ghostty).
-  - **`quickshell/`**: The current quickshell setup, [Noctalia](https://github.com/Ly-sec/Noctalia).
+| Field | Purpose |
+| --- | --- |
+| `desktop` | Active compositor session |
+| `noctalia` | Path to the Noctalia binary |
+| `git` | Git identity and signing key id |
+| `gpgPrivateKey` | Path to a private key file imported on activation |
 
-- **`system/`** 🔧  
-  System-wide configurations.
-  - **`environment.nix`**: Global environment settings.
-  - **`greeter/`**: Greetd configuration for login.
-  - **`shell/`**: Shell configurations for Bash and Fish.
-  - **`xdg.nix`**: XDG settings.
+## Desktop sessions
 
-## Getting Started
+Non-Plasma desktops use **greetd** with **tuigreet**. Plasma uses its own display manager via `desktops/plasma/nixos.nix`.
 
-Clone this repository and adjust the configurations based on your system. Modify the host-specific files and modules to suit your needs.
+**Niri** (default) has the most complete setup: keybinds, window rules, animations, autostart, and a `noctalia.kdl` include so Noctalia's Niri template is loaded from `~/.config/niri/noctalia.kdl`.
 
-Feel free to customize and contribute!
+Other compositors (`hyprland`, `sway`, `labwc`, `mango`) ship stub home modules with Noctalia autostart and basic keybinds. `mango` also defines a custom greetd session.
+
+Shared Wayland session defaults (Electron on X11, Qt on Wayland, cursor theme) live in `desktops/shared/home.nix`.
+
+## Home manager
+
+`home/default.nix` always imports shared desktop settings plus `desktops/<desktop>/home`, then program modules:
+
+- **Shell:** fish (tide), microfetch greeting
+- **Apps:** Firefox, Ghostty, Fluxer, Vesktop, Spicetify, VS Code
+- **Git:** commit signing, GPG agent (pinentry-curses)
+
+Doom Emacs config exists under `home/doom/` but is not wired into home-manager yet.
+
+## Flake inputs
+
+| Input | Use |
+| --- | --- |
+| `nixpkgs` | Base packages (unstable) |
+| `home-manager` | User environment |
+| `niri` | Niri compositor + HM module |
+| `fluxer` | Fluxer Canary package |
+| `spicetify-nix` | Spotify theming |
+| `nur` | NUR overlay |
+
+## Rebuild
+
+```bash
+sudo nixos-rebuild switch --flake .
+```
+
+Format:
+
+```bash
+nix fmt
+```
+
+## Notes
+
+- **Noctalia** is built separately; point `vars.noctalia` at your binary.
+- **GPG signing** expects `gpgPrivateKey` to exist at activation time.
+- **Fluxer** autostart is handled by the compositor (niri spawn-at-startup), not XDG autostart, to avoid a broken self-written desktop entry.
