@@ -48,7 +48,7 @@ Important `vars` fields:
 
 ## Noctalia
 
-Noctalia Shell (`vars.noctalia`) and the greeter (`vars.noctaliaGreeter`) are wired to local dev checkouts — they will not work if you clone this repo. Use the [noctalia](https://github.com/noctalia-dev/noctalia) and [noctalia-greeter](https://github.com/noctalia-dev/noctalia-greeter) flakes instead.
+Noctalia Shell (`vars.noctalia`) and the greeter (`vars.noctaliaGreeter`) are wired to local dev checkouts, they will not work if you clone this repo. Use the [noctalia](https://github.com/noctalia-dev/noctalia) and [noctalia-greeter](https://github.com/noctalia-dev/noctalia-greeter) flakes instead.
 
 ## Desktop sessions
 
