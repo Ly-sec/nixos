@@ -22,6 +22,11 @@
       url = "github:Hy4ri/fluxer-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    doomemacs = {
+      url = "github:doomemacs/doomemacs";
+      flake = false;
+    };
   };
 
   outputs =

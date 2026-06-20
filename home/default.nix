@@ -9,6 +9,7 @@ in
     ../desktops/shared/home.nix
     (../desktops + "/${desktop}/home")
     ./editors/vscode.nix
+    ./editors/doom.nix
     ./programs/ghostty.nix
     ./programs/microfetch.nix
     ./programs/firefox.nix
@@ -26,7 +27,7 @@ in
 
   home.packages = import ./packages.nix { inherit pkgs inputs; };
 
-  home.sessionVariables.EDITOR = "code";
+  home.sessionVariables.EDITOR = "emacs";
 
   programs.home-manager.enable = true;
 }
