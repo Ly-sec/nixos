@@ -1,54 +1,112 @@
-{ pkgs, vars, ... }:
+{ pkgs, vars, lib, ... }:
 
 let
   ghostty = "${pkgs.ghostty}/bin/ghostty";
   firefox = "${pkgs.firefox}/bin/firefox";
+  exec = cmd: lib.generators.mkLuaInline "hl.dsp.exec_cmd(${lib.generators.toLua { } cmd})";
 in
 {
   wayland.windowManager.hyprland = {
     enable = true;
+    configType = "lua";
+    package = null;
+    portalPackage = null;
     xwayland.enable = true;
-    settings = {
-      monitor = ",preferred,auto,1";
 
-      exec-once = [
-        vars.noctalia
+    settings = {
+      mod = {
+        _var = "SUPER";
+      };
+
+      monitor = [
+        {
+          output = "";
+          mode = "preferred";
+          position = "auto";
+          scale = 1;
+        }
       ];
 
       env = [
-        "XCURSOR_SIZE,24"
-        "XCURSOR_THEME,Bibata-Modern-Ice"
+        {
+          _args = [
+            "XCURSOR_SIZE"
+            "24"
+          ];
+        }
+        {
+          _args = [
+            "XCURSOR_THEME"
+            "Bibata-Modern-Ice"
+          ];
+        }
       ];
 
-      input = {
-        kb_layout = "de";
-        numlock_by_default = true;
-        follow_mouse = 1;
-        touchpad = {
-          natural_scroll = true;
+      config = {
+        input = {
+          kb_layout = "de";
+          numlock_by_default = true;
+          follow_mouse = 1;
+          touchpad = {
+            natural_scroll = true;
+          };
+        };
+
+        general = {
+          gaps_in = 5;
+          gaps_out = 10;
+          border_size = 2;
+          layout = "dwindle";
+        };
+
+        decoration = {
+          rounding = 8;
         };
       };
 
-      general = {
-        gaps_in = 5;
-        gaps_out = 10;
-        border_size = 2;
-        layout = "dwindle";
-      };
-
-      decoration = {
-        rounding = 8;
-      };
-
-      "$mod" = "SUPER";
-
       bind = [
-        "$mod, Return, exec, ${ghostty}"
-        "$mod, B, exec, ${firefox}"
-        "$mod, Ctrl, Return, exec, ${vars.noctalia} msg panel-toggle launcher"
-        "$mod, Q, killactive,"
-        "$mod, M, exit,"
+        {
+          _args = [
+            "SUPER + RETURN"
+            (exec ghostty)
+          ];
+        }
+        {
+          _args = [
+            "SUPER + B"
+            (exec firefox)
+          ];
+        }
+        {
+          _args = [
+            "SUPER + CTRL + RETURN"
+            (exec "${vars.noctalia} msg panel-toggle launcher")
+          ];
+        }
+        {
+          _args = [
+            "SUPER + Q"
+            (lib.generators.mkLuaInline "hl.dsp.window.close()")
+          ];
+        }
+        {
+          _args = [
+            "SUPER + M"
+            (lib.generators.mkLuaInline "hl.dsp.exit()")
+          ];
+        }
       ];
+
+      on = {
+        _args = [
+          "hyprland.start"
+          (lib.generators.mkLuaInline ''
+            function()
+              hl.exec_cmd(${lib.generators.toLua { } vars.noctalia})
+            end
+          '')
+        ];
+      };
     };
   };
 }

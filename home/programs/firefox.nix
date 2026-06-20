@@ -29,8 +29,7 @@ in
         ];
 
         settings = {
-          # Show previous session on startup (2 = restore session)
-          "browser.startup.page" = 2;
+          "browser.startup.page" = 3;
 
           # Remember zoom level per site
           "browser.zoom.siteSpecific" = true;
@@ -88,8 +87,8 @@ in
 
         search = {
           force = true;
-          default = "ddg";
-          order = [ "searxng" "nix-packages" "nixos-wiki" "ddg" ];
+          default = "google";
+          order = [ "google" "searxng" "nix-packages" "nixos-wiki" "ddg" ];
 
           engines = {
             searxng = {

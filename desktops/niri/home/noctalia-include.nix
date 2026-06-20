@@ -2,22 +2,22 @@
 
 let
   niriPkg = config.programs.niri.package;
-  base = config.programs.niri.finalConfig;
-  withNoctalia = base + ''
+  withNoctalia = config.programs.niri.finalConfig + ''
 
     include optional=true "noctalia.kdl"
   '';
 in
 {
-  # Noctalia writes theme snippets here; niri only loads them via top-level include.
-  xdg.configFile.niri-config.source = lib.mkForce (
-    pkgs.runCommand "config.kdl" {
-    config = withNoctalia;
-    passAsFile = [ "config" ];
-    buildInputs = [ niriPkg ];
-  } ''
-    niri validate -c $configPath
-    cp $configPath $out
-  ''
-  );
+  xdg.configFile.niri-config = lib.mkForce {
+    target = "niri/config.kdl";
+    force = true;
+    source = pkgs.runCommand "config.kdl" {
+      config = withNoctalia;
+      passAsFile = [ "config" ];
+      buildInputs = [ niriPkg ];
+    } ''
+      niri validate -c $configPath
+      cp $configPath $out
+    '';
+  };
 }

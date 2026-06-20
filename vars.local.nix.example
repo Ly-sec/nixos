@@ -6,4 +6,5 @@
 {
   # desktop = "hyprland";
   # noctalia = "/path/to/noctalia";
+  # noctaliaI18nPushSecretFile = "/path/to/noctalia-i18n-push.secret";
 }

@@ -17,4 +17,6 @@
   };
 
   gpgPrivateKey = "/mnt/storage/private-key.asc";
+
+  noctaliaI18nPushSecretFile = "/mnt/storage/noctalia-i18n-push.secret";
 }

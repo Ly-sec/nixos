@@ -44,6 +44,7 @@ Important `vars` fields:
 | `noctalia` | Path to the Noctalia binary |
 | `git` | Git identity and signing key id |
 | `gpgPrivateKey` | Path to a private key file imported on activation |
+| `noctaliaI18nPushSecretFile` | Path to the i18n push token file (loaded into fish at login) |
 
 ## Desktop sessions
 

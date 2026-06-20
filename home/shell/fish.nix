@@ -1,6 +1,9 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, vars, ... }:
 
 let
+  secretFile = vars.noctaliaI18nPushSecretFile or null;
+  fishSingleQuotePath = s: "'${lib.replaceStrings [ "'" ] [ "'\\''" ] s}'";
+
   tideVarsRaw = builtins.readFile ./fish/fish_variables;
   tideVarsHash = builtins.hashString "sha256" (tideVarsRaw + ":v4-fish-lists");
 
@@ -55,6 +58,12 @@ in
     ];
     interactiveShellInit =
       (builtins.readFile ./fish/config.fish)
+      + lib.optionalString (secretFile != null) ''
+
+        if status is-interactive; and test -r ${fishSingleQuotePath secretFile}
+          set -gx NOCTALIA_TRANSLATION_PUSH_SECRET (string trim (cat ${fishSingleQuotePath secretFile}))
+        end
+      ''
       + ''
 
         if status is-interactive; and test "$__nixos_tide_vars_hash" != "${tideVarsHash}"
