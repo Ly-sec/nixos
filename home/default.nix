@@ -13,6 +13,7 @@ in
     ./programs/ghostty.nix
     ./programs/microfetch.nix
     ./programs/firefox.nix
+    ./programs/waytator.nix
     ./programs/fluxer.nix
     ./programs/spicetify.nix
     ./programs/vesktop/default.nix

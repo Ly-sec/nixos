@@ -27,6 +27,11 @@
       url = "github:doomemacs/doomemacs";
       flake = false;
     };
+
+    waytator = {
+      url = "github:ItsLemmy/waytator";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -37,6 +42,7 @@
     , niri
     , spicetify-nix
     , fluxer
+    , waytator
     , ...
     }@inputs:
 
