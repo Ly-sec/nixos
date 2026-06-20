@@ -1,7 +1,7 @@
 { pkgs, lib, inputs, ... }:
 
 let
-  waytator = inputs.waytator.packages.${pkgs.system}.default;
+  waytator = inputs.waytator.packages.${pkgs.stdenv.hostPlatform.system}.default;
   scriptBody = builtins.readFile "${inputs.waytator}/scripts/screenshot-to-waytator.sh";
 in
 {

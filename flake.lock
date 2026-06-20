@@ -214,6 +214,23 @@
         "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
       }
     },
+    "noctalia-greeter": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1781982728,
+        "narHash": "sha256-bMGtj83xhyU2RP3vcNUEH50t8j9Uw6dFaytNso0dJdY=",
+        "path": "/mnt/storage/GitHub/noctalia-dev/noctalia-greeter",
+        "type": "path"
+      },
+      "original": {
+        "path": "/mnt/storage/GitHub/noctalia-dev/noctalia-greeter",
+        "type": "path"
+      }
+    },
     "nur": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -240,6 +257,7 @@
         "home-manager": "home-manager",
         "niri": "niri",
         "nixpkgs": "nixpkgs",
+        "noctalia-greeter": "noctalia-greeter",
         "nur": "nur",
         "spicetify-nix": "spicetify-nix",
         "waytator": "waytator"

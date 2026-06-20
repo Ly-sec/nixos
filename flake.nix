@@ -32,6 +32,12 @@
       url = "github:ItsLemmy/waytator";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # keep in sync with vars.noctaliaGreeter
+    noctalia-greeter = {
+      url = "path:/mnt/storage/GitHub/noctalia-dev/noctalia-greeter";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -43,6 +49,7 @@
     , spicetify-nix
     , fluxer
     , waytator
+    , noctalia-greeter
     , ...
     }@inputs:
 

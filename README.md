@@ -46,9 +46,13 @@ Important `vars` fields:
 | `gpgPrivateKey` | Path to a private key file imported on activation |
 | `noctaliaI18nPushSecretFile` | Path to the i18n push token file (loaded into fish at login) |
 
+## Noctalia
+
+Noctalia Shell (`vars.noctalia`) and the greeter (`vars.noctaliaGreeter`) are wired to local dev checkouts — they will not work if you clone this repo. Use the [noctalia](https://github.com/noctalia-dev/noctalia) and [noctalia-greeter](https://github.com/noctalia-dev/noctalia-greeter) flakes instead.
+
 ## Desktop sessions
 
-Non-Plasma desktops use **greetd** with **tuigreet**. Plasma uses its own display manager via `desktops/plasma/nixos.nix`.
+Non-Plasma desktops use **greetd** with **Noctalia Greeter**. Plasma uses its own display manager via `desktops/plasma/nixos.nix`.
 
 **Niri** (default) has the most complete setup: keybinds, window rules, animations, autostart, and a `noctalia.kdl` include so Noctalia's Niri template is loaded from `~/.config/niri/noctalia.kdl`.
 
@@ -77,6 +81,8 @@ Shared Wayland session defaults (Electron on X11, Qt on Wayland, cursor theme) l
 | `spicetify-nix` | Spotify theming |
 | `nur` | NUR overlay |
 | `doomemacs` | Doom Emacs source (`flake = false`) |
+| `waytator` | Screenshot annotator ([ItsLemmy/waytator](https://github.com/ItsLemmy/waytator)) |
+| `noctalia-greeter` | Login greeter (local path) |
 
 ## Rebuild
 
@@ -92,6 +98,5 @@ nix fmt
 
 ## Notes
 
-- **Noctalia** is built separately; point `vars.noctalia` at your binary.
 - **GPG signing** expects `gpgPrivateKey` to exist at activation time.
 - **Fluxer** autostart is handled by the compositor (niri spawn-at-startup), not XDG autostart, to avoid a broken self-written desktop entry.
