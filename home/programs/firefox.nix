@@ -60,6 +60,16 @@ in
           "signon.rememberSignons" = false;
           "passwordmanager.enabled" = false;
 
+          # Middle-click autoscroll (Settings → "Use autoscrolling" maps to general.autoScroll)
+          "general.autoScroll" = true;
+
+          # Stop Linux middle-click paste / open-URL from blocking autoscroll
+          "middlemouse.contentLoadURL" = false;
+          "middlemouse.paste" = false;
+
+          # userChrome.css (window control buttons)
+          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+
           # Remove the "Firefox View" button/tab
           "browser.tabs.firefox-view" = false;
 
@@ -84,6 +94,12 @@ in
           # "browser.newtabpage.activity-stream.section.highlights.includeVisited" = false;
           # "browser.newtabpage.activity-stream.section.highlights.includeBookmarks" = false;
         };
+
+        userChrome = ''
+          .titlebar-buttonbox-container {
+            display: none !important;
+          }
+        '';
 
         search = {
           force = true;
