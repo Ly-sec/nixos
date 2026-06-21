@@ -1,7 +1,8 @@
-{ vars, lib, ... }:
+{ vars, lib, noctaliaPackage, ... }:
 
 let
   isPlasma = vars.desktop == "plasma";
+  noctalia = lib.getExe noctaliaPackage;
 in
 {
   home.sessionVariables =
@@ -22,7 +23,7 @@ in
       [Desktop Entry]
       Type=Application
       Name=Noctalia
-      Exec=${vars.noctalia}
+      Exec=${noctalia}
       X-GNOME-Autostart-enabled=true
       OnlyShowIn=GNOME;XFCE;Hyprland;niri;
     '';

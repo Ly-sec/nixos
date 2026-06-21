@@ -1,7 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, noctaliaPackage, ... }:
 
 with pkgs;
 [
+  noctaliaPackage
   protonplus
   prismlauncher
   nautilus

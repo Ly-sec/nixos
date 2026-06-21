@@ -9,6 +9,8 @@
     packages = with pkgs; [ bluez ];
   };
 
+  services.accounts-daemon.enable = true;
+
   services.power-profiles-daemon.enable = true;
   services.printing.enable = false;
   services.gvfs.enable = true;

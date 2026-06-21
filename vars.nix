@@ -8,9 +8,6 @@
   # Options: niri, hyprland, sway, labwc, mango, plasma
   desktop = "niri";
 
-  noctalia = "/mnt/storage/GitHub/noctalia-dev/noctalia/build-release/noctalia";
-  noctaliaGreeter = "/mnt/storage/GitHub/noctalia-dev/noctalia-greeter";
-
   git = {
     name = "Ly-sec";
     email = "itslysec@gmail.com";

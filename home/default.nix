@@ -1,4 +1,4 @@
-{ pkgs, inputs, lib, vars, ... }:
+{ pkgs, inputs, lib, vars, noctaliaPackage, ... }:
 
 let
   desktops = import ../lib/desktops.nix;
@@ -26,7 +26,7 @@ in
   home.homeDirectory = "/home/${vars.username}";
   home.stateVersion = vars.stateVersion;
 
-  home.packages = import ./packages.nix { inherit pkgs inputs; };
+  home.packages = import ./packages.nix { inherit pkgs noctaliaPackage; };
 
   home.sessionVariables.EDITOR = "emacs";
 

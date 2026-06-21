@@ -30,7 +30,6 @@ Edit `vars.nix` for values you are happy to commit. For machine-specific overrid
 ```nix
 {
   desktop = "hyprland";
-  noctalia = "/path/to/noctalia";
 }
 ```
 
@@ -41,14 +40,20 @@ Important `vars` fields:
 | Field | Purpose |
 | --- | --- |
 | `desktop` | Active compositor session |
-| `noctalia` | Path to the Noctalia binary |
 | `git` | Git identity and signing key id |
 | `gpgPrivateKey` | Path to a private key file imported on activation |
 | `noctaliaI18nPushSecretFile` | Path to the i18n push token file (loaded into fish at login) |
 
 ## Noctalia
 
-Noctalia Shell (`vars.noctalia`) and the greeter (`path:` flake input in `flake.nix`) are wired to local dev checkouts, they will not work if you clone this repo. Use the [noctalia](https://github.com/noctalia-dev/noctalia) and [noctalia-greeter](https://github.com/noctalia-dev/noctalia-greeter) flakes instead.
+Noctalia Shell and the greeter use `path:` flake inputs to local dev checkouts — they will not work if you clone this repo. Use the [noctalia](https://github.com/noctalia-dev/noctalia) and [noctalia-greeter](https://github.com/noctalia-dev/noctalia-greeter) flakes instead.
+
+After editing either checkout, update the lock before switching or Nix will rebuild from a stale snapshot:
+
+```bash
+nix flake update noctalia noctalia-greeter
+nh os switch ~/nixos
+```
 
 ## Desktop sessions
 
@@ -82,6 +87,7 @@ Shared Wayland session defaults (Electron on X11, Qt on Wayland, cursor theme) l
 | `nur` | NUR overlay |
 | `doomemacs` | Doom Emacs source (`flake = false`) |
 | `waytator` | Screenshot annotator ([ItsLemmy/waytator](https://github.com/ItsLemmy/waytator)) |
+| `noctalia` | Noctalia Shell (`path:` input) |
 | `noctalia-greeter` | Login greeter (`path:` input) |
 
 ## Rebuild

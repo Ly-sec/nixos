@@ -1,9 +1,10 @@
-{ pkgs, vars, ... }:
+{ pkgs, vars, lib, noctaliaPackage, ... }:
 
 let
+  noctalia = lib.getExe noctaliaPackage;
   session = pkgs.writeShellScript "mangowc-session" ''
     export XDG_CURRENT_DESKTOP=MangoWC
-    ${vars.noctalia} &
+    ${noctalia} &
     ${pkgs.dex}/bin/dex -a &
     exec ${pkgs.mangowc}/bin/mangowc "$@"
   '';

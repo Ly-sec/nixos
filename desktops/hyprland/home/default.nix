@@ -1,8 +1,9 @@
-{ pkgs, vars, lib, ... }:
+{ pkgs, inputs, vars, lib, noctaliaPackage, ... }:
 
 let
   ghostty = "${pkgs.ghostty}/bin/ghostty";
   firefox = "${pkgs.firefox}/bin/firefox";
+  noctalia = lib.getExe noctaliaPackage;
   exec = cmd: lib.generators.mkLuaInline "hl.dsp.exec_cmd(${lib.generators.toLua { } cmd})";
 in
 {
@@ -80,7 +81,7 @@ in
         {
           _args = [
             "SUPER + CTRL + RETURN"
-            (exec "${vars.noctalia} msg panel-toggle launcher")
+            (exec "${noctalia} msg panel-toggle launcher")
           ];
         }
         {
@@ -102,7 +103,7 @@ in
           "hyprland.start"
           (lib.generators.mkLuaInline ''
             function()
-              hl.exec_cmd(${lib.generators.toLua { } vars.noctalia})
+              hl.exec_cmd(${lib.generators.toLua { } noctalia})
             end
           '')
         ];

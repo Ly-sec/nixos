@@ -1,4 +1,4 @@
-{ config, pkgs, vars, ... }:
+{ config, pkgs, inputs, vars, lib, noctaliaPackage, ... }:
 
 let
   inherit (config.lib.niri.actions) spawn;
@@ -6,6 +6,7 @@ let
   ghostty = "${pkgs.ghostty}/bin/ghostty";
   firefox = "${pkgs.firefox}/bin/firefox";
   nautilus = "${pkgs.nautilus}/bin/nautilus";
+  noctalia = lib.getExe noctaliaPackage;
 in
 {
   programs.niri.settings.binds =
@@ -19,7 +20,7 @@ in
       };
       "Mod+Ctrl+Return" = {
         hotkey-overlay.title = "Open App Launcher: Noctalia";
-        action = spawn vars.noctalia "msg" "panel-toggle" "launcher";
+        action = spawn noctalia "msg" "panel-toggle" "launcher";
       };
       "Mod+B" = {
         hotkey-overlay.title = "Open Browser: Firefox";

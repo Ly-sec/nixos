@@ -1,9 +1,10 @@
-{ pkgs, vars, lib, ... }:
+{ pkgs, vars, lib, noctaliaPackage, ... }:
 
 let
   ghostty = "${pkgs.ghostty}/bin/ghostty";
   firefox = "${pkgs.firefox}/bin/firefox";
   wlr-randr = "${pkgs.wlr-randr}/bin/wlr-randr";
+  noctalia = lib.getExe noctaliaPackage;
 
   workspaceKeybinds =
     lib.concatMapStringsSep "\n" (i: ''
@@ -26,7 +27,7 @@ in
       ${pkgs.xwayland-satellite}/bin/xwayland-satellite &
       ${wlr-randr} --output DP-1 --mode 2560x1440@359.979Hz
       ${wlr-randr} --output DP-2 --mode 1920x1080@164.917Hz
-      ${vars.noctalia} &
+      ${noctalia} &
     '';
 
   xdg.configFile."labwc/rc.xml".text = ''
@@ -43,7 +44,7 @@ in
           <action name="Execute" command="${firefox}" />
         </keybind>
         <keybind key="W-C-Return">
-          <action name="Execute" command="${vars.noctalia} msg panel-toggle launcher" />
+          <action name="Execute" command="${noctalia} msg panel-toggle launcher" />
         </keybind>
         <keybind key="W-q">
           <action name="Close" />

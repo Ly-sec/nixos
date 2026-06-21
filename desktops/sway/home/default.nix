@@ -1,8 +1,9 @@
-{ pkgs, vars, ... }:
+{ pkgs, vars, lib, noctaliaPackage, ... }:
 
 let
   ghostty = "${pkgs.ghostty}/bin/ghostty";
   firefox = "${pkgs.firefox}/bin/firefox";
+  noctalia = lib.getExe noctaliaPackage;
 in
 {
   wayland.windowManager.sway = {
@@ -28,14 +29,14 @@ in
       keybindings = {
         "Mod4+Return" = "exec ${ghostty}";
         "Mod4+b" = "exec ${firefox}";
-        "Mod4+Control+Return" = "exec ${vars.noctalia} msg panel-toggle launcher";
+        "Mod4+Control+Return" = "exec ${noctalia} msg panel-toggle launcher";
         "Mod4+Shift+q" = "kill";
         "Mod4+Shift+e" = "exit";
       };
     };
 
     extraConfig = ''
-      exec ${vars.noctalia}
+      exec ${noctalia}
     '';
   };
 }

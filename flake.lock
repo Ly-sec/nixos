@@ -214,6 +214,23 @@
         "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
       }
     },
+    "noctalia": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1782025320,
+        "narHash": "sha256-xevbUI6sQTRay8E68f8ecaQJ/5RKJkrVUezrOUyNVZg=",
+        "path": "/mnt/storage/GitHub/noctalia-dev/noctalia",
+        "type": "path"
+      },
+      "original": {
+        "path": "/mnt/storage/GitHub/noctalia-dev/noctalia",
+        "type": "path"
+      }
+    },
     "noctalia-greeter": {
       "inputs": {
         "nixpkgs": [
@@ -221,8 +238,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1781982728,
-        "narHash": "sha256-bMGtj83xhyU2RP3vcNUEH50t8j9Uw6dFaytNso0dJdY=",
+        "lastModified": 1782025514,
+        "narHash": "sha256-uuKm46z9ZXKS1A3Fm0SBRtCVxEi2jSiO4L0IDC8RVuc=",
         "path": "/mnt/storage/GitHub/noctalia-dev/noctalia-greeter",
         "type": "path"
       },
@@ -257,6 +274,7 @@
         "home-manager": "home-manager",
         "niri": "niri",
         "nixpkgs": "nixpkgs",
+        "noctalia": "noctalia",
         "noctalia-greeter": "noctalia-greeter",
         "nur": "nur",
         "spicetify-nix": "spicetify-nix",

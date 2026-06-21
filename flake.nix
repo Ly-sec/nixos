@@ -33,7 +33,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # keep in sync with vars.noctaliaGreeter
+    noctalia = {
+      url = "path:/mnt/storage/GitHub/noctalia-dev/noctalia";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     noctalia-greeter = {
       url = "path:/mnt/storage/GitHub/noctalia-dev/noctalia-greeter";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -49,6 +53,7 @@
     , spicetify-nix
     , fluxer
     , waytator
+    , noctalia
     , noctalia-greeter
     , ...
     }@inputs:
@@ -71,6 +76,7 @@
           { };
       vars = baseVars // localVars;
       desktop = desktops.assertValid vars.desktop;
+      noctaliaPackage = noctalia.packages.${vars.system}.default;
     in
     {
       formatter =
@@ -81,7 +87,7 @@
           system = vars.system;
 
           specialArgs = {
-            inherit self inputs vars desktop;
+            inherit self inputs vars desktop noctaliaPackage;
           };
 
           modules = [
@@ -98,7 +104,7 @@
               home-manager.useUserPackages = true;
               home-manager.backupFileExtension = "backup";
               home-manager.extraSpecialArgs = {
-                inherit self inputs vars desktop;
+                inherit self inputs vars desktop noctaliaPackage;
               };
 
               home-manager.users.${vars.username} =
