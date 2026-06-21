@@ -32,4 +32,15 @@ in
       package = pkgs.bibata-cursors;
     };
   };
+
+  system.activationScripts.noctaliaGreeter = lib.mkIf useGreeter ''
+    touch /var/log/noctalia-greeter.log /var/lib/noctalia-greeter/greeter.log
+    chown greeter:greeter /var/log/noctalia-greeter.log /var/lib/noctalia-greeter/greeter.log 2>/dev/null || true
+    chmod 0664 /var/log/noctalia-greeter.log /var/lib/noctalia-greeter/greeter.log 2>/dev/null || true
+
+    GREETD_CONFIG=/etc/greetd/config.toml \
+      ${noctaliaGreeter}/bin/noctalia-greeter-apply-appearance --setup-system
+
+    rm -f /var/lib/noctalia-greeter/greeter.conf
+  '';
 }
