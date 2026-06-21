@@ -59,7 +59,7 @@ nh os switch ~/nixos
 
 Non-Plasma desktops use **greetd** with **Noctalia Greeter**. Plasma uses its own display manager via `desktops/plasma/nixos.nix`.
 
-Greeter config lives in `/var/lib/noctalia-greeter/greeter.toml` (session/scheme/output layout, keyboard layout, etc.). Nix sets the default session via `greeter-args` and cursor theme via `programs.noctalia-greeter.settings.cursor`. Edit `greeter.toml` directly for other admin keys (e.g. `keyboard_layout = "de"`).
+Greeter settings are fully declared in `modules/nixos/greeter.nix` and installed to `/var/lib/noctalia-greeter/greeter.toml` on activation. Cursor theme uses `programs.noctalia-greeter.settings.cursor`.
 
 **Niri** (default) has the most complete setup: keybinds, window rules, animations, autostart, and a `noctalia.kdl` include so Noctalia's Niri template is loaded from `~/.config/niri/noctalia.kdl`.
 
