@@ -1,4 +1,3 @@
-# Noctalia dev on KDE — start after Plasma shell is up, not at compositor takeover.
 { vars, lib, noctaliaPackage, ... }:
 
 let

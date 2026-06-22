@@ -221,8 +221,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1782030865,
-        "narHash": "sha256-WSRW1EQDHhgqkubycEhDAfKTiQn210JYwgVzkYHJn5E=",
+        "lastModified": 1782113895,
+        "narHash": "sha256-LlGKwtOjCtMoYufCuWtSiNxIY9Oum/BByRt0ZhiiCfQ=",
         "path": "/mnt/storage/GitHub/noctalia-dev/noctalia",
         "type": "path"
       },
@@ -238,8 +238,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1782033180,
-        "narHash": "sha256-uRQA68k+RMnfQgN+7e6KkClQBtEVuWKxpw+hcZtSOTQ=",
+        "lastModified": 1782034423,
+        "narHash": "sha256-N9qb1nLiEyX67vuk7OPnJDqMUeyAqA6A26b7LNBvZpQ=",
         "path": "/mnt/storage/GitHub/noctalia-dev/noctalia-greeter",
         "type": "path"
       },

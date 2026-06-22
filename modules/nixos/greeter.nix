@@ -42,29 +42,30 @@ in
 {
   imports = lib.optionals useGreeter [
     inputs.noctalia-greeter.nixosModules.default
+    {
+      programs.noctalia-greeter = {
+        enable = true;
+        package = noctaliaGreeter;
+        greeter-args = "";
+        settings.cursor = {
+          theme = "Bibata-Modern-Ice";
+          size = 24;
+          package = pkgs.bibata-cursors;
+        };
+      };
+
+      system.activationScripts.noctaliaGreeter = ''
+        touch /var/log/noctalia-greeter.log /var/lib/noctalia-greeter/greeter.log
+        chown greeter:greeter /var/log/noctalia-greeter.log /var/lib/noctalia-greeter/greeter.log 2>/dev/null || true
+        chmod 0664 /var/log/noctalia-greeter.log /var/lib/noctalia-greeter/greeter.log 2>/dev/null || true
+
+        GREETD_CONFIG=/etc/greetd/config.toml \
+          ${noctaliaGreeter}/bin/noctalia-greeter-apply-appearance --setup-system
+
+        install -D -o greeter -g greeter -m 0644 ${greeterToml} /var/lib/noctalia-greeter/greeter.toml
+
+        rm -f /var/lib/noctalia-greeter/greeter.conf
+      '';
+    }
   ];
-
-  programs.noctalia-greeter = lib.mkIf useGreeter {
-    enable = true;
-    package = noctaliaGreeter;
-    greeter-args = "";
-    settings.cursor = {
-      theme = "Bibata-Modern-Ice";
-      size = 24;
-      package = pkgs.bibata-cursors;
-    };
-  };
-
-  system.activationScripts.noctaliaGreeter = lib.mkIf useGreeter ''
-    touch /var/log/noctalia-greeter.log /var/lib/noctalia-greeter/greeter.log
-    chown greeter:greeter /var/log/noctalia-greeter.log /var/lib/noctalia-greeter/greeter.log 2>/dev/null || true
-    chmod 0664 /var/log/noctalia-greeter.log /var/lib/noctalia-greeter/greeter.log 2>/dev/null || true
-
-    GREETD_CONFIG=/etc/greetd/config.toml \
-      ${noctaliaGreeter}/bin/noctalia-greeter-apply-appearance --setup-system
-
-    install -D -o greeter -g greeter -m 0644 ${greeterToml} /var/lib/noctalia-greeter/greeter.toml
-
-    rm -f /var/lib/noctalia-greeter/greeter.conf
-  '';
 }

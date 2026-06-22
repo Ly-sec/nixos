@@ -11,6 +11,7 @@ in
     ./editors/vscode.nix
     ./editors/doom.nix
     ./programs/ghostty.nix
+    ./programs/gtk.nix
     ./programs/microfetch.nix
     ./programs/firefox.nix
     ./programs/waytator.nix

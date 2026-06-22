@@ -45,7 +45,7 @@
         matches = [ { namespace = "^noctalia-(main|notifications|dock)$"; } ];
       }
       {
-        matches = [ { namespace = "^noctalia-backdrop"; } ];
+        matches = [ { namespace = "^noctalia-wallpaper"; } ];
         place-within-backdrop = true;
       }
     ];

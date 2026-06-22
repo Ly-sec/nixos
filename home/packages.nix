@@ -12,13 +12,16 @@ with pkgs;
   mpv
   pywalfox-native
   gh
-  gcc
+  gcc16
   llvmPackages_22.clang-tools
   just
   lefthook
+  nim
   nixfmt
   nwg-look
   jq
+  eza
+  lazygit
   ripgrep
   tree
   libnotify

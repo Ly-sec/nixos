@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 {
+  security.polkit.enablePkexecWrapper = true;
+
   hardware.enableRedistributableFirmware = true;
   hardware.bluetooth.enable = true;
 
