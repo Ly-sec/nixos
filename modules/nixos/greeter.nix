@@ -31,6 +31,11 @@ let
       scheme = "Synced";
       password_style = "random";
     };
+    cursor = {
+      theme = "Bibata-Modern-Ice";
+      size = 24;
+      path = "${pkgs.bibata-cursors}/share/icons";
+    };
     keyboard = {
       layout = "de";
     };
@@ -50,7 +55,7 @@ in
         settings.cursor = {
           theme = "Bibata-Modern-Ice";
           size = 24;
-          package = pkgs.bibata-cursors;
+          path = "${pkgs.bibata-cursors}/share/icons";
         };
       };
 

@@ -16,6 +16,7 @@ with pkgs;
   llvmPackages_22.clang-tools
   just
   lefthook
+  nodejs
   nim
   nixfmt
   nwg-look

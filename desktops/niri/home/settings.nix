@@ -20,6 +20,7 @@
           height = 1080;
           refresh = 164.917;
         };
+        #transform.rotation = 90;
         scale = 1.0;
       };
     };

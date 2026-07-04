@@ -96,7 +96,27 @@ in
             (lib.generators.mkLuaInline "hl.dsp.exit()")
           ];
         }
-      ];
+      ] ++ (
+        builtins.concatLists (builtins.genList (
+            x: let
+              ws = builtins.toString (x + 1);
+            in [
+              {
+                _args = [
+                  "SUPER + ${ws}"
+                  (lib.generators.mkLuaInline "hl.dsp.focus({ workspace = ${ws} })")
+                ];
+              }
+              {
+                _args = [
+                  "SUPER + SHIFT + ${ws}"
+                  (lib.generators.mkLuaInline "hl.dsp.window.move({ workspace = ${ws} })")
+                ];
+              }
+            ]
+          )
+          9)
+      );
 
       on = {
         _args = [

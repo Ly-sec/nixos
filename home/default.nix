@@ -19,6 +19,7 @@ in
     ./programs/spicetify.nix
     ./programs/vesktop/default.nix
     ./programs/git.nix
+    ./programs/ssh.nix
     ./shell/fish.nix
     inputs.spicetify-nix.homeManagerModules.default
   ];

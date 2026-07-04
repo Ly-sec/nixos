@@ -16,5 +16,7 @@
 
   gpgPrivateKey = "/mnt/storage/private-key.asc";
 
+  deployKey = "/mnt/storage/keys/noctalia-aur-deploy-key";
+
   noctaliaI18nPushSecretFile = "/mnt/storage/noctalia-i18n-push.secret";
 }
