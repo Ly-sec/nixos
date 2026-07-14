@@ -22,6 +22,10 @@ in
         hotkey-overlay.title = "Open App Launcher: Noctalia";
         action = spawn noctalia "msg" "panel-toggle" "launcher";
       };
+      "Alt+Tab" = {
+        hotkey-overlay.title = "Open Window Switcher: Noctalia";
+        action = spawn noctalia "msg" "window-switcher";
+      };
       "Mod+B" = {
         hotkey-overlay.title = "Open Browser: Firefox";
         action = spawn firefox;

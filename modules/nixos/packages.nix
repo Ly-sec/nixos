@@ -12,7 +12,6 @@
     libva
     playerctl
     nh
-    spicetify-cli
     ddcutil
     bluez
     

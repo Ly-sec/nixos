@@ -17,7 +17,7 @@ rec {
       hyprland = "Hyprland";
       sway = "sway";
       labwc = "labwc";
-      mango = "mangowc";
+      mango = "MangoWC";
     }
     .${desktop};
 

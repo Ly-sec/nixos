@@ -72,7 +72,7 @@ Shared Wayland session defaults (Electron on X11, Qt on Wayland, cursor theme) l
 `home/default.nix` always imports shared desktop settings plus `desktops/<desktop>/home`, then program modules:
 
 - **Shell:** fish (tide), microfetch greeting
-- **Apps:** Firefox, Ghostty, Fluxer, Vesktop, Spicetify, VS Code, Doom Emacs
+- **Apps:** Firefox, Ghostty, Fluxer, Vesktop, VS Code, Doom Emacs
 - **Git:** commit signing, GPG agent (pinentry-curses)
 
 **Doom Emacs** lives in `home/doom/`, copied to `~/.config/doom` on activation
@@ -85,7 +85,6 @@ Shared Wayland session defaults (Electron on X11, Qt on Wayland, cursor theme) l
 | `home-manager` | User environment |
 | `niri` | Niri compositor + HM module |
 | `fluxer` | Fluxer Canary package |
-| `spicetify-nix` | Spotify theming |
 | `nur` | NUR overlay |
 | `doomemacs` | Doom Emacs source (`flake = false`) |
 | `waytator` | Screenshot annotator ([ItsLemmy/waytator](https://github.com/ItsLemmy/waytator)) |

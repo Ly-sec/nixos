@@ -18,8 +18,11 @@ with pkgs;
   lefthook
   nodejs
   nim
+  nimble
   nixfmt
   nwg-look
+  heroic
+  lutris
   jq
   eza
   lazygit

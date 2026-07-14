@@ -11,7 +11,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
 
     niri = {
       url = "github:sodiboo/niri-flake";
@@ -50,7 +49,6 @@
     , home-manager
     , nur
     , niri
-    , spicetify-nix
     , fluxer
     , waytator
     , noctalia
@@ -97,18 +95,11 @@
 
             home-manager.nixosModules.home-manager
 
-            spicetify-nix.nixosModules.default
-
-            ({ pkgs, ... }: {
+            ({ ... }: {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.backupFileExtension = "backup";
-              home-manager.backupCommand = pkgs.writeShellScript "hm-backup" ''
-                if [ -e "$2" ]; then
-                  mv "$2" "$2.old-$(date +%s)"
-                fi
-                mv "$1" "$2"
-              '';
+              home-manager.overwriteBackup = true;
               home-manager.extraSpecialArgs = {
                 inherit self inputs vars desktop noctaliaPackage;
               };
