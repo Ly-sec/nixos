@@ -11,7 +11,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-
     niri = {
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -44,16 +43,12 @@
   };
 
   outputs =
-    { self
-    , nixpkgs
-    , home-manager
-    , nur
-    , niri
-    , fluxer
-    , waytator
-    , noctalia
-    , noctalia-greeter
-    , ...
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      noctalia,
+      ...
     }@inputs:
 
     let
@@ -67,47 +62,68 @@
         in
         if env != "" then env else "/home/${baseVars.username}/nixos";
       localVarsPath = /. + configDir + "/vars.local.nix";
-      localVars =
-        if builtins.pathExists localVarsPath then
-          import localVarsPath
-        else
-          { };
+      localVars = if builtins.pathExists localVarsPath then import localVarsPath else { };
       vars = baseVars // localVars;
       desktop = desktops.assertValid vars.desktop;
       noctaliaPackage = noctalia.packages.${vars.system}.default;
     in
     {
-      formatter =
-        nixpkgs.legacyPackages.${vars.system}.alejandra;
+      formatter = nixpkgs.legacyPackages.${vars.system}.alejandra;
 
-      nixosConfigurations.nixos =
-        nixpkgs.lib.nixosSystem {
-          system = vars.system;
-
-          specialArgs = {
-            inherit self inputs vars desktop noctaliaPackage;
-          };
-
-          modules = [
-            ./hosts/nixos/configuration.nix
-
-            (./desktops + "/${desktop}/nixos.nix")
-
-            home-manager.nixosModules.home-manager
-
-            ({ ... }: {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.backupFileExtension = "backup";
-              home-manager.overwriteBackup = true;
-              home-manager.extraSpecialArgs = {
-                inherit self inputs vars desktop noctaliaPackage;
-              };
-
-              home-manager.users.${vars.username} =
-                import ./home/default.nix;
-            })
+      devShells.${vars.system}.default =
+        let
+          pkgs = nixpkgs.legacyPackages.${vars.system};
+        in
+        pkgs.mkShell {
+          packages = with pkgs; [
+            nixfmt
+            statix
+            deadnix
+            lefthook
+            just
           ];
         };
+
+      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+        inherit (vars) system;
+
+        specialArgs = {
+          inherit
+            self
+            inputs
+            vars
+            desktop
+            noctaliaPackage
+            ;
+        };
+
+        modules = [
+          ./hosts/nixos/configuration.nix
+
+          (./desktops + "/${desktop}/nixos.nix")
+
+          home-manager.nixosModules.home-manager
+
+          (_: {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "backup";
+              overwriteBackup = true;
+              extraSpecialArgs = {
+                inherit
+                  self
+                  inputs
+                  vars
+                  desktop
+                  noctaliaPackage
+                  ;
+              };
+
+              users.${vars.username} = import ./home/default.nix;
+            };
+          })
+        ];
+      };
     };
 }

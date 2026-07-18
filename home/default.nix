@@ -1,4 +1,9 @@
-{ pkgs, inputs, lib, vars, noctaliaPackage, ... }:
+{
+  pkgs,
+  vars,
+  noctaliaPackage,
+  ...
+}:
 
 let
   desktops = import ../lib/desktops.nix;
@@ -11,6 +16,7 @@ in
     ./editors/vscode.nix
     ./editors/doom.nix
     ./programs/ghostty.nix
+    ./programs/direnv.nix
     ./programs/gtk.nix
     ./programs/microfetch.nix
     ./programs/firefox.nix

@@ -2,7 +2,7 @@
 
 {
   nixpkgs.overlays = [
-    (final: prev: {
+    (_final: prev: {
       nur = import inputs.nur {
         nurpkgs = prev;
         pkgs = prev;
@@ -13,7 +13,10 @@
   systemd.services.nix-daemon.path = [ pkgs.git ];
 
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     auto-optimise-store = true;
   };
 
@@ -26,6 +29,7 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.permittedInsecurePackages = [
     "pnpm-10.29.2"
+    "electron-40.10.5" # vesktop
   ];
 
   programs.nix-ld.enable = true;

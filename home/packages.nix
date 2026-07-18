@@ -20,6 +20,8 @@ with pkgs;
   nim
   nimble
   nixfmt
+  statix
+  deadnix
   nwg-look
   heroic
   lutris

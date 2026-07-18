@@ -1,0 +1,12 @@
+# https://lefthook.dev — install once: lefthook install
+pre-commit:
+  commands:
+    nixfmt:
+      glob: "*.nix"
+      run: nixfmt {staged_files}
+    statix:
+      glob: "*.nix"
+      run: bash -c 'for f; do statix check "$f" || exit 1; done' -- {staged_files}
+    deadnix:
+      glob: "*.nix"
+      run: deadnix --fail -L {staged_files}

@@ -1,4 +1,10 @@
-{ config, inputs, lib, pkgs, ... }:
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   doomConfigDir = "${config.xdg.configHome}/doom";
@@ -9,19 +15,20 @@ let
   doomConfigSrc = lib.cleanSource ../doom;
   doomConfigHash = lib.removeSuffix "\n" (
     lib.readFile (
-      pkgs.runCommand "doom-config-hash" {
-        nativeBuildInputs = [
-          pkgs.coreutils
-          pkgs.findutils
-        ];
-      } ''
-        cd ${doomConfigSrc}
-        find . -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum | cut -d' ' -f1 > $out
-      ''
+      pkgs.runCommand "doom-config-hash"
+        {
+          nativeBuildInputs = [
+            pkgs.coreutils
+            pkgs.findutils
+          ];
+        }
+        ''
+          cd ${doomConfigSrc}
+          find . -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum | cut -d' ' -f1 > $out
+        ''
     )
   );
   rsyncBin = lib.getExe pkgs.rsync;
-  gitBin = lib.getExe pkgs.git;
   doomSyncMarker = "${doomLocalDir}/.nix-sync-marker";
   doomSyncKey = "${doomRev}-${doomConfigHash}";
 
@@ -79,43 +86,45 @@ in
     echo ${lib.escapeShellArg doomConfigHash} > "$target/.nix-config-hash"
   '';
 
-  # Doom must live in a writable git checkout (submodules + install/sync write to EMACSDIR).
+  # Install from the locked flake input — no network during activation.
   home.activation.doomEmacs = lib.hm.dag.entryAfter [ "doomConfig" ] ''
     target=${lib.escapeShellArg emacsDir}
     marker="$target/.nix-managed-rev"
     wanted=${lib.escapeShellArg doomRev}
+    src=${inputs.doomemacs}
 
     if [ ! -f "$target/bin/doom" ] || [ "$(cat "$marker" 2>/dev/null)" != "$wanted" ]; then
-      echo "doom-emacs: installing ${doomRev} into $target"
+      echo "doom-emacs: installing ${doomRev} into $target (from flake input)"
       $DRY_RUN_CMD rm -rf "$target"
-      $DRY_RUN_CMD ${gitBin} clone https://github.com/doomemacs/doomemacs.git "$target"
-      $DRY_RUN_CMD ${gitBin} -C "$target" checkout "$wanted"
-      $DRY_RUN_CMD ${gitBin} -C "$target" submodule update --init --recursive
+      $DRY_RUN_CMD mkdir -p "$target"
+      $DRY_RUN_CMD ${rsyncBin} -a --chmod=u+rwX,go-w "$src/" "$target/"
       echo "$wanted" > "$marker"
       $DRY_RUN_CMD rm -f ${lib.escapeShellArg doomSyncMarker}
     fi
   '';
 
   # Run after linkGeneration so doom can find emacs during systemd activation.
-  home.activation.doomSync = lib.hm.dag.entryAfter [
-    "linkGeneration"
-    "doomEmacs"
-  ] ''
-    profiles=${lib.escapeShellArg "${doomLocalDir}/profiles.el"}
-    syncMarker=${lib.escapeShellArg doomSyncMarker}
-    wanted=${lib.escapeShellArg doomSyncKey}
+  home.activation.doomSync =
+    lib.hm.dag.entryAfter
+      [
+        "linkGeneration"
+        "doomEmacs"
+      ]
+      ''
+        profiles=${lib.escapeShellArg "${doomLocalDir}/profiles.el"}
+        syncMarker=${lib.escapeShellArg doomSyncMarker}
+        wanted=${lib.escapeShellArg doomSyncKey}
 
-    if [ ! -f ${lib.escapeShellArg doomBin} ] || [ ! -f "$profiles" ]; then
-      echo "doom: skipping sync (run 'doom install' once if this is a fresh setup)"
-      exit 0
-    fi
-
-    if [ "$(cat "$syncMarker" 2>/dev/null)" != "$wanted" ]; then
-      echo "doom: syncing (config or doomemacs revision changed)"
-      ${lib.escapeShellArg runDoom} sync
-      echo "$wanted" > "$syncMarker"
-    fi
-  '';
+        if [ -f ${lib.escapeShellArg doomBin} ] && [ -f "$profiles" ]; then
+          if [ "$(cat "$syncMarker" 2>/dev/null)" != "$wanted" ]; then
+            echo "doom: syncing (config or doomemacs revision changed)"
+            ${lib.escapeShellArg runDoom} sync
+            echo "$wanted" > "$syncMarker"
+          fi
+        else
+          echo "doom: skipping sync (run 'doom install' once if this is a fresh setup)"
+        fi
+      '';
 
   home.packages = with pkgs; [
     (writeShellScriptBin "doom" (wrap doomBin))
