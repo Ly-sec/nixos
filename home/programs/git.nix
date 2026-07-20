@@ -54,13 +54,14 @@ in
       $DRY_RUN_CMD rm -f /tmp/nixos-gpg-keyboxd-migrate.gpg
     fi
 
-    if [ -f ${lib.escapeShellArg vars.gpgPrivateKey} ]; then
+    gpgKey=/run/agenix/gpg-private-key
+    if [ -f "$gpgKey" ]; then
       if ! ${gpg} --homedir "${gpgHome}" --list-secret-keys ${lib.escapeShellArg vars.git.signingKey} 2>/dev/null \
         | ${pkgs.gnugrep}/bin/grep -q '^sec'; then
-        $DRY_RUN_CMD ${gpg} --homedir "${gpgHome}" --batch --import ${lib.escapeShellArg vars.gpgPrivateKey}
+        $DRY_RUN_CMD ${gpg} --homedir "${gpgHome}" --batch --import "$gpgKey"
       fi
     else
-      echo "warning: GPG private key not found at ${vars.gpgPrivateKey}, skipping import" >&2
+      echo "warning: GPG private key not found at $gpgKey (agenix), skipping import" >&2
     fi
   '';
 }

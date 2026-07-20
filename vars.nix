@@ -13,10 +13,4 @@
     email = "itslysec@gmail.com";
     signingKey = "5ED4FA03AA76CA17D2D50CEC19AE90196D0BA986";
   };
-
-  gpgPrivateKey = "/mnt/storage/private-key.asc";
-
-  deployKey = "/mnt/storage/keys/noctalia-aur-deploy-key";
-
-  noctaliaI18nPushSecretFile = "/mnt/storage/noctalia-i18n-push.secret";
 }

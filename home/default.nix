@@ -1,6 +1,7 @@
 {
   pkgs,
   vars,
+  inputs,
   noctaliaPackage,
   ...
 }:
@@ -32,7 +33,7 @@ in
   home.homeDirectory = "/home/${vars.username}";
   home.stateVersion = vars.stateVersion;
 
-  home.packages = import ./packages.nix { inherit pkgs noctaliaPackage; };
+  home.packages = import ./packages.nix { inherit pkgs inputs noctaliaPackage; };
 
   home.sessionVariables.EDITOR = "emacs";
 

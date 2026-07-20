@@ -1,4 +1,4 @@
-{ vars, ... }:
+{ ... }:
 {
   programs.ssh = {
     enable = true;
@@ -10,13 +10,17 @@
         addressFamily = "any";
       };
       "github.com" = {
-        identityFile = vars.deployKey;
+        identityFile = "/run/agenix/ssh-noctalia-aur-deploy";
         identitiesOnly = "yes";
       };
       "aur.archlinux.org" = {
         hostname = "aur.archlinux.org";
         user = "aur";
-        identityFile = vars.deployKey;
+        identityFile = "/run/agenix/ssh-noctalia-aur-deploy";
+        identitiesOnly = "yes";
+      };
+      "codeberg.org" = {
+        identityFile = "/run/agenix/ssh-codeberg-mirror";
         identitiesOnly = "yes";
       };
     };

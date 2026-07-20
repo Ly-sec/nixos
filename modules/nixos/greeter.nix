@@ -1,4 +1,10 @@
-{ pkgs, vars, lib, inputs, ... }:
+{
+  pkgs,
+  vars,
+  lib,
+  inputs,
+  ...
+}:
 
 let
   desktops = import ../../lib/desktops.nix;
@@ -10,11 +16,13 @@ let
     inputs.noctalia-greeter.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs
       (old: {
         src = lib.cleanSourceWith {
-          src = old.src;
+          inherit (old) src;
           filter =
-            path: type:
-            let base = baseNameOf path;
-            in base != "build" && base != "build-release" && base != "build-asan";
+            path: _type:
+            let
+              base = baseNameOf path;
+            in
+            base != "build" && base != "build-release" && base != "build-asan";
         };
       });
 
@@ -60,9 +68,10 @@ in
       };
 
       system.activationScripts.noctaliaGreeter = ''
-        touch /var/log/noctalia-greeter.log /var/lib/noctalia-greeter/greeter.log
-        chown greeter:greeter /var/log/noctalia-greeter.log /var/lib/noctalia-greeter/greeter.log 2>/dev/null || true
-        chmod 0664 /var/log/noctalia-greeter.log /var/lib/noctalia-greeter/greeter.log 2>/dev/null || true
+        # State dir for greeter.toml / appearance; logging defaults to stderr.
+        mkdir -p /var/lib/noctalia-greeter
+        chown greeter:greeter /var/lib/noctalia-greeter 2>/dev/null || true
+        chmod 0750 /var/lib/noctalia-greeter 2>/dev/null || true
 
         GREETD_CONFIG=/etc/greetd/config.toml \
           ${noctaliaGreeter}/bin/noctalia-greeter-apply-appearance --setup-system

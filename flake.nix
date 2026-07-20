@@ -40,6 +40,13 @@
       url = "path:/mnt/storage/GitHub/noctalia-dev/noctalia-greeter";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.darwin.follows = "";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs =
@@ -48,6 +55,7 @@
       nixpkgs,
       home-manager,
       noctalia,
+      agenix,
       ...
     }@inputs:
 
@@ -70,20 +78,6 @@
     {
       formatter = nixpkgs.legacyPackages.${vars.system}.alejandra;
 
-      devShells.${vars.system}.default =
-        let
-          pkgs = nixpkgs.legacyPackages.${vars.system};
-        in
-        pkgs.mkShell {
-          packages = with pkgs; [
-            nixfmt
-            statix
-            deadnix
-            lefthook
-            just
-          ];
-        };
-
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         inherit (vars) system;
 
@@ -99,6 +93,8 @@
 
         modules = [
           ./hosts/nixos/configuration.nix
+          agenix.nixosModules.default
+          ./modules/nixos/agenix.nix
 
           (./desktops + "/${desktop}/nixos.nix")
 

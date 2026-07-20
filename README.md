@@ -9,8 +9,9 @@ Personal NixOS flake with home-manager. One host (`nixos`), multiple Wayland com
 ```
 .
 ├── flake.nix              # Flake inputs and nixosConfigurations.nixos
-├── vars.nix               # Shared settings (username, desktop, paths, git)
+├── vars.nix               # Shared settings (username, desktop, git)
 ├── vars.local.nix.example # Template for machine-local overrides (gitignored)
+├── secrets/               # Encrypted secrets (agenix) + secrets.nix recipients
 ├── hosts/nixos/           # Host entry point
 ├── hardware/              # Machine hardware and storage
 ├── modules/nixos/         # System modules (boot, greeter, locale, services, …)
@@ -41,8 +42,8 @@ Important `vars` fields:
 | --- | --- |
 | `desktop` | Active compositor session |
 | `git` | Git identity and signing key id |
-| `gpgPrivateKey` | Path to a private key file imported on activation |
-| `noctaliaI18nPushSecretFile` | Path to the i18n push token file (loaded into fish at login) |
+
+Secrets (GPG, SSH keys, tokens) live under `secrets/*.age` and decrypt to `/run/agenix/` via [agenix](https://github.com/ryantm/agenix). Edit with `cd secrets && agenix -e <name>.age`.
 
 ## Noctalia
 
@@ -90,6 +91,7 @@ Shared Wayland session defaults (Electron on X11, Qt on Wayland, cursor theme) l
 | `waytator` | Screenshot annotator ([ItsLemmy/waytator](https://github.com/ItsLemmy/waytator)) |
 | `noctalia` | Noctalia Shell (`path:` input) |
 | `noctalia-greeter` | Login greeter (`path:` input) |
+| `agenix` | Encrypted secrets decrypted at activation |
 
 ## Rebuild
 
@@ -105,5 +107,5 @@ nix fmt
 
 ## Notes
 
-- **GPG signing** expects `gpgPrivateKey` to exist at activation time.
+- **GPG signing** imports `/run/agenix/gpg-private-key` on HM activation (after agenix decrypts).
 - **Fluxer** autostart is handled by the compositor (niri spawn-at-startup), not XDG autostart, to avoid a broken self-written desktop entry.

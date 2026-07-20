@@ -5,6 +5,4 @@
 
 {
   # desktop = "hyprland";
-  # deployKey = "/path/to/custom-deploy-key";
-  # noctaliaI18nPushSecretFile = "/path/to/noctalia-i18n-push.secret";
 }

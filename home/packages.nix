@@ -1,8 +1,9 @@
-{ pkgs, noctaliaPackage, ... }:
+{ pkgs, inputs, noctaliaPackage, ... }:
 
 with pkgs;
 [
   noctaliaPackage
+  inputs.agenix.packages.${pkgs.system}.default
   protonplus
   prismlauncher
   nautilus
@@ -10,7 +11,6 @@ with pkgs;
   btop
   bibata-cursors
   mpv
-  pywalfox-native
   gh
   gcc16
   llvmPackages_22.clang-tools
@@ -22,6 +22,7 @@ with pkgs;
   nixfmt
   statix
   deadnix
+  age
   nwg-look
   heroic
   lutris

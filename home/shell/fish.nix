@@ -1,7 +1,7 @@
-{ pkgs, lib, config, vars, ... }:
+{ pkgs, lib, config, ... }:
 
 let
-  secretFile = vars.noctaliaI18nPushSecretFile or null;
+  secretFile = "/run/agenix/noctalia-i18n-push";
   fishSingleQuotePath = s: "'${lib.replaceStrings [ "'" ] [ "'\\''" ] s}'";
 
   tideVarsRaw = builtins.readFile ./fish/fish_variables;
@@ -58,7 +58,7 @@ in
     ];
     interactiveShellInit =
       (builtins.readFile ./fish/config.fish)
-      + lib.optionalString (secretFile != null) ''
+      + ''
 
         if status is-interactive; and test -r ${fishSingleQuotePath secretFile}
           set -gx NOCTALIA_TRANSLATION_PUSH_SECRET (string trim (cat ${fishSingleQuotePath secretFile}))
