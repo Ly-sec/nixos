@@ -1,111 +1,95 @@
 ![NixOS Configuration](https://i.imgur.com/4PyePGk.jpeg)
 
-# NixOS configuration
+# nixos
 
-Personal NixOS flake with home-manager. One host (`nixos`), multiple Wayland compositors, and shared home-manager modules for apps and shell tooling.
+Personal NixOS flake, one host, home-manager, several Wayland compositors, secrets via agenix.
+
+## Quick start
+
+```bash
+nh os switch ~/nixos
+just fmt      # nixfmt
+just check    # nixfmt + statix + deadnix
+```
+
+Checkout expected at `~/nixos`. If it lives elsewhere, set `NIXOS_CONFIG` to that path so `vars.local.nix` resolves.
 
 ## Layout
 
 ```
-.
-├── flake.nix              # Flake inputs and nixosConfigurations.nixos
-├── vars.nix               # Shared settings (username, desktop, git)
-├── vars.local.nix.example # Template for machine-local overrides (gitignored)
-├── secrets/               # Encrypted secrets (agenix) + secrets.nix recipients
-├── hosts/nixos/           # Host entry point
-├── hardware/              # Machine hardware and storage
-├── modules/nixos/         # System modules (boot, greeter, locale, services, …)
-├── desktops/<name>/       # Per-compositor nixos.nix + home/ modules
-├── home/                  # Shared home-manager config (programs, shell, editors)
-└── lib/                   # Small helpers (desktops, fluxer wrapper)
+flake.nix                 inputs + nixosConfigurations.nixos
+modules/lysec/            shared options (username, desktop, git, noctalia)
+modules/nixos/            system modules (boot, greeter, networking, …)
+hosts/nixos/              host entrypoint
+hardware/                 hardware + storage mounts
+desktops/<name>/          per-compositor nixos + home
+home/                     shared HM (programs auto-imported, editors, shell)
+secrets/                  encrypted .age files + recipients (secrets.nix)
+lib/                      helpers (desktops, import-programs, fluxer)
+vars.local.nix            local overrides (gitignored module)
 ```
 
-The active compositor is selected in `vars.desktop`. Only that desktop's `desktops/<name>/nixos.nix` is imported at build time, so switching desktops does not pull every compositor into the closure.
+## Settings (`lysec.*`)
 
-Supported values: `niri`, `hyprland`, `sway`, `labwc`, `mango`, `plasma`.
+Defaults: [`modules/lysec/settings.nix`](modules/lysec/settings.nix).
 
-## Configuration
-
-Edit `vars.nix` for values you are happy to commit. For machine-specific overrides, copy `vars.local.nix.example` to `vars.local.nix` (gitignored):
+Machine-local overrides, copy [`vars.local.nix.example`](vars.local.nix.example) → `vars.local.nix`:
 
 ```nix
-{
-  desktop = "hyprland";
+{ ... }: {
+  lysec.desktop = "hyprland";
 }
 ```
 
-If the checkout is not at `~/nixos`, set `NIXOS_CONFIG` to its path before rebuilding so `vars.local.nix` is found.
-
-Important `vars` fields:
-
-| Field | Purpose |
+| Option | Meaning |
 | --- | --- |
-| `desktop` | Active compositor session |
-| `git` | Git identity and signing key id |
+| `lysec.desktop` | Active session: `niri` (default), `hyprland`, `sway`, `labwc`, `mango`, `plasma` |
+| `lysec.git.*` | Commit identity + signing key |
+| `lysec.username` / `hostname` / `stateVersion` / `system` | Host identity |
 
-Secrets (GPG, SSH keys, tokens) live under `secrets/*.age` and decrypt to `/run/agenix/` via [agenix](https://github.com/ryantm/agenix). Edit with `cd secrets && agenix -e <name>.age`.
+Only the chosen desktop’s `desktops/<name>/nixos.nix` is imported at build time.
+
+## Desktops
+
+Non-Plasma sessions use **greetd** + **Noctalia Greeter** ([`modules/nixos/greeter.nix`](modules/nixos/greeter.nix)). Plasma uses SDDM via [`desktops/plasma/nixos.nix`](desktops/plasma/nixos.nix).
+
+| Desktop | Notes |
+| --- | --- |
+| **niri** | Full setup, keybinds, rules, animations, autostart |
+| hyprland / sway / labwc / mango | Lighter stubs + Noctalia; mango has a custom session |
+| plasma | KDE stack; Noctalia via XDG autostart after the panel |
+
+Shared Wayland defaults (cursor, Electron/Qt hints): [`desktops/shared/home.nix`](desktops/shared/home.nix).
+
+## Home
+
+[`home/default.nix`](home/default.nix) pulls in the active desktop, Doom/VS Code, fish, and every `home/programs/*.nix` plus `home/programs/*/default.nix`.
+
+Notable pieces: fish + tide, Firefox, Ghostty, Fluxer, Vesktop, signed git (GPG from agenix), Doom under `home/doom/`.
+
+## Secrets (agenix)
+
+Encrypted blobs in `secrets/*.age` decrypt at activation to `/run/agenix/`. Recipients are declared in [`secrets/secrets.nix`](secrets/secrets.nix) (host SSH pubkey + recovery age key).
+
+```bash
+cd ~/nixos/secrets
+agenix -i ~/.config/age/keys.txt -e <name>.age
+nh os switch ~/nixos
+```
+
+Do not commit `~/.config/age/keys.txt`. Back it up offline.
 
 ## Noctalia
 
-Noctalia Shell and the greeter use `path:` flake inputs to local dev checkouts — they will not work if you clone this repo. Use the [noctalia](https://github.com/noctalia-dev/noctalia) and [noctalia-greeter](https://github.com/noctalia-dev/noctalia-greeter) flakes instead.
+Shell and greeter are `path:` inputs to local checkouts under `/mnt/storage/…`. This repo will not evaluate elsewhere without changing those inputs to the public flakes ([noctalia](https://github.com/noctalia-dev/noctalia), [noctalia-greeter](https://github.com/noctalia-dev/noctalia-greeter)).
 
-After editing either checkout, update the lock before switching or Nix will rebuild from a stale snapshot:
+After editing either checkout:
 
 ```bash
 nix flake update noctalia noctalia-greeter
 nh os switch ~/nixos
 ```
 
-## Desktop sessions
+## Inputs
 
-Non-Plasma desktops use **greetd** with **Noctalia Greeter**. Plasma uses its own display manager via `desktops/plasma/nixos.nix`.
-
-Greeter settings are fully declared in `modules/nixos/greeter.nix` and installed to `/var/lib/noctalia-greeter/greeter.toml` on activation. Cursor theme uses `programs.noctalia-greeter.settings.cursor`.
-
-**Niri** (default) has the most complete setup: keybinds, window rules, animations, autostart, and a `noctalia.kdl` include so Noctalia's Niri template is loaded from `~/.config/niri/noctalia.kdl`.
-
-Other compositors (`hyprland`, `sway`, `labwc`, `mango`) ship stub home modules with Noctalia autostart and basic keybinds. `mango` also defines a custom greetd session.
-
-Shared Wayland session defaults (Electron on X11, Qt on Wayland, cursor theme) live in `desktops/shared/home.nix`.
-
-## Home manager
-
-`home/default.nix` always imports shared desktop settings plus `desktops/<desktop>/home`, then program modules:
-
-- **Shell:** fish (tide), microfetch greeting
-- **Apps:** Firefox, Ghostty, Fluxer, Vesktop, VS Code, Doom Emacs
-- **Git:** commit signing, GPG agent (pinentry-curses)
-
-**Doom Emacs** lives in `home/doom/`, copied to `~/.config/doom` on activation
-
-## Flake inputs
-
-| Input | Use |
-| --- | --- |
-| `nixpkgs` | Base packages (unstable) |
-| `home-manager` | User environment |
-| `niri` | Niri compositor + HM module |
-| `fluxer` | Fluxer Canary package |
-| `nur` | NUR overlay |
-| `doomemacs` | Doom Emacs source (`flake = false`) |
-| `waytator` | Screenshot annotator ([ItsLemmy/waytator](https://github.com/ItsLemmy/waytator)) |
-| `noctalia` | Noctalia Shell (`path:` input) |
-| `noctalia-greeter` | Login greeter (`path:` input) |
-| `agenix` | Encrypted secrets decrypted at activation |
-
-## Rebuild
-
-```bash
-sudo nixos-rebuild switch --flake .
-```
-
-Format:
-
-```bash
-nix fmt
-```
-
-## Notes
-
-- **GPG signing** imports `/run/agenix/gpg-private-key` on HM activation (after agenix decrypts).
-- **Fluxer** autostart is handled by the compositor (niri spawn-at-startup), not XDG autostart, to avoid a broken self-written desktop entry.
+`nixpkgs` (unstable), `home-manager`, `niri`, `agenix`, `fluxer`, `waytator`, `doomemacs`, `nur`, plus the local Noctalia path inputs.

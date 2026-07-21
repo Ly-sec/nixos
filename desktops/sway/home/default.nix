@@ -1,9 +1,14 @@
-{ pkgs, vars, lib, noctaliaPackage, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   ghostty = "${pkgs.ghostty}/bin/ghostty";
   firefox = "${pkgs.firefox}/bin/firefox";
-  noctalia = lib.getExe noctaliaPackage;
+  noctalia = lib.getExe config.lysec.noctaliaPackage;
 in
 {
   wayland.windowManager.sway = {

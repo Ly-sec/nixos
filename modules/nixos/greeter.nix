@@ -1,14 +1,14 @@
 {
   pkgs,
-  vars,
+  config,
   lib,
   inputs,
+  desktop,
   ...
 }:
 
 let
   desktops = import ../../lib/desktops.nix;
-  desktop = desktops.assertValid vars.desktop;
   useGreeter = desktops.usesGreetd desktop;
   greeterSession = desktops.greeterSession desktop;
 
@@ -33,7 +33,7 @@ let
       last = greeterSession;
     };
     user = {
-      default = vars.username;
+      default = config.lysec.username;
     };
     appearance = {
       scheme = "Synced";

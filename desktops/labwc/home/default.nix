@@ -1,34 +1,36 @@
-{ pkgs, vars, lib, noctaliaPackage, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   ghostty = "${pkgs.ghostty}/bin/ghostty";
   firefox = "${pkgs.firefox}/bin/firefox";
   wlr-randr = "${pkgs.wlr-randr}/bin/wlr-randr";
-  noctalia = lib.getExe noctaliaPackage;
+  noctalia = lib.getExe config.lysec.noctaliaPackage;
 
-  workspaceKeybinds =
-    lib.concatMapStringsSep "\n" (i: ''
-      <keybind key="W-${toString i}">
-        <action name="GoToDesktop" to="${toString i}" />
-      </keybind>
-      <keybind key="W-C-${toString i}">
-        <action name="SendToDesktop" to="${toString i}" />
-      </keybind>
-    '')
-    (lib.range 1 9);
+  workspaceKeybinds = lib.concatMapStringsSep "\n" (i: ''
+    <keybind key="W-${toString i}">
+      <action name="GoToDesktop" to="${toString i}" />
+    </keybind>
+    <keybind key="W-C-${toString i}">
+      <action name="SendToDesktop" to="${toString i}" />
+    </keybind>
+  '') (lib.range 1 9);
 in
 {
   xdg.configFile."labwc/environment".text = ''
     XKB_DEFAULT_LAYOUT=de
   '';
 
-  xdg.configFile."labwc/autostart".source =
-    pkgs.writeShellScript "labwc-autostart" ''
-      ${pkgs.xwayland-satellite}/bin/xwayland-satellite &
-      ${wlr-randr} --output DP-1 --mode 2560x1440@359.979Hz
-      ${wlr-randr} --output DP-2 --mode 1920x1080@164.917Hz
-      ${noctalia} &
-    '';
+  xdg.configFile."labwc/autostart".source = pkgs.writeShellScript "labwc-autostart" ''
+    ${pkgs.xwayland-satellite}/bin/xwayland-satellite &
+    ${wlr-randr} --output DP-1 --mode 2560x1440@359.979Hz
+    ${wlr-randr} --output DP-2 --mode 1920x1080@164.917Hz
+    ${noctalia} &
+  '';
 
   xdg.configFile."labwc/rc.xml".text = ''
     <labwc_config>

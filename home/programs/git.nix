@@ -1,8 +1,14 @@
-{ pkgs, lib, vars, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   gpg = "${pkgs.gnupg}/bin/gpg";
   gpgHome = config.programs.gpg.homedir;
+  git = config.lysec.git;
 in
 {
   programs.gpg.enable = true;
@@ -22,12 +28,12 @@ in
   programs.git = {
     enable = true;
     signing = {
-      key = vars.git.signingKey;
+      key = git.signingKey;
       signByDefault = true;
     };
     settings = {
-      user.name = vars.git.name;
-      user.email = vars.git.email;
+      user.name = git.name;
+      user.email = git.email;
       gpg.format = "openpgp";
       init.defaultBranch = "main";
       pull.rebase = false;
@@ -56,7 +62,7 @@ in
 
     gpgKey=/run/agenix/gpg-private-key
     if [ -f "$gpgKey" ]; then
-      if ! ${gpg} --homedir "${gpgHome}" --list-secret-keys ${lib.escapeShellArg vars.git.signingKey} 2>/dev/null \
+      if ! ${gpg} --homedir "${gpgHome}" --list-secret-keys ${lib.escapeShellArg git.signingKey} 2>/dev/null \
         | ${pkgs.gnugrep}/bin/grep -q '^sec'; then
         $DRY_RUN_CMD ${gpg} --homedir "${gpgHome}" --batch --import "$gpgKey"
       fi

@@ -1,11 +1,11 @@
-{ vars, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   users.groups.i2c = { };
 
-  users.users.${vars.username} = {
+  users.users.${config.lysec.username} = {
     isNormalUser = true;
-    description = vars.username;
+    description = config.lysec.username;
     shell = pkgs.fish;
     extraGroups = [
       "networkmanager"

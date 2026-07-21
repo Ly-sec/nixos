@@ -1,39 +1,33 @@
 {
   pkgs,
-  vars,
+  config,
+  lib,
   inputs,
-  noctaliaPackage,
+  desktop,
   ...
 }:
 
-let
-  desktops = import ../lib/desktops.nix;
-  desktop = desktops.assertValid vars.desktop;
-in
 {
   imports = [
     ../desktops/shared/home.nix
     (../desktops + "/${desktop}/home")
     ./editors/vscode.nix
     ./editors/doom.nix
-    ./programs/ghostty.nix
-    ./programs/direnv.nix
-    ./programs/gtk.nix
-    ./programs/microfetch.nix
-    ./programs/firefox.nix
-    ./programs/waytator.nix
-    ./programs/fluxer.nix
-    ./programs/vesktop/default.nix
-    ./programs/git.nix
-    ./programs/ssh.nix
     ./shell/fish.nix
-  ];
+  ]
+  ++ import ../lib/import-programs.nix {
+    inherit lib;
+    dir = ./programs;
+  };
 
-  home.username = vars.username;
-  home.homeDirectory = "/home/${vars.username}";
-  home.stateVersion = vars.stateVersion;
+  home.username = config.lysec.username;
+  home.homeDirectory = "/home/${config.lysec.username}";
+  home.stateVersion = config.lysec.stateVersion;
 
-  home.packages = import ./packages.nix { inherit pkgs inputs noctaliaPackage; };
+  home.packages = import ./packages.nix {
+    inherit pkgs inputs;
+    noctaliaPackage = config.lysec.noctaliaPackage;
+  };
 
   home.sessionVariables.EDITOR = "emacs";
 

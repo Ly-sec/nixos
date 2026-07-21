@@ -1,4 +1,9 @@
-{ pkgs, desktop, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   gnomePortals = with pkgs; [
@@ -10,23 +15,29 @@ let
   kdePortals = with pkgs.kdePackages; [
     xdg-desktop-portal-kde
   ];
+
+  desktop = config.lysec.desktop;
 in
 {
   xdg.portal = {
     enable = true;
 
-    config.common = if desktop == "plasma" then {
-      default = "kde";
-    } else {
-      # Niri / GNOME-based portal stack
-      default = "gnome";
+    config.common =
+      if desktop == "plasma" then
+        {
+          default = "kde";
+        }
+      else
+        {
+          # Niri / GNOME-based portal stack
+          default = "gnome";
 
-      # IMPORTANT: do NOT override OpenURI or AppChooser
-      # Let xdg-desktop-portal-gnome handle it
-      "org.freedesktop.impl.portal.ScreenCast" = "gnome";
-      "org.freedesktop.impl.portal.Screenshot" = "gnome";
-      "org.freedesktop.impl.portal.RemoteDesktop" = "gnome";
-    };
+          # IMPORTANT: do NOT override OpenURI or AppChooser
+          # Let xdg-desktop-portal-gnome handle it
+          "org.freedesktop.impl.portal.ScreenCast" = "gnome";
+          "org.freedesktop.impl.portal.Screenshot" = "gnome";
+          "org.freedesktop.impl.portal.RemoteDesktop" = "gnome";
+        };
 
     # IMPORTANT CHANGE:
     # Portal is still useful for sandboxed apps (flatpak, etc)

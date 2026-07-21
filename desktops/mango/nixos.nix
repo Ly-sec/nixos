@@ -1,7 +1,12 @@
-{ pkgs, vars, lib, noctaliaPackage, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
-  noctalia = lib.getExe noctaliaPackage;
+  noctalia = lib.getExe config.lysec.noctaliaPackage;
   session = pkgs.writeShellScript "mangowc-session" ''
     export XDG_CURRENT_DESKTOP=MangoWC
     ${noctalia} &
@@ -22,5 +27,9 @@ let
   };
 in
 {
-  environment.systemPackages = [ pkgs.mango pkgs.dex sessionDesktop ];
+  environment.systemPackages = [
+    pkgs.mango
+    pkgs.dex
+    sessionDesktop
+  ];
 }

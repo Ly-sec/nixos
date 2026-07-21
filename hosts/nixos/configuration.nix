@@ -1,4 +1,4 @@
-{ vars, ... }:
+{ config, ... }:
 
 {
   imports = [
@@ -22,6 +22,6 @@
     ../../modules/nixos/steam.nix
   ];
 
-  networking.hostName = vars.hostname;
-  system.stateVersion = vars.stateVersion;
+  networking.hostName = config.lysec.hostname;
+  system.stateVersion = config.lysec.stateVersion;
 }

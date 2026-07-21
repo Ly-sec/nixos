@@ -1,9 +1,14 @@
-{ pkgs, inputs, vars, lib, noctaliaPackage, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   ghostty = "${pkgs.ghostty}/bin/ghostty";
   firefox = "${pkgs.firefox}/bin/firefox";
-  noctalia = lib.getExe noctaliaPackage;
+  noctalia = lib.getExe config.lysec.noctaliaPackage;
   exec = cmd: lib.generators.mkLuaInline "hl.dsp.exec_cmd(${lib.generators.toLua { } cmd})";
 in
 {
@@ -96,27 +101,29 @@ in
             (lib.generators.mkLuaInline "hl.dsp.exit()")
           ];
         }
-      ] ++ (
-        builtins.concatLists (builtins.genList (
-            x: let
-              ws = builtins.toString (x + 1);
-            in [
-              {
-                _args = [
-                  "SUPER + ${ws}"
-                  (lib.generators.mkLuaInline "hl.dsp.focus({ workspace = ${ws} })")
-                ];
-              }
-              {
-                _args = [
-                  "SUPER + SHIFT + ${ws}"
-                  (lib.generators.mkLuaInline "hl.dsp.window.move({ workspace = ${ws} })")
-                ];
-              }
-            ]
-          )
-          9)
-      );
+      ]
+      ++ (builtins.concatLists (
+        builtins.genList (
+          x:
+          let
+            ws = builtins.toString (x + 1);
+          in
+          [
+            {
+              _args = [
+                "SUPER + ${ws}"
+                (lib.generators.mkLuaInline "hl.dsp.focus({ workspace = ${ws} })")
+              ];
+            }
+            {
+              _args = [
+                "SUPER + SHIFT + ${ws}"
+                (lib.generators.mkLuaInline "hl.dsp.window.move({ workspace = ${ws} })")
+              ];
+            }
+          ]
+        ) 9
+      ));
 
       on = {
         _args = [

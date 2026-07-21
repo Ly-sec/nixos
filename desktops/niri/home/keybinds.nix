@@ -1,4 +1,9 @@
-{ config, pkgs, inputs, vars, lib, noctaliaPackage, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   inherit (config.lib.niri.actions) spawn;
@@ -6,30 +11,28 @@ let
   ghostty = "${pkgs.ghostty}/bin/ghostty";
   firefox = "${pkgs.firefox}/bin/firefox";
   nautilus = "${pkgs.nautilus}/bin/nautilus";
-  noctalia = lib.getExe noctaliaPackage;
+  noctalia = lib.getExe config.lysec.noctaliaPackage;
 in
 {
-  programs.niri.settings.binds =
-    with config.lib.niri.actions;
-    {
-      "Mod+Shift+Escape".action = show-hotkey-overlay;
+  programs.niri.settings.binds = with config.lib.niri.actions; {
+    "Mod+Shift+Escape".action = show-hotkey-overlay;
 
-      "Mod+Return" = {
-        hotkey-overlay.title = "Open Terminal: Ghostty";
-        action = spawn ghostty;
-      };
-      "Mod+Ctrl+Return" = {
-        hotkey-overlay.title = "Open App Launcher: Noctalia";
-        action = spawn noctalia "msg" "panel-toggle" "launcher";
-      };
-      "Alt+Tab" = {
-        hotkey-overlay.title = "Open Window Switcher: Noctalia";
-        action = spawn noctalia "msg" "window-switcher";
-      };
-      "Mod+B" = {
-        hotkey-overlay.title = "Open Browser: Firefox";
-        action = spawn firefox;
-      };
+    "Mod+Return" = {
+      hotkey-overlay.title = "Open Terminal: Ghostty";
+      action = spawn ghostty;
+    };
+    "Mod+Ctrl+Return" = {
+      hotkey-overlay.title = "Open App Launcher: Noctalia";
+      action = spawn noctalia "msg" "panel-toggle" "launcher";
+    };
+    "Alt+Tab" = {
+      hotkey-overlay.title = "Open Window Switcher: Noctalia";
+      action = spawn noctalia "msg" "window-switcher";
+    };
+    "Mod+B" = {
+      hotkey-overlay.title = "Open Browser: Firefox";
+      action = spawn firefox;
+    };
     "Mod+E" = {
       hotkey-overlay.title = "File Manager: Nautilus";
       action = spawn nautilus;
@@ -37,19 +40,35 @@ in
 
     "XF86AudioMute" = {
       allow-when-locked = true;
-      action = spawn "wpctl" [ "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle" ];
+      action = spawn "wpctl" [
+        "set-mute"
+        "@DEFAULT_AUDIO_SINK@"
+        "toggle"
+      ];
     };
     "Mod+Delete" = {
       allow-when-locked = true;
-      action = spawn "wpctl" [ "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle" ];
+      action = spawn "wpctl" [
+        "set-mute"
+        "@DEFAULT_AUDIO_SOURCE@"
+        "toggle"
+      ];
     };
     "Mod+Page_Up" = {
       allow-when-locked = true;
-      action = spawn "wpctl" [ "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05+" ];
+      action = spawn "wpctl" [
+        "set-volume"
+        "@DEFAULT_AUDIO_SINK@"
+        "0.05+"
+      ];
     };
     "Mod+Page_Down" = {
       allow-when-locked = true;
-      action = spawn "wpctl" [ "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05-" ];
+      action = spawn "wpctl" [
+        "set-volume"
+        "@DEFAULT_AUDIO_SINK@"
+        "0.05-"
+      ];
     };
 
     "Mod+Q".action = close-window;
@@ -165,5 +184,5 @@ in
       repeat = false;
       action = toggle-overview;
     };
-    };
+  };
 }

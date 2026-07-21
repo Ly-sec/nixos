@@ -1,8 +1,10 @@
 # Copy to vars.local.nix in this directory (gitignored).
 # Set NIXOS_CONFIG if your checkout is not at ~/nixos.
 #
-# Use this for machine-specific overrides only.
+# This file is a NixOS / home-manager module.
+
+{ ... }:
 
 {
-  # desktop = "hyprland";
+  # lysec.desktop = "hyprland";
 }

@@ -54,72 +54,74 @@
       self,
       nixpkgs,
       home-manager,
-      noctalia,
       agenix,
       ...
     }@inputs:
 
     let
-      desktops = import ./lib/desktops.nix;
-
-      baseVars = import ./vars.nix;
-      # Gitignored files are not in the flake store; load from the checkout on disk.
       configDir =
         let
           env = builtins.getEnv "NIXOS_CONFIG";
         in
-        if env != "" then env else "/home/${baseVars.username}/nixos";
+        if env != "" then env else "/home/lysec/nixos";
       localVarsPath = /. + configDir + "/vars.local.nix";
-      localVars = if builtins.pathExists localVarsPath then import localVarsPath else { };
-      vars = baseVars // localVars;
-      desktop = desktops.assertValid vars.desktop;
-      noctaliaPackage = noctalia.packages.${vars.system}.default;
+
+      lysecModules = [
+        ./modules/lysec/settings.nix
+      ]
+      ++ nixpkgs.lib.optional (builtins.pathExists localVarsPath) localVarsPath;
+
+      lysec =
+        (nixpkgs.lib.evalModules {
+          modules = lysecModules;
+        }).config.lysec;
+
+      inherit (lysec) desktop;
     in
     {
-      formatter = nixpkgs.legacyPackages.${vars.system}.alejandra;
+      formatter = nixpkgs.legacyPackages.${lysec.system}.alejandra;
 
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        inherit (vars) system;
+        inherit (lysec) system;
 
         specialArgs = {
-          inherit
-            self
-            inputs
-            vars
-            desktop
-            noctaliaPackage
-            ;
+          inherit self inputs;
+          inherit desktop;
         };
 
         modules = [
-          ./hosts/nixos/configuration.nix
+          ./modules/lysec
           agenix.nixosModules.default
           ./modules/nixos/agenix.nix
+          ./hosts/nixos/configuration.nix
 
           (./desktops + "/${desktop}/nixos.nix")
 
           home-manager.nixosModules.home-manager
 
-          (_: {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "backup";
-              overwriteBackup = true;
-              extraSpecialArgs = {
-                inherit
-                  self
-                  inputs
-                  vars
-                  desktop
-                  noctaliaPackage
-                  ;
-              };
+          (
+            { ... }:
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                backupFileExtension = "backup";
+                overwriteBackup = true;
+                extraSpecialArgs = {
+                  inherit self inputs;
+                  inherit desktop;
+                };
+                sharedModules = [
+                  ./modules/lysec
+                ]
+                ++ nixpkgs.lib.optional (builtins.pathExists localVarsPath) localVarsPath;
 
-              users.${vars.username} = import ./home/default.nix;
-            };
-          })
-        ];
+                users.${lysec.username} = import ./home/default.nix;
+              };
+            }
+          )
+        ]
+        ++ nixpkgs.lib.optional (builtins.pathExists localVarsPath) localVarsPath;
       };
     };
 }

@@ -1,8 +1,14 @@
-{ pkgs, inputs, vars, lib, noctaliaPackage, ... }:
+{
+  pkgs,
+  inputs,
+  lib,
+  config,
+  ...
+}:
 
 let
   fluxer = import ../../../lib/fluxer.nix { inherit pkgs inputs; };
-  noctalia = lib.getExe noctaliaPackage;
+  noctalia = lib.getExe config.lysec.noctaliaPackage;
 in
 {
   programs.niri.settings.spawn-at-startup = [
