@@ -12,7 +12,7 @@ just fmt      # nixfmt
 just check    # nixfmt + statix + deadnix
 ```
 
-Checkout expected at `~/nixos`. If it lives elsewhere, set `NIXOS_CONFIG` to that path so `vars.local.nix` resolves.
+Checkout expected at `~/nixos`.
 
 ## Layout
 
@@ -26,19 +26,14 @@ desktops/<name>/          per-compositor nixos + home
 home/                     shared HM (programs auto-imported, editors, shell)
 secrets/                  encrypted .age files + recipients (secrets.nix)
 lib/                      helpers (desktops, import-programs, fluxer)
-vars.local.nix            local overrides (gitignored module)
 ```
 
 ## Settings (`lysec.*`)
 
-Defaults: [`modules/lysec/settings.nix`](modules/lysec/settings.nix).
-
-Machine-local overrides, copy [`vars.local.nix.example`](vars.local.nix.example) → `vars.local.nix`:
+All defaults live in [`modules/lysec/settings.nix`](modules/lysec/settings.nix). To switch compositors, set `lysec.desktop` there:
 
 ```nix
-{ ... }: {
-  lysec.desktop = "hyprland";
-}
+lysec.desktop = "niri";
 ```
 
 | Option | Meaning |

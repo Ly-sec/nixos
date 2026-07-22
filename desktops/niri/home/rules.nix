@@ -27,10 +27,10 @@
       {
         matches = [ { } ];
         geometry-corner-radius = {
-          top-left = 20.0;
-          top-right = 20.0;
-          bottom-left = 20.0;
-          bottom-right = 20.0;
+          top-left = 14.0;
+          top-right = 14.0;
+          bottom-left = 14.0;
+          bottom-right = 14.0;
         };
         clip-to-geometry = true;
       }

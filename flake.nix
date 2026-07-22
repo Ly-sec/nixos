@@ -59,21 +59,9 @@
     }@inputs:
 
     let
-      configDir =
-        let
-          env = builtins.getEnv "NIXOS_CONFIG";
-        in
-        if env != "" then env else "/home/lysec/nixos";
-      localVarsPath = /. + configDir + "/vars.local.nix";
-
-      lysecModules = [
-        ./modules/lysec/settings.nix
-      ]
-      ++ nixpkgs.lib.optional (builtins.pathExists localVarsPath) localVarsPath;
-
       lysec =
         (nixpkgs.lib.evalModules {
-          modules = lysecModules;
+          modules = [ ./modules/lysec/settings.nix ];
         }).config.lysec;
 
       inherit (lysec) desktop;
@@ -113,15 +101,13 @@
                 };
                 sharedModules = [
                   ./modules/lysec
-                ]
-                ++ nixpkgs.lib.optional (builtins.pathExists localVarsPath) localVarsPath;
+                ];
 
                 users.${lysec.username} = import ./home/default.nix;
               };
             }
           )
-        ]
-        ++ nixpkgs.lib.optional (builtins.pathExists localVarsPath) localVarsPath;
+        ];
       };
     };
 }

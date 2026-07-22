@@ -67,7 +67,7 @@ in
           "middlemouse.contentLoadURL" = false;
           "middlemouse.paste" = false;
 
-          # userChrome.css (window control buttons)
+          # userChrome.css / userContent.css
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
 
           # Remove the "Firefox View" button/tab
@@ -100,6 +100,15 @@ in
             display: none !important;
           }
         '';
+
+        # Applied to all web pages (not browser chrome).
+        #userContent = ''
+        #  *,
+        #  *::before,
+        #  *::after {
+        #    border-radius: 0 !important;
+        #  }
+        #'';
 
         search = {
           force = true;

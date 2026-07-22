@@ -54,7 +54,7 @@ in
     stateVersion = "26.11";
     system = "x86_64-linux";
 
-    # Active compositor. Override in vars.local.nix to switch.
+    # Active compositor, change here to switch sessions.
     desktop = "niri";
 
     git = {

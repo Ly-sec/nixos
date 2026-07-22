@@ -35,7 +35,7 @@
     hotkey-overlay.skip-at-startup = true;
 
     layout = {
-      gaps = 14;
+      gaps = 5;
       center-focused-column = "never";
       background-color = "transparent";
 
@@ -49,7 +49,12 @@
 
       struts = { };
 
-      focus-ring.enable = true;
+      focus-ring.enable = false;
+
+      border = {
+        enable = true;
+        width = 3;
+      };
     };
 
     input = {
