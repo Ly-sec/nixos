@@ -2,14 +2,27 @@
   pkgs,
   config,
   lib,
+  inputs,
   ...
 }:
 
 let
-  gnomePortals = with pkgs; [
-    xdg-desktop-portal
-    xdg-desktop-portal-gtk
-    xdg-desktop-portal-gnome
+  system = pkgs.stdenv.hostPlatform.system;
+  niriScreenshare = inputs.niri-screenshare.packages.${system}.default;
+  umbrielPortal = inputs.xdg-desktop-portal-umbriel.packages.${system}.default;
+
+  gtkPortals = [
+    pkgs.xdg-desktop-portal
+    pkgs.xdg-desktop-portal-gtk
+  ];
+
+  # gtk portal covers file chooser / open-uri; niri-screenshare does ScreenCast.
+  niriPortals = gtkPortals ++ [
+    niriScreenshare
+  ];
+
+  umbrielPortals = gtkPortals ++ [
+    umbrielPortal
   ];
 
   kdePortals = with pkgs.kdePackages; [
@@ -17,32 +30,58 @@ let
   ];
 
   desktop = config.lysec.desktop;
+  isPlasma = desktop == "plasma";
+  isNiri = desktop == "niri";
+  isUmbriel = desktop == "umbriel";
 in
 {
   xdg.portal = {
     enable = true;
 
-    config.common =
-      if desktop == "plasma" then
-        {
-          default = "kde";
-        }
-      else
-        {
-          # Niri / GNOME-based portal stack
-          default = "gnome";
-
-          # IMPORTANT: do NOT override OpenURI or AppChooser
-          # Let xdg-desktop-portal-gnome handle it
-          "org.freedesktop.impl.portal.ScreenCast" = "gnome";
-          "org.freedesktop.impl.portal.Screenshot" = "gnome";
-          "org.freedesktop.impl.portal.RemoteDesktop" = "gnome";
+    config =
+      {
+        common =
+          if isPlasma then
+            {
+              default = "kde";
+            }
+          else
+            {
+              default = "gtk";
+            };
+      }
+      // lib.optionalAttrs isNiri {
+        # ScreenCast uses niri-screenshare; other interfaces fall through to common/gtk.
+        niri = {
+          default = "gtk";
+          "org.freedesktop.impl.portal.ScreenCast" = "niri";
         };
+      }
+      // lib.optionalAttrs isUmbriel {
+        umbriel = {
+          default = "umbriel;gtk";
+        };
+      };
 
-    # IMPORTANT CHANGE:
-    # Portal is still useful for sandboxed apps (flatpak, etc)
     xdgOpenUsePortal = true;
 
-    extraPortals = if desktop == "plasma" then kdePortals else gnomePortals;
+    extraPortals =
+      if isPlasma then
+        kdePortals
+      else if isNiri then
+        niriPortals
+      else if isUmbriel then
+        umbrielPortals
+      else
+        gtkPortals;
+  };
+
+  # Prefer the GTK picker UI when the portal backend is built with --features picker.
+  # `niri` must be on PATH — the service otherwise can't list outputs/windows.
+  systemd.user.services.niri-screenshare = lib.mkIf isNiri {
+    path = [ config.programs.niri.package ];
+    environment = {
+      NIRI_SCREENSHARE_PICKER = "1";
+    };
   };
 }

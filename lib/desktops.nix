@@ -1,6 +1,7 @@
 rec {
   names = [
     "niri"
+    "umbriel"
     "hyprland"
     "sway"
     "labwc"
@@ -14,6 +15,7 @@ rec {
   greeterSession = desktop:
     {
       niri = "Niri";
+      umbriel = "Umbriel";
       hyprland = "Hyprland";
       sway = "sway";
       labwc = "labwc";

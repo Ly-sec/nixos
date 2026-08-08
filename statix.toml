@@ -1,5 +1,0 @@
-# NixOS/HM idioms that are noisy as commit blockers.
-disabled = [
-  "repeated_keys",
-  "empty_pattern",
-]

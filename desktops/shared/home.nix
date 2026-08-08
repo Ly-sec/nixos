@@ -24,7 +24,7 @@ in
       Name=Noctalia
       Exec=${noctalia}
       X-GNOME-Autostart-enabled=true
-      OnlyShowIn=GNOME;XFCE;Hyprland;niri;
+      OnlyShowIn=GNOME;XFCE;Hyprland;niri;Umbriel;MangoWC;
     '';
   };
 }

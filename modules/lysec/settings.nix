@@ -55,7 +55,8 @@ in
     system = "x86_64-linux";
 
     # Active compositor, change here to switch sessions.
-    desktop = "niri";
+    desktop = "umbriel";
+#    desktop = "mango";
 
     git = {
       name = "Ly-sec";

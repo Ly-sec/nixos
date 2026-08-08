@@ -8,8 +8,6 @@ Personal NixOS flake, one host, home-manager, several Wayland compositors, secre
 
 ```bash
 nh os switch ~/nixos
-just fmt      # nixfmt
-just check    # nixfmt + statix + deadnix
 ```
 
 Checkout expected at `~/nixos`.
@@ -87,4 +85,4 @@ nh os switch ~/nixos
 
 ## Inputs
 
-`nixpkgs` (unstable), `home-manager`, `niri`, `agenix`, `fluxer`, `waytator`, `doomemacs`, `nur`, plus the local Noctalia path inputs.
+`nixpkgs` (unstable), `home-manager`, `niri`, `agenix`, `fluxer`, `swash`, `doomemacs`, `nur`, plus the local Noctalia path inputs.

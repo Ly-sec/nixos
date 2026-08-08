@@ -29,7 +29,10 @@
     noctaliaPackage = config.lysec.noctaliaPackage;
   };
 
-  home.sessionVariables.EDITOR = "emacs";
+  home.sessionVariables = {
+    EDITOR = "emacs";
+    TERMINAL = "ghostty";
+  };
 
   programs.home-manager.enable = true;
 }

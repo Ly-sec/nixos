@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   pywalfoxNativeMessagingHost = pkgs.writeTextDir "lib/mozilla/native-messaging-hosts/pywalfox.json" (
     builtins.toJSON {
@@ -113,7 +118,13 @@ in
         search = {
           force = true;
           default = "google";
-          order = [ "google" "searxng" "nix-packages" "nixos-wiki" "ddg" ];
+          order = [
+            "google"
+            "searxng"
+            "nix-packages"
+            "nixos-wiki"
+            "ddg"
+          ];
 
           engines = {
             searxng = {
@@ -133,8 +144,14 @@ in
                 {
                   template = "https://search.nixos.org/packages?type=packages&query={searchTerms}";
                   params = [
-                    { name = "type"; value = "packages"; }
-                    { name = "query"; value = "{searchTerms}"; }
+                    {
+                      name = "type";
+                      value = "packages";
+                    }
+                    {
+                      name = "query";
+                      value = "{searchTerms}";
+                    }
                   ];
                 }
               ];

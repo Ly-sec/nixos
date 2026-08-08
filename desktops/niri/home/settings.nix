@@ -28,8 +28,12 @@
     workspaces = {
       browser = { };
       chat = { };
-      vesktop = { open-on-output = "DP-2"; };
-      fluxer = { open-on-output = "DP-2"; };
+      vesktop = {
+        open-on-output = "DP-2";
+      };
+      fluxer = {
+        open-on-output = "DP-2";
+      };
     };
 
     hotkey-overlay.skip-at-startup = true;
@@ -45,7 +49,9 @@
         { proportion = 0.66667; }
       ];
 
-      default-column-width = { proportion = 0.4; };
+      default-column-width = {
+        proportion = 0.4;
+      };
 
       struts = { };
 

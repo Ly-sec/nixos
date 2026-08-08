@@ -169,7 +169,7 @@ in
     "Mod+W".action = toggle-column-tabbed-display;
 
     "Ctrl+Shift+1".action.screenshot = { };
-    "Ctrl+Alt+1".action = spawn "screenshot-to-waytator.sh";
+    "Ctrl+Alt+1".action = spawn noctalia "msg" "screenshot-region";
     "Ctrl+Shift+2".action.screenshot-screen = { };
     "Ctrl+Shift+3".action.screenshot-window = { };
 

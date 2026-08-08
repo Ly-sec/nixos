@@ -1,10 +1,16 @@
-{ pkgs, inputs, noctaliaPackage, ... }:
+{
+  pkgs,
+  inputs,
+  noctaliaPackage,
+  ...
+}:
 
 with pkgs;
 [
   noctaliaPackage
   inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
   protonplus
+  bitwarden-cli
   prismlauncher
   nautilus
   file-roller
@@ -15,13 +21,9 @@ with pkgs;
   gcc16
   llvmPackages_22.clang-tools
   just
-  lefthook
   nodejs
   nim
   nimble
-  nixfmt
-  statix
-  deadnix
   age
   nwg-look
   heroic
@@ -38,4 +40,7 @@ with pkgs;
   imagemagick
   gpu-screen-recorder
   xwayland-satellite
+  antigravity-ide
+  code-cursor
+  opencode
 ]

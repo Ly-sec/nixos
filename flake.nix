@@ -26,8 +26,8 @@
       flake = false;
     };
 
-    waytator = {
-      url = "github:ItsLemmy/waytator";
+    swash = {
+      url = "github:ItsLemmy/swash";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -36,8 +36,23 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    umbriel = {
+      url = "path:/mnt/storage/GitHub/noctalia-dev/umbriel";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     noctalia-greeter = {
       url = "path:/mnt/storage/GitHub/noctalia-dev/noctalia-greeter";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    niri-screenshare = {
+      url = "path:/mnt/storage/GitHub/lysec/niri-screenshare";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    xdg-desktop-portal-umbriel = {
+      url = "path:/mnt/storage/GitHub/noctalia-dev/xdg-desktop-portal-umbriel";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

@@ -27,11 +27,6 @@ SETUVAR tide_context_hostname_parts:1
 SETUVAR tide_crystal_bg_color:black
 SETUVAR tide_crystal_color:brwhite
 SETUVAR tide_crystal_icon:\ue62f
-SETUVAR tide_direnv_bg_color:black
-SETUVAR tide_direnv_bg_color_denied:black
-SETUVAR tide_direnv_color:bryellow
-SETUVAR tide_direnv_color_denied:brred
-SETUVAR tide_direnv_icon:\u25bc
 SETUVAR tide_distrobox_bg_color:black
 SETUVAR tide_distrobox_color:brmagenta
 SETUVAR tide_distrobox_icon:\U000f01a7
@@ -115,7 +110,7 @@ SETUVAR tide_python_bg_color:black
 SETUVAR tide_python_color:cyan
 SETUVAR tide_python_icon:\U000f0320
 SETUVAR tide_right_prompt_frame_enabled:false
-SETUVAR tide_right_prompt_items:status\x1ecmd_duration\x1econtext\x1ejobs\x1edirenv\x1ebun\x1enode\x1epython\x1erustc\x1ejava\x1ephp\x1epulumi\x1eruby\x1ego\x1egcloud\x1ekubectl\x1edistrobox\x1etoolbox\x1eterraform\x1eaws\x1enix_shell\x1ecrystal\x1eelixir\x1ezig\x1etime
+SETUVAR tide_right_prompt_items:status\x1ecmd_duration\x1econtext\x1ejobs\x1ebun\x1enode\x1epython\x1erustc\x1ejava\x1ephp\x1epulumi\x1eruby\x1ego\x1egcloud\x1ekubectl\x1edistrobox\x1etoolbox\x1eterraform\x1eaws\x1enix_shell\x1ecrystal\x1eelixir\x1ezig\x1etime
 SETUVAR tide_right_prompt_prefix:\ue0ba
 SETUVAR tide_right_prompt_separator_diff_color:\ue0b2
 SETUVAR tide_right_prompt_separator_same_color:\u2571

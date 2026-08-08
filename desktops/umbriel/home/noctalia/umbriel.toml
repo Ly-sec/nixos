@@ -1,0 +1,6 @@
+[appearance]
+border_focused = "#{{colors.primary.default.hex_stripped}}FF"
+border_unfocused = "#{{colors.surface_variant.default.hex_stripped}}FF"
+outer_border_color = "#{{colors.terminal_background.default.hex_stripped}}FF"
+insert_hint_color = "#{{colors.tertiary.default.hex_stripped}}80"
+backdrop_color = "#{{colors.surface_variant.default.hex_stripped}}FF"

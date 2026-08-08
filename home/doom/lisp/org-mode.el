@@ -3,7 +3,7 @@
 (after! org
   (setq org-hide-emphasis-markers t
         org-ellipsis " ▼ "
-        org-pretty-entities t
+        orgq-pretty-entities t
         org-startup-indented t
         org-startup-folded 'content
         org-startup-with-inline-images t
