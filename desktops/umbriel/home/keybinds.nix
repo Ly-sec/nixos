@@ -61,6 +61,7 @@ in
     "Mod+F" = "window-toggle-fullscreen";
     "Mod+Ctrl+F" = "window-toggle-maximize";
     "Mod+T" = "window-toggle-floating";
+    "Mod+P" = "window-toggle-pinned";
     "Mod+F1" = "window-focus-next";
     "Mod+Shift+C" = "config-reload";
 

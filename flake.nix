@@ -22,7 +22,7 @@
     };
 
     doomemacs = {
-      url = "github:doomemacs/doomemacs";
+      url = "git+https://github.com/doomemacs/doomemacs.git?submodules=1";
       flake = false;
     };
 

@@ -12,6 +12,7 @@ let
   emacsDir = "${config.xdg.configHome}/emacs";
   doomBin = "${emacsDir}/bin/doom";
   doomRev = (builtins.fromJSON (builtins.readFile ../../flake.lock)).nodes.doomemacs.locked.rev;
+  doomSource = toString inputs.doomemacs;
   doomConfigSrc = lib.cleanSource ../doom;
   doomConfigHash = lib.removeSuffix "\n" (
     lib.readFile (
@@ -90,7 +91,9 @@ in
   home.activation.doomEmacs = lib.hm.dag.entryAfter [ "doomConfig" ] ''
     target=${lib.escapeShellArg emacsDir}
     marker="$target/.nix-managed-rev"
-    wanted=${lib.escapeShellArg doomRev}
+    # Include the source store path so changes such as newly fetched Git
+    # submodules reinstall Doom even when its top-level revision is unchanged.
+    wanted=${lib.escapeShellArg "${doomRev}-${doomSource}"}
     src=${inputs.doomemacs}
 
     if [ ! -f "$target/bin/doom" ] || [ "$(cat "$marker" 2>/dev/null)" != "$wanted" ]; then

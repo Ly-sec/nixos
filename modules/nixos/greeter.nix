@@ -51,6 +51,7 @@ let
       layout = "DP-1:0,0; DP-2:2560,0";
     };
   };
+
 in
 {
   imports = lib.optionals useGreeter [
@@ -76,10 +77,9 @@ in
         GREETD_CONFIG=/etc/greetd/config.toml \
           ${noctaliaGreeter}/bin/noctalia-greeter-apply-appearance --setup-system
 
-        install -D -o greeter -g greeter -m 0644 ${greeterToml} /var/lib/noctalia-greeter/greeter.toml
-
         rm -f /var/lib/noctalia-greeter/greeter.conf
       '';
+
     }
   ];
 }
