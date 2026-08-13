@@ -40,7 +40,4 @@ with pkgs;
   imagemagick
   gpu-screen-recorder
   xwayland-satellite
-  antigravity-ide
-  code-cursor
-  opencode
 ]

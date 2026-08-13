@@ -250,8 +250,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1786137921,
-        "narHash": "sha256-eukcoQsSEZi0l+c8BQ61Ugn3r6ZiUQ6PK8XvVb7EHPo=",
+        "lastModified": 1786612039,
+        "narHash": "sha256-35Df3H+H/EawNr3fexl+yJOdJdkpb0zvYDbaY0z/GaU=",
         "path": "/mnt/storage/GitHub/noctalia-dev/noctalia",
         "type": "path"
       },
@@ -316,18 +316,18 @@
     "scenefx": {
       "flake": false,
       "locked": {
-        "lastModified": 1786019314,
-        "narHash": "sha256-6Ha8CgM+hiH9XC4gakcJHLL8AiOR0V0E1PS0qWUc+xk=",
-        "ref": "origin/umbriel",
-        "rev": "e16c85d579ada0e76a66374e28a1c4fcc6943105",
-        "revCount": 315,
+        "lastModified": 1786441623,
+        "narHash": "sha256-yUCmoeCxNOhDL2o+18TfN/czExQWNvfB5EgsewKfEzs=",
+        "ref": "umbriel",
+        "rev": "51a76db48508a5987bd9969135c93721f9ee9476",
+        "revCount": 316,
         "type": "git",
-        "url": "file:/mnt/storage/GitHub/noctalia-dev/scenefx"
+        "url": "https://github.com/noctalia-dev/scenefx"
       },
       "original": {
-        "ref": "origin/umbriel",
+        "ref": "umbriel",
         "type": "git",
-        "url": "file:/mnt/storage/GitHub/noctalia-dev/scenefx"
+        "url": "https://github.com/noctalia-dev/scenefx"
       }
     },
     "swash": {
@@ -389,8 +389,8 @@
         "scenefx": "scenefx"
       },
       "locked": {
-        "lastModified": 1786192700,
-        "narHash": "sha256-W+Bobxpl5JBsGTs9KvA68WHTIfWJ7v8fa5pMqxP1o3M=",
+        "lastModified": 1786607255,
+        "narHash": "sha256-PSX483MvkSedchiInuRttLSE6WHbjl5enlfSdISU2Ro=",
         "path": "/mnt/storage/GitHub/noctalia-dev/umbriel",
         "type": "path"
       },

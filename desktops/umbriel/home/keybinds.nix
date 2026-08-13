@@ -24,6 +24,8 @@ in
     "Mod+Page_Up" = "spawn:${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 0.05+";
     "Mod+Page_Down" = "spawn:${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 0.05-";
 
+    "Mod+O" = "overview-toggle";
+
     "Mod+Q" = "window-close";
     "Ctrl+Alt+Delete" = "session-quit";
     "Mod+Escape" = "session-quit";
@@ -37,7 +39,13 @@ in
     "Mod+Down" = "window-focus-down";
     "Mod+J" = "window-focus-down";
 
-    # Match niri: Ctrl moves columns/windows (defaults also keep Mod+Shift).
+    # Scratchpad
+    "Mod+Space" = "scratchpad-toggle";
+    "Mod+Shift+0" = "window-move-to-scratchpad:DP-2";
+    "Mod+Shift+Space" = "window-move-to-scratchpad";
+    "Mod+Ctrl+Space" = "window-restore-from-scratchpad";
+    "Mod+Tab" = "scratchpad-focus-next";
+
     "Mod+Ctrl+Left" = "column-move-left";
     "Mod+Ctrl+H" = "column-move-left";
     "Mod+Ctrl+Right" = "column-move-right";
@@ -77,8 +85,5 @@ in
     "Mod+Ctrl+9" = "window-move-to-workspace:9";
 
     "Ctrl+Alt+1" = "spawn:${noctalia} msg screenshot-region";
-
-    # Drop example.toml defaults that fight this map.
-    "Mod+Shift+Q" = "none";
   };
 }

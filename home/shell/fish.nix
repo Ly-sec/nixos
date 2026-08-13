@@ -81,4 +81,10 @@ in
       $DRY_RUN_CMD rm -f "$fish_vars"
     fi
   '';
+
+  home.activation.generateNoctaliaFishCompletions = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    completions_dir="${config.home.homeDirectory}/.config/fish/completions"
+    $DRY_RUN_CMD mkdir -p "$completions_dir"
+    $DRY_RUN_CMD ${config.lysec.noctaliaPackage}/bin/noctalia completions fish > "$completions_dir/noctalia.fish"
+  '';
 }

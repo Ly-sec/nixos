@@ -3,6 +3,7 @@
 {
   programs.umbriel.settings = {
     general = {
+      show_cheatsheet = false;
     };
 
     appearance = {
@@ -12,7 +13,11 @@
       corner_radius = 0;
       animation_ms = 250;
       shadow = {
-        enabled = false;
+	enabled = false;
+	softness = 0;                   # 0-200
+	offset_x = 5;                   # -200 to 200
+	offset_y = 5;
+	color = "#00FFFFAA";
       };
       blur = {
         enabled = false;
@@ -29,12 +34,14 @@
     layout = {
       mode = "scrolling";
       gap = 5;
-      default_width_fraction = 0.4;
       width_presets = [
         0.333
         0.5
         0.667
       ];
+      scrolling = {
+        always_center_single_column = false;
+      };
     };
 
     "output"."DP-1" = {
@@ -84,25 +91,25 @@
       back_and_forth = true;
     };
 
-    rule = [
+    window_rule = [
       {
         match.app_id = "^firefox$";
-	default_maximize = true;
+        default_maximize = true;
       }
       {
-	match.app_id = "^dev.lemmy.swash$";
-	default_floating = true; 
+        match.app_id = "^dev.lemmy.swash$";
+        default_floating = true;
       }
       {
         match.app_id = "^vesktop$";
         default_workspace = 1;
-	default_maximize = true;
+	      default_maximize = true;
         default_output = "DP-2";
       }
       {
         match.app_id = "^fluxer-canary$";
         default_workspace = 2;
-	default_maximize = true;
+        default_maximize = true;
         default_output = "DP-2";
       }
     ];
