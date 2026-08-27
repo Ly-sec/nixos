@@ -37,7 +37,7 @@
     };
 
     umbriel = {
-      url = "path:/mnt/storage/GitHub/noctalia-dev/umbriel";
+      url = "git+file:///mnt/storage/GitHub/noctalia-dev/umbriel";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -48,11 +48,6 @@
 
     niri-screenshare = {
       url = "path:/mnt/storage/GitHub/lysec/niri-screenshare";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    xdg-desktop-portal-umbriel = {
-      url = "path:/mnt/storage/GitHub/noctalia-dev/xdg-desktop-portal-umbriel";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

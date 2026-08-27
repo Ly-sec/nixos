@@ -56,7 +56,7 @@ in
 
     # Active compositor, change here to switch sessions.
     desktop = "umbriel";
-#    desktop = "hyprland";
+    # desktop = "niri";
 
     git = {
       name = "Ly-sec";

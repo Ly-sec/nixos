@@ -26,6 +26,13 @@ in
 
     "Mod+O" = "overview-toggle";
 
+    "Mod+WheelUp" = "workspace-previous";
+    "Mod+WheelDown" = "workspace-next";
+    "Mod+Shift+Ctrl+Left" = "window-move-to-output-left";
+    "Mod+Shift+Ctrl+Right" = "window-move-to-output-right";
+    "Mod+Shift+Ctrl+Up" = "window-move-to-workspace-previous";
+    "Mod+Shift+Ctrl+Down" = "window-move-to-workspace-next";
+
     "Mod+Q" = "window-close";
     "Ctrl+Alt+Delete" = "session-quit";
     "Mod+Escape" = "session-quit";
@@ -38,6 +45,9 @@ in
     "Mod+K" = "window-focus-up";
     "Mod+Down" = "window-focus-down";
     "Mod+J" = "window-focus-down";
+
+    "Mod+Shift+Left" = "window-modify-width:-0.1";
+    "Mod+Shift+Right" = "window-modify-width:0.1";
 
     # Scratchpad
     "Mod+Space" = "scratchpad-toggle";
@@ -60,6 +70,7 @@ in
     "Mod+R" = "window-cycle-width";
     "Mod+F" = "window-toggle-fullscreen";
     "Mod+Ctrl+F" = "window-toggle-maximize";
+    "Mod+M" = "window-toggle-maximize-to-edges";
     "Mod+T" = "window-toggle-floating";
     "Mod+P" = "window-toggle-pinned";
     "Mod+F1" = "window-focus-next";

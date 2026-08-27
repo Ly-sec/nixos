@@ -101,19 +101,25 @@ in
         };
 
         userChrome = ''
+          *,
+          *::before,
+          *::after {
+            border-radius: 0 !important;
+          }
+
           .titlebar-buttonbox-container {
             display: none !important;
           }
         '';
 
         # Applied to all web pages (not browser chrome).
-        #userContent = ''
-        #  *,
-        #  *::before,
-        #  *::after {
-        #    border-radius: 0 !important;
-        #  }
-        #'';
+        userContent = ''
+          *,
+          *::before,
+          *::after {
+            border-radius: 0 !important;
+          }
+        '';
 
         search = {
           force = true;

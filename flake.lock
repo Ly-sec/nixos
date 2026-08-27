@@ -252,8 +252,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1786626539,
-        "narHash": "sha256-9Uw/ZatDN1MwrEE5rNt8nP1jJUM6VQgDJF/923rmlv0=",
+        "lastModified": 1787821068,
+        "narHash": "sha256-N2Civui3MDFi1ss3IU1JOLWVzqvRkZgeZTwUWdh4sh8=",
         "path": "/mnt/storage/GitHub/noctalia-dev/noctalia",
         "type": "path"
       },
@@ -269,8 +269,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1786630173,
-        "narHash": "sha256-SLCMxzOEd8/Qiw+2qXpt3QkKc2TNOXug3zGvPUfTv74=",
+        "lastModified": 1787567683,
+        "narHash": "sha256-5j/51GAsby3r1Qnb752tkGxDMmWD6J/dgYRh/GztqzY=",
         "path": "/mnt/storage/GitHub/noctalia-dev/noctalia-greeter",
         "type": "path"
       },
@@ -311,25 +311,7 @@
         "noctalia-greeter": "noctalia-greeter",
         "nur": "nur",
         "swash": "swash",
-        "umbriel": "umbriel",
-        "xdg-desktop-portal-umbriel": "xdg-desktop-portal-umbriel"
-      }
-    },
-    "scenefx": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1786441623,
-        "narHash": "sha256-yUCmoeCxNOhDL2o+18TfN/czExQWNvfB5EgsewKfEzs=",
-        "ref": "umbriel",
-        "rev": "51a76db48508a5987bd9969135c93721f9ee9476",
-        "revCount": 316,
-        "type": "git",
-        "url": "https://github.com/noctalia-dev/scenefx"
-      },
-      "original": {
-        "ref": "umbriel",
-        "type": "git",
-        "url": "https://github.com/noctalia-dev/scenefx"
+        "umbriel": "umbriel"
       }
     },
     "swash": {
@@ -388,34 +370,42 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "scenefx": "scenefx"
+        "xdg-desktop-portal-umbriel": "xdg-desktop-portal-umbriel"
       },
       "locked": {
-        "lastModified": 1786618186,
-        "narHash": "sha256-/0KtOD0SIrypLUChVi0BNt01QTmIBmaSYakzWKXHK98=",
-        "path": "/mnt/storage/GitHub/noctalia-dev/umbriel",
-        "type": "path"
+        "lastModified": 1787836404,
+        "narHash": "sha256-wTSYGsB/joIMQycKBWtcC055i+P/c8Jjh0l13APjkF0=",
+        "ref": "refs/heads/main",
+        "rev": "096cee602d4cd6d95480adc778fe0d95c7218251",
+        "revCount": 610,
+        "submodules": true,
+        "type": "git",
+        "url": "file:///mnt/storage/GitHub/noctalia-dev/umbriel"
       },
       "original": {
-        "path": "/mnt/storage/GitHub/noctalia-dev/umbriel",
-        "type": "path"
+        "type": "git",
+        "url": "file:///mnt/storage/GitHub/noctalia-dev/umbriel"
       }
     },
     "xdg-desktop-portal-umbriel": {
       "inputs": {
         "nixpkgs": [
+          "umbriel",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1786356609,
-        "narHash": "sha256-BYhQUmwto796MyHR1H29pk197B7YEHj6Iv9RruzUDXk=",
-        "path": "/mnt/storage/GitHub/noctalia-dev/xdg-desktop-portal-umbriel",
-        "type": "path"
+        "lastModified": 1787580138,
+        "narHash": "sha256-fqU58lZeFchlY5aqyQgIfrN5ec/jqbhXNwNxyL2lp/g=",
+        "owner": "noctalia-dev",
+        "repo": "xdg-desktop-portal-umbriel",
+        "rev": "515c9f70f13ba4b4b9e19930b3e899c4ac8a50a4",
+        "type": "github"
       },
       "original": {
-        "path": "/mnt/storage/GitHub/noctalia-dev/xdg-desktop-portal-umbriel",
-        "type": "path"
+        "owner": "noctalia-dev",
+        "repo": "xdg-desktop-portal-umbriel",
+        "type": "github"
       }
     },
     "xwayland-satellite-stable": {

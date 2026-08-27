@@ -9,7 +9,6 @@
 let
   system = pkgs.stdenv.hostPlatform.system;
   niriScreenshare = inputs.niri-screenshare.packages.${system}.default;
-  umbrielPortal = inputs.xdg-desktop-portal-umbriel.packages.${system}.default;
 
   gtkPortals = [
     pkgs.xdg-desktop-portal
@@ -21,10 +20,6 @@ let
     niriScreenshare
   ];
 
-  umbrielPortals = gtkPortals ++ [
-    umbrielPortal
-  ];
-
   kdePortals = with pkgs.kdePackages; [
     xdg-desktop-portal-kde
   ];
@@ -32,7 +27,6 @@ let
   desktop = config.lysec.desktop;
   isPlasma = desktop == "plasma";
   isNiri = desktop == "niri";
-  isUmbriel = desktop == "umbriel";
 in
 {
   xdg.portal = {
@@ -56,11 +50,6 @@ in
           default = "gtk";
           "org.freedesktop.impl.portal.ScreenCast" = "niri";
         };
-      }
-      // lib.optionalAttrs isUmbriel {
-        umbriel = {
-          default = "umbriel;gtk";
-        };
       };
 
     xdgOpenUsePortal = true;
@@ -70,8 +59,6 @@ in
         kdePortals
       else if isNiri then
         niriPortals
-      else if isUmbriel then
-        umbrielPortals
       else
         gtkPortals;
   };
