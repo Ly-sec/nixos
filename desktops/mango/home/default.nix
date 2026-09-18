@@ -6,8 +6,8 @@
 }:
 
 let
-  ghostty = "${pkgs.ghostty}/bin/ghostty";
-  firefox = "${pkgs.firefox}/bin/firefox";
+  kitty = "${pkgs.kitty}/bin/kitty";
+  browser = config.home.sessionVariables.BROWSER;
   nautilus = "${pkgs.nautilus}/bin/nautilus";
   noctalia = lib.getExe config.lysec.noctaliaPackage;
   wpctl = "${pkgs.wireplumber}/bin/wpctl";
@@ -72,10 +72,10 @@ in
     # Key Binds
 
     # Terminal and apps
-    bind=SUPER,Return,spawn,${ghostty}
+    bind=SUPER,Return,spawn,${kitty}
     bind=SUPER+CTRL,Return,spawn,${noctalia} msg panel-toggle launcher
     bind=ALT,Tab,spawn,${noctalia} msg window-switcher
-    bind=SUPER,B,spawn,${firefox}
+    bind=SUPER,B,spawn,${browser}
     bind=SUPER,E,spawn,${nautilus}
 
     # Audio

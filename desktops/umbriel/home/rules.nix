@@ -16,13 +16,13 @@
         match.is_focused = true;
         blur = true;
         blur_popups = true;
-        opacity = 1.0;
+        opacity = 1;
       }
       {
         match.is_focused = false;
         blur = true;
         blur_popups = true;
-        opacity = 1.0;
+        opacity = 1;
       }
       # {
       #   match.app_id = "^(steam_app_[0-9]+|gamescope)$";
@@ -33,8 +33,18 @@
       #   hdr = "fullscreen";
       # }
       {
-        match.app_id = "^firefox$";
+        match.app_id = "^helium$";
         default_maximize = true;
+      }
+      {
+        match.title = "^(Picture-in-Picture|Picture in picture)$";
+        default_floating = true;
+        default_maximize = false;
+        default_position = {
+          x = 20;
+          y = 20;
+          anchor = "bottom_right";
+        };
       }
       {
         match.app_id = "^dev.lemmy.swash$";
@@ -43,21 +53,21 @@
       {
         match.app_id = "^dev\\.noctalia\\.UmbrielSharePicker$";
         default_floating = true;
-        default_size = [
-          800
-          600
-        ];
+        default_floating_size_px = {
+          width = 800;
+          height = 600;
+        };
       }
       {
         match.app_id = "^vesktop$";
-        default_workspace = 1;
+        default_workspace = "vesktop";
         default_focused = false;
         default_maximize = true;
         default_output = "DP-2";
       }
       {
         match.app_id = "^fluxer-canary$";
-        default_workspace = 2;
+        default_workspace = "fluxer";
         default_focused = false;
         default_maximize = true;
         default_output = "DP-2";

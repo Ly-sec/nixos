@@ -58,7 +58,7 @@ Shared Wayland defaults (cursor, Electron/Qt hints): [`desktops/shared/home.nix`
 
 [`home/default.nix`](home/default.nix) pulls in the active desktop, Doom/VS Code, fish, and every `home/programs/*.nix` plus `home/programs/*/default.nix`.
 
-Notable pieces: fish + tide, Firefox, Ghostty, Fluxer, Vesktop, signed git (GPG from agenix), Doom under `home/doom/`.
+Notable pieces: fish + tide, Helium, Kitty, Fluxer, Vesktop, signed git (GPG from agenix), Doom under `home/doom/`.
 
 ## Secrets (agenix)
 
@@ -72,17 +72,17 @@ nh os switch ~/nixos
 
 Do not commit `~/.config/age/keys.txt`. Back it up offline.
 
-## Noctalia
+## Noctalia and Umbriel
 
-Shell and greeter are `path:` inputs to local checkouts under `/mnt/storage/…`. This repo will not evaluate elsewhere without changing those inputs to the public flakes ([noctalia](https://github.com/noctalia-dev/noctalia), [noctalia-greeter](https://github.com/noctalia-dev/noctalia-greeter)).
+Shell, greeter, and compositor are `path:` inputs to local checkouts under `/mnt/storage/…`. This repo will not evaluate elsewhere without changing those inputs to the public flakes ([noctalia](https://github.com/noctalia-dev/noctalia), [noctalia-greeter](https://github.com/noctalia-dev/noctalia-greeter), [umbriel](https://github.com/noctalia-dev/umbriel)).
 
-After editing either checkout:
+After editing any checkout:
 
 ```bash
-nix flake update noctalia noctalia-greeter
+nix flake update noctalia noctalia-greeter umbriel
 nh os switch ~/nixos
 ```
 
 ## Inputs
 
-`nixpkgs` (unstable), `home-manager`, `niri`, `agenix`, `fluxer`, `swash`, `doomemacs`, `nur`, plus the local Noctalia path inputs.
+`nixpkgs` (unstable), `home-manager`, `niri`, `agenix`, `fluxer`, `helium`, `swash`, `doomemacs`, `nur`, plus the local Noctalia and Umbriel path inputs.

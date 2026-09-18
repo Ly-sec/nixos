@@ -31,7 +31,9 @@ let
   );
   rsyncBin = lib.getExe pkgs.rsync;
   doomSyncMarker = "${doomLocalDir}/.nix-sync-marker";
+  doomEmacsMarker = "${doomLocalDir}/.nix-emacs-marker";
   doomSyncKey = "${doomRev}-${doomConfigHash}";
+  doomEmacsKey = "${pkgs.emacs}";
 
   doomToolPath = lib.makeBinPath [
     pkgs.emacs
@@ -116,12 +118,19 @@ in
       ''
         profiles=${lib.escapeShellArg "${doomLocalDir}/profiles.el"}
         syncMarker=${lib.escapeShellArg doomSyncMarker}
+        emacsMarker=${lib.escapeShellArg doomEmacsMarker}
         wanted=${lib.escapeShellArg doomSyncKey}
+        wantedEmacs=${lib.escapeShellArg doomEmacsKey}
 
         if [ -f ${lib.escapeShellArg doomBin} ] && [ -f "$profiles" ]; then
-          if [ "$(cat "$syncMarker" 2>/dev/null)" != "$wanted" ]; then
+          if [ "$(cat "$emacsMarker" 2>/dev/null)" != "$wantedEmacs" ]; then
+            echo "doom: syncing and rebuilding packages (Emacs package changed)"
+            ${lib.escapeShellArg runDoom} -! sync -b
+            echo "$wanted" > "$syncMarker"
+            echo "$wantedEmacs" > "$emacsMarker"
+          elif [ "$(cat "$syncMarker" 2>/dev/null)" != "$wanted" ]; then
             echo "doom: syncing (config or doomemacs revision changed)"
-            ${lib.escapeShellArg runDoom} sync
+            ${lib.escapeShellArg runDoom} -! sync
             echo "$wanted" > "$syncMarker"
           fi
         else

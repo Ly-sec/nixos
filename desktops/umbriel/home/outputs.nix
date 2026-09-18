@@ -23,6 +23,7 @@
       ];
       scale = 1.0;
       transform = "normal";
+      workspaces = "dynamic";
     };
   };
 }

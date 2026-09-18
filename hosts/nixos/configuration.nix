@@ -20,6 +20,7 @@
     ../../modules/nixos/xdg.nix
     ../../modules/nixos/environment.nix
     ../../modules/nixos/steam.nix
+    ../../modules/nixos/helium.nix
   ];
 
   networking.hostName = config.lysec.hostname;

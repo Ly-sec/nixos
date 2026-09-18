@@ -6,8 +6,8 @@
 }:
 
 let
-  ghostty = "${pkgs.ghostty}/bin/ghostty";
-  firefox = "${pkgs.firefox}/bin/firefox";
+  kitty = "${pkgs.kitty}/bin/kitty";
+  browser = config.home.sessionVariables.BROWSER;
   noctalia = lib.getExe config.lysec.noctaliaPackage;
 in
 {
@@ -16,8 +16,8 @@ in
     xwayland.enable = true;
     config = {
       modifier = "Mod4";
-      terminal = ghostty;
-      menu = firefox;
+      terminal = kitty;
+      menu = browser;
 
       input = {
         xkb_layout = "de";
@@ -32,8 +32,8 @@ in
       };
 
       keybindings = {
-        "Mod4+Return" = "exec ${ghostty}";
-        "Mod4+b" = "exec ${firefox}";
+        "Mod4+Return" = "exec ${kitty}";
+        "Mod4+b" = "exec ${browser}";
         "Mod4+Control+Return" = "exec ${noctalia} msg panel-toggle launcher";
         "Mod4+Shift+q" = "kill";
         "Mod4+Shift+e" = "exit";

@@ -18,6 +18,9 @@
   ++ import ../lib/import-programs.nix {
     inherit lib;
     dir = ./programs;
+    exclude = [
+      "firefox.nix"
+    ];
   };
 
   home.username = config.lysec.username;
@@ -31,7 +34,7 @@
 
   home.sessionVariables = {
     EDITOR = "emacs";
-    TERMINAL = "ghostty";
+    TERMINAL = "kitty";
   };
 
   programs.home-manager.enable = true;

@@ -1,5 +1,7 @@
 { ... }:
 
 {
-  programs.umbriel.settings.include.files = [ "noctalia.toml" ];
+  programs.umbriel = {
+    settings.include.files = [ "noctalia.toml" ];
+  };
 }

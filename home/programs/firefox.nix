@@ -5,6 +5,8 @@
   ...
 }:
 let
+  dashboardUrl = "https://api.noctalia.dev/repos/dashboard";
+
   pywalfoxNativeMessagingHost = pkgs.writeTextDir "lib/mozilla/native-messaging-hosts/pywalfox.json" (
     builtins.toJSON {
       name = "pywalfox";
@@ -34,6 +36,7 @@ in
         ];
 
         settings = {
+          "browser.startup.homepage" = dashboardUrl;
           "browser.startup.page" = 3;
 
           # Remember zoom level per site

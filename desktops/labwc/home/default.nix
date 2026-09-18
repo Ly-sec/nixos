@@ -6,8 +6,8 @@
 }:
 
 let
-  ghostty = "${pkgs.ghostty}/bin/ghostty";
-  firefox = "${pkgs.firefox}/bin/firefox";
+  kitty = "${pkgs.kitty}/bin/kitty";
+  browser = config.home.sessionVariables.BROWSER;
   wlr-randr = "${pkgs.wlr-randr}/bin/wlr-randr";
   noctalia = lib.getExe config.lysec.noctaliaPackage;
 
@@ -40,10 +40,10 @@ in
         <default />
         <numlock>on</numlock>
         <keybind key="W-Return">
-          <action name="Execute" command="${ghostty}" />
+          <action name="Execute" command="${kitty}" />
         </keybind>
         <keybind key="W-b">
-          <action name="Execute" command="${firefox}" />
+          <action name="Execute" command="${browser}" />
         </keybind>
         <keybind key="W-C-Return">
           <action name="Execute" command="${noctalia} msg panel-toggle launcher" />

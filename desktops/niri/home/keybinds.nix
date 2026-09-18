@@ -8,8 +8,8 @@
 let
   inherit (config.lib.niri.actions) spawn;
 
-  ghostty = "${pkgs.ghostty}/bin/ghostty";
-  firefox = "${pkgs.firefox}/bin/firefox";
+  kitty = "${pkgs.kitty}/bin/kitty";
+  browser = config.home.sessionVariables.BROWSER;
   nautilus = "${pkgs.nautilus}/bin/nautilus";
   noctalia = lib.getExe config.lysec.noctaliaPackage;
 in
@@ -18,8 +18,8 @@ in
     "Mod+Shift+Escape".action = show-hotkey-overlay;
 
     "Mod+Return" = {
-      hotkey-overlay.title = "Open Terminal: Ghostty";
-      action = spawn ghostty;
+      hotkey-overlay.title = "Open Terminal: Kitty";
+      action = spawn kitty;
     };
     "Mod+Ctrl+Return" = {
       hotkey-overlay.title = "Open App Launcher: Noctalia";
@@ -30,8 +30,8 @@ in
       action = spawn noctalia "msg" "window-switcher";
     };
     "Mod+B" = {
-      hotkey-overlay.title = "Open Browser: Firefox";
-      action = spawn firefox;
+      hotkey-overlay.title = "Open Browser: Helium";
+      action = spawn browser;
     };
     "Mod+E" = {
       hotkey-overlay.title = "File Manager: Nautilus";

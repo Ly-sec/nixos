@@ -1,6 +1,6 @@
 function fish_greeting
     if test -t 1
-        # microfetch uses ANSI palette slots; Ghostty's theme maps them.
+        # microfetch uses ANSI palette slots; Kitty's theme maps them.
         env -u NO_COLOR microfetch
     end
 end

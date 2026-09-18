@@ -1,4 +1,8 @@
-{ ... }:
+{ config, ... }:
+
+let
+  revealShader = "${config.programs.umbriel.package}/share/umbriel/shaders/reveal.glsl";
+in
 
 {
   programs.umbriel.settings.animation = {
@@ -36,21 +40,21 @@
       enabled = true;
       duration_ms = 205;
       curve = "apparition";
-      style = "popin";
-      scale = 0.72;
+      shader = revealShader;
     };
 
     windows_out = {
       enabled = true;
       duration_ms = 165;
       curve = "easeoutcubic";
-      style = "fade";
+      shader = revealShader;
     };
 
     windows_move = {
       enabled = true;
       duration_ms = 195;
       curve = "window_flow";
+      shader = "${config.programs.umbriel.package}/share/umbriel/shaders/squash.glsl";
     };
 
     workspaces = {

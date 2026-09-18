@@ -60,6 +60,7 @@ in
       programs.noctalia-greeter = {
         enable = true;
         package = noctaliaGreeter;
+        passwordless-sync-users = [ config.lysec.username ];
         greeter-args = "";
         settings.cursor = {
           theme = "Bibata-Modern-Ice";

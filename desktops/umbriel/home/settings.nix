@@ -4,6 +4,18 @@
   programs.umbriel.settings = {
     general.show_cheatsheet = false;
 
+    scratchpad = [
+      { name = "terminal"; }
+      { name = "music"; }
+    ];
+
+    environment = {
+      PROTON_ENABLE_WAYLAND = "1";
+      DXVK_HDR = "1";
+    };
+
+    colors.shadow = "#00FFFFAA";
+
     appearance = {
       prefer_no_csd = true;
       border_width = 2;
@@ -15,11 +27,10 @@
         softness = 0;
         offset_x = 5;
         offset_y = 5;
-        color = "#00FFFFAA";
       };
 
       blur = {
-        enabled = false;
+        enabled = true;
         passes = 3;
         radius = 5;
         noise = 0.0;

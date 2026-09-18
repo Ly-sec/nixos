@@ -5,13 +5,13 @@
     layout = {
       mode = "scrolling";
       gap = 5;
-      width_presets = [
+      extent_presets = [
         0.333
         0.5
         0.667
       ];
       scrolling = {
-        default_width_fraction = 0.5;
+        default_extent_fraction = 0.5;
         center_underfull_strip = false;
       };
     };
@@ -23,6 +23,14 @@
         output = "DP-1";
         index = 9;
         layout.mode = "dwindle";
+      }
+      {
+        output = "DP-2";
+        name = "vesktop";
+      }
+      {
+        output = "DP-2";
+        name = "fluxer";
       }
     ];
   };

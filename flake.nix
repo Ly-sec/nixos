@@ -21,6 +21,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    helium = {
+      url = "github:amaanq/helium-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     doomemacs = {
       url = "git+https://github.com/doomemacs/doomemacs.git?submodules=1";
       flake = false;
@@ -37,7 +42,7 @@
     };
 
     umbriel = {
-      url = "git+file:///mnt/storage/GitHub/noctalia-dev/umbriel";
+      url = "path:/mnt/storage/GitHub/noctalia-dev/umbriel";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -98,7 +103,7 @@
           home-manager.nixosModules.home-manager
 
           (
-            { ... }:
+            { lib, ... }:
             {
               home-manager = {
                 useGlobalPkgs = true;
@@ -115,6 +120,9 @@
 
                 users.${lysec.username} = import ./home/default.nix;
               };
+
+              systemd.services."home-manager-${lysec.username}".serviceConfig.TimeoutStartSec =
+                lib.mkForce "30m";
             }
           )
         ];

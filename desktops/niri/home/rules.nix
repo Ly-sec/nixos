@@ -26,15 +26,15 @@
         open-maximized = true;
       }
       {
-        matches = [ { app-id = "zen"; } ];
+        matches = [ { app-id = "helium"; } ];
         open-on-workspace = "browser";
         open-maximized = true;
       }
       {
         matches = [
           {
-            app-id = "zen";
-            title = "^Picture-in-Picture$";
+            app-id = "helium";
+            title = "^(Picture-in-Picture|Picture in picture)$";
           }
         ];
         open-floating = true;

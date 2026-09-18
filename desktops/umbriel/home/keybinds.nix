@@ -6,17 +6,17 @@
 }:
 
 let
-  firefox = "${pkgs.firefox}/bin/firefox";
+  browser = config.home.sessionVariables.BROWSER;
   nautilus = "${pkgs.nautilus}/bin/nautilus";
   noctalia = lib.getExe config.lysec.noctaliaPackage;
   wpctl = "${pkgs.wireplumber}/bin/wpctl";
 in
 {
   programs.umbriel.settings.keybinds = {
-    "Mod+Return" = "spawn:${pkgs.ghostty}/bin/ghostty";
+    "Mod+Return" = "spawn:${pkgs.kitty}/bin/kitty";
     "Mod+Ctrl+Return" = "spawn:${noctalia} msg panel-toggle launcher";
     "Alt+Tab" = "spawn:${noctalia} msg window-switcher";
-    "Mod+B" = "spawn:${firefox}";
+    "Mod+B" = "spawn:${browser}";
     "Mod+E" = "spawn:${nautilus}";
 
     "XF86AudioMute" = "spawn:${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle";
@@ -26,8 +26,14 @@ in
 
     "Mod+O" = "overview-toggle";
 
-    "Mod+WheelUp" = "workspace-previous";
-    "Mod+WheelDown" = "workspace-next";
+    "Mod+WheelUp" = {
+      action = "workspace-previous";
+      cooldown_ms = 150;
+    };
+    "Mod+WheelDown" = {
+      action = "workspace-next";
+      cooldown_ms = 150;
+    };
     "Mod+Shift+Ctrl+Left" = "window-move-to-output-left";
     "Mod+Shift+Ctrl+Right" = "window-move-to-output-right";
     "Mod+Shift+Ctrl+Up" = "window-move-to-workspace-previous";
@@ -46,15 +52,26 @@ in
     "Mod+Down" = "window-focus-down";
     "Mod+J" = "window-focus-down";
 
-    "Mod+Shift+Left" = "window-modify-width:-0.1";
-    "Mod+Shift+Right" = "window-modify-width:0.1";
+    "Mod+Shift+Left" = "window-modify-primary-extent:-0.1";
+    "Mod+Shift+Right" = "window-modify-primary-extent:0.1";
 
-    # Scratchpad
-    "Mod+Space" = "scratchpad-toggle";
-    "Mod+Shift+0" = "window-move-to-scratchpad:DP-2";
-    "Mod+Shift+Space" = "window-move-to-scratchpad";
-    "Mod+Ctrl+Space" = "window-restore-from-scratchpad";
-    "Mod+Tab" = "scratchpad-focus-next";
+    # Named submap for testing `umbriel submap`.
+    "Mod+S" = {
+      action = "submap:test";
+      repeat = false;
+    };
+    "submap[test],Escape" = "submap:reset";
+
+    # Scratchpads
+    "Mod+Space" = "scratchpad-toggle:terminal";
+    "Mod+Shift+Space" = "window-move-to-scratchpad:terminal";
+    "Mod+Ctrl+Space" = "window-restore-from-scratchpad:terminal";
+    "Mod+Tab" = "scratchpad-focus-next:terminal";
+
+    "Mod+Alt+Space" = "scratchpad-toggle:music";
+    "Mod+Alt+Shift+Space" = "window-move-to-scratchpad:music";
+    "Mod+Alt+Ctrl+Space" = "window-restore-from-scratchpad:music";
+    "Mod+Alt+Tab" = "scratchpad-focus-next:music";
 
     "Mod+Ctrl+Left" = "column-move-left";
     "Mod+Ctrl+H" = "column-move-left";
@@ -66,8 +83,8 @@ in
     "Mod+Ctrl+J" = "window-move-down";
 
     "Mod+comma" = "window-consume-left";
-    "Mod+period" = "window-expel-right";
-    "Mod+R" = "window-cycle-width";
+    "Mod+period" = "window-consume-or-expel-right";
+    "Mod+R" = "window-cycle-primary-extent";
     "Mod+F" = "window-toggle-fullscreen";
     "Mod+Ctrl+F" = "window-toggle-maximize";
     "Mod+M" = "window-toggle-maximize-to-edges";
