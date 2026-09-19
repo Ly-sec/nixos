@@ -26,7 +26,7 @@ let
         };
       });
 
-  greeterToml = (pkgs.formats.toml { }).generate "greeter.toml" {
+  greeterSettings = {
     greeter_user = "greeter";
     session = {
       default = greeterSession;
@@ -40,9 +40,8 @@ let
       password_style = "random";
     };
     cursor = {
-      theme = "Bibata-Modern-Ice";
+      theme = config.lysec.cursor.theme;
       size = 24;
-      path = "${pkgs.bibata-cursors}/share/icons";
     };
     keyboard = {
       layout = "de";
@@ -57,30 +56,21 @@ in
   imports = lib.optionals useGreeter [
     inputs.noctalia-greeter.nixosModules.default
     {
-      programs.noctalia-greeter = {
+      services.displayManager.noctalia-greeter = {
         enable = true;
         package = noctaliaGreeter;
         passwordless-sync-users = [ config.lysec.username ];
         greeter-args = "";
-        settings.cursor = {
-          theme = "Bibata-Modern-Ice";
-          size = 24;
-          path = "${pkgs.bibata-cursors}/share/icons";
-        };
+        cursorTheme.package = config.lysec.cursor.package;
+        settings = greeterSettings;
       };
 
-      system.activationScripts.noctaliaGreeter = ''
-        # State dir for greeter.toml / appearance; logging defaults to stderr.
-        mkdir -p /var/lib/noctalia-greeter
-        chown greeter:greeter /var/lib/noctalia-greeter 2>/dev/null || true
-        chmod 0750 /var/lib/noctalia-greeter 2>/dev/null || true
-
-        GREETD_CONFIG=/etc/greetd/config.toml \
-          ${noctaliaGreeter}/bin/noctalia-greeter-apply-appearance --setup-system
-
-        rm -f /var/lib/noctalia-greeter/greeter.conf
-      '';
-
+      # The module owns greeter.toml; only the synchronized UI state is mutable.
+      systemd.tmpfiles.settings."10-noctalia-greeter"."/var/lib/noctalia-greeter/sync.toml".f = {
+        user = "greeter";
+        group = "greeter";
+        mode = "0640";
+      };
     }
   ];
 }

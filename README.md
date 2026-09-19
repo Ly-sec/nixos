@@ -34,11 +34,11 @@ All defaults live in [`modules/lysec/settings.nix`](modules/lysec/settings.nix).
 lysec.desktop = "niri";
 ```
 
-| Option | Meaning |
-| --- | --- |
-| `lysec.desktop` | Active session: `niri` (default), `hyprland`, `sway`, `labwc`, `mango`, `plasma` |
-| `lysec.git.*` | Commit identity + signing key |
-| `lysec.username` / `hostname` / `stateVersion` / `system` | Host identity |
+| Option                                                    | Meaning                                                                          |
+| --------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `lysec.desktop`                                           | Active session: `niri` (default), `hyprland`, `sway`, `labwc`, `mango`, `plasma` |
+| `lysec.git.*`                                             | Commit identity + signing key                                                    |
+| `lysec.username` / `hostname` / `stateVersion` / `system` | Host identity                                                                    |
 
 Only the chosen desktop’s `desktops/<name>/nixos.nix` is imported at build time.
 
@@ -46,11 +46,11 @@ Only the chosen desktop’s `desktops/<name>/nixos.nix` is imported at build tim
 
 Non-Plasma sessions use **greetd** + **Noctalia Greeter** ([`modules/nixos/greeter.nix`](modules/nixos/greeter.nix)). Plasma uses SDDM via [`desktops/plasma/nixos.nix`](desktops/plasma/nixos.nix).
 
-| Desktop | Notes |
-| --- | --- |
-| **niri** | Full setup, keybinds, rules, animations, autostart |
-| hyprland / sway / labwc / mango | Lighter stubs + Noctalia; mango has a custom session |
-| plasma | KDE stack; Noctalia via XDG autostart after the panel |
+| Desktop                         | Notes                                                 |
+| ------------------------------- | ----------------------------------------------------- |
+| **niri**                        | Full setup, keybinds, rules, animations, autostart    |
+| hyprland / sway / labwc / mango | Lighter stubs + Noctalia; mango has a custom session  |
+| plasma                          | KDE stack; Noctalia via XDG autostart after the panel |
 
 Shared Wayland defaults (cursor, Electron/Qt hints): [`desktops/shared/home.nix`](desktops/shared/home.nix).
 

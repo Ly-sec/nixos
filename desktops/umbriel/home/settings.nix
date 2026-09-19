@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 
 {
   programs.umbriel.settings = {
@@ -12,6 +12,8 @@
     environment = {
       PROTON_ENABLE_WAYLAND = "1";
       DXVK_HDR = "1";
+      XCURSOR_THEME = config.lysec.cursor.theme;
+      XCURSOR_SIZE = "24";
     };
 
     colors.shadow = "#00FFFFAA";

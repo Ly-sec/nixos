@@ -43,7 +43,7 @@ in
         {
           _args = [
             "XCURSOR_THEME"
-            "Bibata-Modern-Ice"
+            config.lysec.cursor.theme
           ];
         }
       ];

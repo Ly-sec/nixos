@@ -272,8 +272,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1789665901,
-        "narHash": "sha256-2628RoZWtZzHDkr6Rbtj+gwKmmy76vd0S6BSV6nNl4c=",
+        "lastModified": 1789735548,
+        "narHash": "sha256-77GkYD+t7ejEOOtXX8e99AOi4pr+qBo9/h/cX376gOU=",
         "path": "/mnt/storage/GitHub/noctalia-dev/noctalia",
         "type": "path"
       },
@@ -289,8 +289,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1789129533,
-        "narHash": "sha256-v3ZbyC9cyd3aWJsPC6tKXlVkLnCpSUfxZ119zkq9juI=",
+        "lastModified": 1789813367,
+        "narHash": "sha256-8+85DmCAXIolBSwSPUK94cxlVWVPA0BZBGuwm+7f8AY=",
         "path": "/mnt/storage/GitHub/noctalia-dev/noctalia-greeter",
         "type": "path"
       },
@@ -394,8 +394,8 @@
         "xdg-desktop-portal-umbriel": "xdg-desktop-portal-umbriel"
       },
       "locked": {
-        "lastModified": 1789731134,
-        "narHash": "sha256-XNU5eesMc/uYa3fanwMDw8bJ6Lst9EtNZYphzDJrkBk=",
+        "lastModified": 1789821495,
+        "narHash": "sha256-gkT8Si5ATmeg44/YEt4Z1pM6BzQ/zJ6uDHmboWPL72E=",
         "path": "/mnt/storage/GitHub/noctalia-dev/umbriel",
         "type": "path"
       },

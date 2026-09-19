@@ -21,6 +21,11 @@
     workspace = [
       {
         output = "DP-1";
+        index = 8;
+        layout.mode = "master";
+      }
+      {
+        output = "DP-1";
         index = 9;
         layout.mode = "dwindle";
       }

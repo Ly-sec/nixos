@@ -11,6 +11,7 @@
   imports = [
     ../desktops/shared/home.nix
     (../desktops + "/${desktop}/home")
+    ../modules/lysec/cursor/home.nix
     ./editors/vscode.nix
     ./editors/doom.nix
     ./shell/fish.nix

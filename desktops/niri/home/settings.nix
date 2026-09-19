@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 
 {
   programs.niri.settings = {
@@ -77,7 +77,7 @@
     };
 
     cursor = {
-      theme = "Bibata-Modern-Ice";
+      theme = config.lysec.cursor.theme;
       size = 24;
     };
 
@@ -88,7 +88,7 @@
       XDG_SESSION_TYPE = "wayland";
       XDG_CURRENT_DESKTOP = "niri";
       XCURSOR_SIZE = "24";
-      XCURSOR_THEME = "Bibata-Modern-Ice";
+      XCURSOR_THEME = config.lysec.cursor.theme;
       QT_QPA_PLATFORMTHEME = "gtk3";
       EDITOR = "code";
     };

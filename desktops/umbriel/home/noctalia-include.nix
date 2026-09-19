@@ -2,6 +2,9 @@
 
 {
   programs.umbriel = {
-    settings.include.files = [ "noctalia.toml" ];
+    settings.include.optional.files = [
+      "noctalia.toml"
+      "bibata-cursor.toml"
+    ];
   };
 }

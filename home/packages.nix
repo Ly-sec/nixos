@@ -15,7 +15,6 @@ with pkgs;
   nautilus
   file-roller
   btop
-  bibata-cursors
   mpv
   gh
   gcc16

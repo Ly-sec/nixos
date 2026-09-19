@@ -7,8 +7,6 @@ in
 {
   home.sessionVariables = {
     ELECTRON_OZONE_PLATFORM_HINT = "x11";
-    XCURSOR_SIZE = "24";
-    XCURSOR_THEME = "Bibata-Modern-Ice";
   }
   // lib.optionalAttrs (!isPlasma) {
     QT_QPA_PLATFORM = "wayland";
