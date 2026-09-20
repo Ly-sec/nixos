@@ -1,8 +1,13 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   isPlasma = config.lysec.desktop == "plasma";
-  noctalia = lib.getExe config.lysec.noctaliaPackage;
+  noctalia = lib.getExe pkgs.noctalia;
 in
 {
   home.sessionVariables = {

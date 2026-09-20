@@ -2,14 +2,10 @@
   pkgs,
   config,
   lib,
-  inputs,
   ...
 }:
 
 let
-  system = pkgs.stdenv.hostPlatform.system;
-  niriScreenshare = inputs.niri-screenshare.packages.${system}.default;
-
   gtkPortals = [
     pkgs.xdg-desktop-portal
     pkgs.xdg-desktop-portal-gtk
@@ -17,7 +13,7 @@ let
 
   # gtk portal covers file chooser / open-uri; niri-screenshare does ScreenCast.
   niriPortals = gtkPortals ++ [
-    niriScreenshare
+    pkgs.niri-screenshare
   ];
 
   kdePortals = with pkgs.kdePackages; [

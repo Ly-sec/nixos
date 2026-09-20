@@ -16,6 +16,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    xwayland-satellite = {
+      url = "github:Supreeeme/xwayland-satellite";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "";
+    };
+
     fluxer = {
       url = "github:Hy4ri/fluxer-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -37,21 +43,22 @@
     };
 
     noctalia = {
-      url = "path:/mnt/storage/GitHub/noctalia-dev/noctalia";
+      url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     umbriel = {
-      url = "path:/mnt/storage/GitHub/noctalia-dev/umbriel";
+      url = "github:noctalia-dev/umbriel";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     noctalia-greeter = {
-      url = "path:/mnt/storage/GitHub/noctalia-dev/noctalia-greeter";
+      url = "github:noctalia-dev/noctalia-greeter";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     niri-screenshare = {
+      # Private development checkout; unlike the other project inputs, this has no public URL.
       url = "path:/mnt/storage/GitHub/lysec/niri-screenshare";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -66,7 +73,6 @@
 
   outputs =
     {
-      self,
       nixpkgs,
       home-manager,
       agenix,
@@ -74,32 +80,22 @@
     }@inputs:
 
     let
-      lysec =
-        (nixpkgs.lib.evalModules {
-          modules = [ ./modules/lysec/settings.nix ];
-        }).config.lysec;
-
-      inherit (lysec) desktop;
+      host = import ./hosts/nixos/settings.nix;
+      inherit (host) desktop system username;
     in
     {
-      formatter = nixpkgs.legacyPackages.${lysec.system}.alejandra;
+      formatter = nixpkgs.legacyPackages.${system}.alejandra;
 
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        inherit (lysec) system;
+        inherit system;
 
         specialArgs = {
-          inherit self inputs;
-          inherit desktop;
+          inherit inputs host desktop;
         };
 
         modules = [
-          ./modules/lysec
           agenix.nixosModules.default
-          ./modules/nixos/agenix.nix
           ./hosts/nixos/configuration.nix
-
-          (./desktops + "/${desktop}/nixos.nix")
-
           home-manager.nixosModules.home-manager
 
           (
@@ -111,17 +107,17 @@
                 backupFileExtension = "backup";
                 overwriteBackup = true;
                 extraSpecialArgs = {
-                  inherit self inputs;
-                  inherit desktop;
+                  inherit inputs desktop;
                 };
                 sharedModules = [
                   ./modules/lysec
+                  { lysec = host; }
                 ];
 
-                users.${lysec.username} = import ./home/default.nix;
+                users.${username} = import ./home/default.nix;
               };
 
-              systemd.services."home-manager-${lysec.username}".serviceConfig.TimeoutStartSec =
+              systemd.services."home-manager-${username}".serviceConfig.TimeoutStartSec =
                 lib.mkForce "30m";
             }
           )

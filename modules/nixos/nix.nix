@@ -1,7 +1,13 @@
-{ inputs, pkgs, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 
 {
   nixpkgs.overlays = [
+    (import ../../overlays { inherit inputs; })
     (_final: prev: {
       nur = import inputs.nur {
         nurpkgs = prev;
@@ -31,6 +37,11 @@
     "pnpm-10.29.2"
     "electron-40.10.5" # vesktop
   ];
+
+  programs.nh = {
+    enable = true;
+    flake = "/home/${config.lysec.username}/nixos";
+  };
 
   programs.nix-ld.enable = true;
 }

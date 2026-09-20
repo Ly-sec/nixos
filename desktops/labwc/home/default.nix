@@ -9,7 +9,7 @@ let
   kitty = "${pkgs.kitty}/bin/kitty";
   browser = config.home.sessionVariables.BROWSER;
   wlr-randr = "${pkgs.wlr-randr}/bin/wlr-randr";
-  noctalia = lib.getExe config.lysec.noctaliaPackage;
+  noctalia = lib.getExe pkgs.noctalia;
 
   workspaceKeybinds = lib.concatMapStringsSep "\n" (i: ''
     <keybind key="W-${toString i}">

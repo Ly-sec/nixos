@@ -8,7 +8,7 @@
 let
   kitty = "${pkgs.kitty}/bin/kitty";
   browser = config.home.sessionVariables.BROWSER;
-  noctalia = lib.getExe config.lysec.noctaliaPackage;
+  noctalia = lib.getExe pkgs.noctalia;
 in
 {
   wayland.windowManager.sway = {

@@ -272,14 +272,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1789735548,
-        "narHash": "sha256-77GkYD+t7ejEOOtXX8e99AOi4pr+qBo9/h/cX376gOU=",
-        "path": "/mnt/storage/GitHub/noctalia-dev/noctalia",
-        "type": "path"
+        "lastModified": 1789865185,
+        "narHash": "sha256-MPnf+5IcbsxdoIcUKJuX638r4vf8feaCanX86pon9qI=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia",
+        "rev": "170845e62c03f4a07cb4ae47d1d8d1a9435b5ff9",
+        "type": "github"
       },
       "original": {
-        "path": "/mnt/storage/GitHub/noctalia-dev/noctalia",
-        "type": "path"
+        "owner": "noctalia-dev",
+        "repo": "noctalia",
+        "type": "github"
       }
     },
     "noctalia-greeter": {
@@ -289,14 +292,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1789813367,
-        "narHash": "sha256-8+85DmCAXIolBSwSPUK94cxlVWVPA0BZBGuwm+7f8AY=",
-        "path": "/mnt/storage/GitHub/noctalia-dev/noctalia-greeter",
-        "type": "path"
+        "lastModified": 1789870651,
+        "narHash": "sha256-pNijmVDtv9Gihc44Y7Duox+mcCnfLegPUmf9xoZb6os=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia-greeter",
+        "rev": "02dbb072f40891d86818132f1ef0a35d2973aced",
+        "type": "github"
       },
       "original": {
-        "path": "/mnt/storage/GitHub/noctalia-dev/noctalia-greeter",
-        "type": "path"
+        "owner": "noctalia-dev",
+        "repo": "noctalia-greeter",
+        "type": "github"
       }
     },
     "nur": {
@@ -332,7 +338,8 @@
         "noctalia-greeter": "noctalia-greeter",
         "nur": "nur",
         "swash": "swash",
-        "umbriel": "umbriel"
+        "umbriel": "umbriel",
+        "xwayland-satellite": "xwayland-satellite"
       }
     },
     "swash": {
@@ -394,14 +401,17 @@
         "xdg-desktop-portal-umbriel": "xdg-desktop-portal-umbriel"
       },
       "locked": {
-        "lastModified": 1789821495,
-        "narHash": "sha256-gkT8Si5ATmeg44/YEt4Z1pM6BzQ/zJ6uDHmboWPL72E=",
-        "path": "/mnt/storage/GitHub/noctalia-dev/umbriel",
-        "type": "path"
+        "lastModified": 1789848980,
+        "narHash": "sha256-PKTOn0lYTbnH4VKvPCU9PAPCZA2suge4fwooYy80yvM=",
+        "owner": "noctalia-dev",
+        "repo": "umbriel",
+        "rev": "6ab1f57201f5dd6ff8c9efc087f77bd0b3eb4acc",
+        "type": "github"
       },
       "original": {
-        "path": "/mnt/storage/GitHub/noctalia-dev/umbriel",
-        "type": "path"
+        "owner": "noctalia-dev",
+        "repo": "umbriel",
+        "type": "github"
       }
     },
     "xdg-desktop-portal-umbriel": {
@@ -422,6 +432,27 @@
       "original": {
         "owner": "noctalia-dev",
         "repo": "xdg-desktop-portal-umbriel",
+        "type": "github"
+      }
+    },
+    "xwayland-satellite": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": []
+      },
+      "locked": {
+        "lastModified": 1788991189,
+        "narHash": "sha256-0TxfMgqW0/BLD4M942c5DCKYrtPvzsPJwvdcco4LQUM=",
+        "owner": "Supreeeme",
+        "repo": "xwayland-satellite",
+        "rev": "add2795134593faafce60e404a0a75df68e9ee0c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Supreeeme",
+        "repo": "xwayland-satellite",
         "type": "github"
       }
     },

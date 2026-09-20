@@ -1,11 +1,15 @@
-{ pkgs, inputs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
-  fluxer = import ../../lib/fluxer.nix { inherit pkgs inputs; };
   brokenAutostart = "${config.xdg.configHome}/autostart/fluxer-canary.desktop.backup";
 in
 {
-  home.packages = [ fluxer ];
+  home.packages = [ pkgs.fluxer-canary ];
 
   # Fluxer rewrites this with a broken direct opt/ path; keep it hidden since niri starts it.
   xdg.configFile."autostart/fluxer-canary.desktop".text = ''

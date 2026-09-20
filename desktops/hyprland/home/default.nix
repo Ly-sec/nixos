@@ -8,7 +8,7 @@
 let
   kitty = "${pkgs.kitty}/bin/kitty";
   browser = config.home.sessionVariables.BROWSER;
-  noctalia = lib.getExe config.lysec.noctaliaPackage;
+  noctalia = lib.getExe pkgs.noctalia;
   exec = cmd: lib.generators.mkLuaInline "hl.dsp.exec_cmd(${lib.generators.toLua { } cmd})";
 in
 {

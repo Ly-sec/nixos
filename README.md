@@ -7,7 +7,7 @@ Personal NixOS flake, one host, home-manager, several Wayland compositors, secre
 ## Quick start
 
 ```bash
-nh os switch ~/nixos
+nh os switch path:.
 ```
 
 Checkout expected at `~/nixos`.
@@ -16,22 +16,22 @@ Checkout expected at `~/nixos`.
 
 ```
 flake.nix                 inputs + nixosConfigurations.nixos
-modules/lysec/            shared options (username, desktop, git, noctalia)
+hosts/nixos/              host settings, hardware, storage, and entrypoint
+modules/lysec/            shared options and cursor configuration
 modules/nixos/            system modules (boot, greeter, networking, …)
-hosts/nixos/              host entrypoint
-hardware/                 hardware + storage mounts
 desktops/<name>/          per-compositor nixos + home
-home/                     shared HM (programs auto-imported, editors, shell)
+home/                     shared HM (program index, editors, shell, packages)
+overlays/                 packages normalized from flake inputs
 secrets/                  encrypted .age files + recipients (secrets.nix)
-lib/                      helpers (desktops, import-programs, fluxer)
+lib/                      desktop metadata helpers
 ```
 
 ## Settings (`lysec.*`)
 
-All defaults live in [`modules/lysec/settings.nix`](modules/lysec/settings.nix). To switch compositors, set `lysec.desktop` there:
+The reusable option declarations live in [`modules/lysec/options.nix`](modules/lysec/options.nix), while this machine's values live in [`hosts/nixos/settings.nix`](hosts/nixos/settings.nix). To switch compositors, change `desktop` in the host settings:
 
 ```nix
-lysec.desktop = "niri";
+desktop = "niri";
 ```
 
 | Option                                                    | Meaning                                                                          |
@@ -56,7 +56,7 @@ Shared Wayland defaults (cursor, Electron/Qt hints): [`desktops/shared/home.nix`
 
 ## Home
 
-[`home/default.nix`](home/default.nix) pulls in the active desktop, Doom/VS Code, fish, and every `home/programs/*.nix` plus `home/programs/*/default.nix`.
+[`home/default.nix`](home/default.nix) pulls in the active desktop, Doom/VS Code, fish, and the programs explicitly listed in [`home/programs/default.nix`](home/programs/default.nix).
 
 Notable pieces: fish + tide, Helium, Kitty, Fluxer, Vesktop, signed git (GPG from agenix), Doom under `home/doom/`.
 
@@ -72,17 +72,25 @@ nh os switch ~/nixos
 
 Do not commit `~/.config/age/keys.txt`. Back it up offline.
 
-## Noctalia and Umbriel
+## Remote and local inputs
 
-Shell, greeter, and compositor are `path:` inputs to local checkouts under `/mnt/storage/…`. This repo will not evaluate elsewhere without changing those inputs to the public flakes ([noctalia](https://github.com/noctalia-dev/noctalia), [noctalia-greeter](https://github.com/noctalia-dev/noctalia-greeter), [umbriel](https://github.com/noctalia-dev/umbriel)).
-
-After editing any checkout:
+Noctalia, its greeter, and Umbriel use their public GitHub inputs by default. Use the local development repositories for a build without changing `flake.nix`:
 
 ```bash
-nix flake update noctalia noctalia-greeter umbriel
-nh os switch ~/nixos
+nh os switch path:. -- \
+  --override-input noctalia path:/mnt/storage/GitHub/noctalia-dev/noctalia \
+  --override-input umbriel path:/mnt/storage/GitHub/noctalia-dev/umbriel \
+  --override-input noctalia-greeter path:/mnt/storage/GitHub/noctalia-dev/noctalia-greeter
+```
+
+`niri-screenshare` remains a private path input, so `/mnt/storage/GitHub/lysec/niri-screenshare` is still required when evaluating this flake.
+
+Update the pinned remote inputs with:
+
+```bash
+nix flake update
 ```
 
 ## Inputs
 
-`nixpkgs` (unstable), `home-manager`, `niri`, `agenix`, `fluxer`, `helium`, `swash`, `doomemacs`, `nur`, plus the local Noctalia and Umbriel path inputs.
+`nixpkgs` (unstable), `home-manager`, `niri`, `agenix`, `xwayland-satellite`, `fluxer`, `helium`, `swash`, `doomemacs`, `nur`, Noctalia, Noctalia Greeter, Umbriel, and niri-screenshare.

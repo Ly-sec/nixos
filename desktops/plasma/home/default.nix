@@ -1,7 +1,7 @@
-{ lib, config, ... }:
+{ lib, pkgs, ... }:
 
 let
-  noctalia = lib.getExe config.lysec.noctaliaPackage;
+  noctalia = lib.getExe pkgs.noctalia;
 in
 {
   home.sessionVariables.QT_QPA_PLATFORMTHEME = "kde";

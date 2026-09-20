@@ -13,8 +13,7 @@ let
   greeterSession = desktops.greeterSession desktop;
 
   noctaliaGreeter =
-    inputs.noctalia-greeter.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs
-      (old: {
+    pkgs.noctalia-greeter.overrideAttrs (old: {
         src = lib.cleanSourceWith {
           inherit (old) src;
           filter =

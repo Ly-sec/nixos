@@ -1,7 +1,6 @@
 {
   imports = [
-    ./settings.nix
-    ./noctalia.nix
+    ./options.nix
     ./cursor
   ];
 }

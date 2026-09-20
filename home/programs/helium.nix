@@ -1,14 +1,12 @@
 {
   pkgs,
-  inputs,
   config,
   lib,
   ...
 }:
 
 let
-  system = pkgs.stdenv.hostPlatform.system;
-  heliumUnwrapped = inputs.helium.packages.${system}.helium-widevine;
+  heliumUnwrapped = pkgs.helium-widevine;
   helium = heliumUnwrapped.overrideAttrs (oldAttrs: {
     # Helium disables middle-click autoscroll on Linux by default. Keep its
     # native implementation enabled for every way the browser is launched,

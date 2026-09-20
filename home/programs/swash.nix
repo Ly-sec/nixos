@@ -1,8 +1,8 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 {
   home.packages = [
-    inputs.swash.packages.${pkgs.stdenv.hostPlatform.system}.default
+    pkgs.swash
     pkgs.tesseract
   ];
 }

@@ -1,0 +1,22 @@
+{
+  imports = [
+    ./agenix.nix
+    ./audio.nix
+    ./boot.nix
+    ./desktop.nix
+    ./environment.nix
+    ./fonts.nix
+    ./greeter.nix
+    ./hardware-physical.nix
+    ./helium.nix
+    ./locale.nix
+    ./networking.nix
+    ./nix.nix
+    ./packages.nix
+    ./services.nix
+    ./ssh.nix
+    ./steam.nix
+    ./users.nix
+    ./xdg.nix
+  ];
+}

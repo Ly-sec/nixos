@@ -12,9 +12,7 @@
     mesa
     libva
     playerctl
-    nh
     ddcutil
     bluez
-    
   ];
 }

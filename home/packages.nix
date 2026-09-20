@@ -1,14 +1,13 @@
 {
   pkgs,
-  inputs,
-  noctaliaPackage,
   ...
 }:
 
 with pkgs;
 [
-  noctaliaPackage
-  inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
+  noctalia
+  agenix
+  xwayland-satellite
   protonplus
   bitwarden-cli
   prismlauncher
@@ -38,5 +37,4 @@ with pkgs;
   unzip
   imagemagick
   gpu-screen-recorder
-  xwayland-satellite
 ]

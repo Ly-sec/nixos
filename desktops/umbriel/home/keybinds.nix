@@ -8,7 +8,7 @@
 let
   browser = config.home.sessionVariables.BROWSER;
   nautilus = "${pkgs.nautilus}/bin/nautilus";
-  noctalia = lib.getExe config.lysec.noctaliaPackage;
+  noctalia = lib.getExe pkgs.noctalia;
   wpctl = "${pkgs.wireplumber}/bin/wpctl";
 in
 {

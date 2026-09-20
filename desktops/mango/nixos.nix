@@ -6,7 +6,7 @@
 }:
 
 let
-  noctalia = lib.getExe config.lysec.noctaliaPackage;
+  noctalia = lib.getExe pkgs.noctalia;
   session = pkgs.writeShellScript "mangowc-session" ''
     export XDG_CURRENT_DESKTOP=MangoWC
     ${noctalia} &
