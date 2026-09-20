@@ -43,23 +43,17 @@
     };
 
     noctalia = {
-      url = "github:noctalia-dev/noctalia";
+      url = "path:/mnt/storage/GitHub/noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     umbriel = {
-      url = "github:noctalia-dev/umbriel";
+      url = "path:/mnt/storage/GitHub/noctalia-dev/umbriel";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     noctalia-greeter = {
-      url = "github:noctalia-dev/noctalia-greeter";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    niri-screenshare = {
-      # Private development checkout; unlike the other project inputs, this has no public URL.
-      url = "path:/mnt/storage/GitHub/lysec/niri-screenshare";
+      url = "path:/mnt/storage/GitHub/noctalia-dev/noctalia-greeter";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

@@ -72,25 +72,17 @@ nh os switch ~/nixos
 
 Do not commit `~/.config/age/keys.txt`. Back it up offline.
 
-## Remote and local inputs
+## Local project inputs
 
-Noctalia, its greeter, and Umbriel use their public GitHub inputs by default. Use the local development repositories for a build without changing `flake.nix`:
-
-```bash
-nh os switch path:. -- \
-  --override-input noctalia path:/mnt/storage/GitHub/noctalia-dev/noctalia \
-  --override-input umbriel path:/mnt/storage/GitHub/noctalia-dev/umbriel \
-  --override-input noctalia-greeter path:/mnt/storage/GitHub/noctalia-dev/noctalia-greeter
-```
-
-`niri-screenshare` remains a private path input, so `/mnt/storage/GitHub/lysec/niri-screenshare` is still required when evaluating this flake.
-
-Update the pinned remote inputs with:
+Noctalia, its greeter, and Umbriel are path inputs pointing at the development checkouts under `/mnt/storage`. After editing one of them, refresh its lock entry and rebuild:
 
 ```bash
-nix flake update
+nix flake update noctalia noctalia-greeter umbriel
+nh os switch path:.
 ```
+
+The repository intentionally depends on those local paths and will not evaluate on a machine without them.
 
 ## Inputs
 
-`nixpkgs` (unstable), `home-manager`, `niri`, `agenix`, `xwayland-satellite`, `fluxer`, `helium`, `swash`, `doomemacs`, `nur`, Noctalia, Noctalia Greeter, Umbriel, and niri-screenshare.
+`nixpkgs` (unstable), `home-manager`, `niri`, `agenix`, `xwayland-satellite`, `fluxer`, `helium`, `swash`, `doomemacs`, `nur`, plus the local Noctalia, Noctalia Greeter, and Umbriel path inputs.

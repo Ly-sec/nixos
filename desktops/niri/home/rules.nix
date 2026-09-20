@@ -53,15 +53,6 @@
         matches = [ { app-id = "^dev\\.lemmy\\.swash$"; } ];
         open-floating = true;
       }
-      {
-        # niri-screenshare GTK picker dialog
-        matches = [
-          { app-id = "^io\\.github\\.niri\\.screenshare\\.picker$"; }
-          { app-id = "^niri-screenshare-picker$"; }
-          { title = "^Screen Sharing$"; }
-        ];
-        open-floating = true;
-      }
     ];
 
     layer-rules = [

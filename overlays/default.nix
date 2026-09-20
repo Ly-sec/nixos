@@ -9,7 +9,6 @@ in
 {
   agenix = inputs.agenix.packages.${system}.default;
   helium-widevine = inputs.helium.packages.${system}.helium-widevine;
-  niri-screenshare = inputs.niri-screenshare.packages.${system}.default;
   noctalia = inputs.noctalia.packages.${system}.default;
   noctalia-greeter = inputs.noctalia-greeter.packages.${system}.default;
   swash = inputs.swash.packages.${system}.default;
