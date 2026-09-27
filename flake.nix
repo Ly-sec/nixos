@@ -11,8 +11,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-flatpak.url = "github:gmodena/nix-flatpak?ref=v0.7.0";
+
     niri = {
       url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    xdg-desktop-portal-umbriel = {
+      url = "github:noctalia-dev/xdg-desktop-portal-umbriel";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -22,13 +29,13 @@
       inputs.rust-overlay.follows = "";
     };
 
-    fluxer = {
-      url = "github:Hy4ri/fluxer-flake";
+    helium = {
+      url = "github:amaanq/helium-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    helium = {
-      url = "github:amaanq/helium-flake";
+    sonora = {
+      url = "path:/mnt/storage/GitHub/lysec/sonora";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -48,8 +55,9 @@
     };
 
     umbriel = {
-      url = "path:/mnt/storage/GitHub/noctalia-dev/umbriel";
+      url = "github:noctalia-dev/umbriel";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.xdg-desktop-portal-umbriel.follows = "xdg-desktop-portal-umbriel";
     };
 
     noctalia-greeter = {

@@ -15,17 +15,6 @@
         open-maximized = true;
       }
       {
-        matches = [
-          {
-            at-startup = true;
-            app-id = "fluxer-canary";
-          }
-        ];
-        open-on-output = "DP-2";
-        open-on-workspace = "fluxer";
-        open-maximized = true;
-      }
-      {
         matches = [ { app-id = "helium"; } ];
         open-on-workspace = "browser";
         open-maximized = true;

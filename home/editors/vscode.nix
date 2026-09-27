@@ -11,6 +11,7 @@
     profiles.default.userSettings = {
       "editor.formatOnSave" = true;
       "editor.defaultFormatter" = "esbenp.prettier-vscode";
+      "editor.fontFamily" = "'JetBrains Mono', monospace";
     };
   };
 }

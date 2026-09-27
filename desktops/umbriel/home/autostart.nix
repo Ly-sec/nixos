@@ -13,7 +13,6 @@ in
   programs.umbriel.settings.general.autostart = [
     noctalia
     browser
-    "sleep 4; ${pkgs.fluxer-canary}/bin/fluxer-canary"
     "sleep 4; ${pkgs.vesktop}/bin/vesktop"
   ];
 }

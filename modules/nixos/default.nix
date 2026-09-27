@@ -5,6 +5,7 @@
     ./boot.nix
     ./desktop.nix
     ./environment.nix
+    ./flatpak.nix
     ./fonts.nix
     ./greeter.nix
     ./hardware-physical.nix

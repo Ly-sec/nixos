@@ -26,7 +26,6 @@ with pkgs;
   nwg-look
   heroic
   lutris
-  spotify
   jq
   eza
   lazygit

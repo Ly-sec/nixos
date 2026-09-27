@@ -31,9 +31,6 @@
       vesktop = {
         open-on-output = "DP-2";
       };
-      fluxer = {
-        open-on-output = "DP-2";
-      };
     };
 
     hotkey-overlay.skip-at-startup = true;

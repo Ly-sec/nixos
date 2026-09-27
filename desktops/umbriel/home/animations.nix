@@ -1,10 +1,12 @@
 { config, ... }:
 
 let
-  revealShader = "${config.programs.umbriel.package}/share/umbriel/shaders/reveal.glsl";
+  revealEffect = "${config.programs.umbriel.package}/share/umbriel/effects/animation/reveal/effect.toml";
 in
 
 {
+  programs.umbriel.settings.include.files = [ revealEffect ];
+
   programs.umbriel.settings.animation = {
     enabled = true;
     duration_ms = 195;
@@ -38,23 +40,21 @@ in
 
     windows_in = {
       enabled = true;
-      duration_ms = 205;
       curve = "apparition";
-      shader = revealShader;
+      effect = "reveal";
     };
 
     windows_out = {
       enabled = true;
       duration_ms = 165;
       curve = "easeoutcubic";
-      shader = revealShader;
+      effect = "reveal";
     };
 
     windows_move = {
       enabled = true;
       duration_ms = 195;
       curve = "window_flow";
-      shader = "${config.programs.umbriel.package}/share/umbriel/shaders/squash.glsl";
     };
 
     workspaces = {

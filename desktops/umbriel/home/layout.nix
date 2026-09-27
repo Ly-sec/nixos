@@ -33,10 +33,6 @@
         output = "DP-2";
         name = "vesktop";
       }
-      {
-        output = "DP-2";
-        name = "fluxer";
-      }
     ];
   };
 }

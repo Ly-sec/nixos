@@ -78,7 +78,6 @@ in
       # Preserve the existing application-specific handlers when Home Manager
       # takes ownership of mimeapps.list.
       "x-scheme-handler/discord" = [ "vesktop.desktop" ];
-      "x-scheme-handler/fluxer" = [ "fluxer-canary.desktop" ];
     };
 
     associations.added."x-scheme-handler/discord" = [ "vesktop.desktop" ];

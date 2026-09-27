@@ -66,13 +66,6 @@
         default_output = "DP-2";
       }
       {
-        match.app_id = "^fluxer-canary$";
-        default_workspace = "fluxer";
-        default_focused = false;
-        default_maximize = true;
-        default_output = "DP-2";
-      }
-      {
         match.title = "^notificationtoasts_.+_desktop";
         default_position = {
           x = 12;

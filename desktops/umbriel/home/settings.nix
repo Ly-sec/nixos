@@ -32,7 +32,7 @@
       };
 
       blur = {
-        enabled = true;
+        enabled = false;
         passes = 3;
         radius = 5;
         noise = 0.0;

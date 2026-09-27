@@ -25,6 +25,10 @@ in
     "Mod+Page_Down" = "spawn:${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 0.05-";
 
     "Mod+O" = "overview-toggle";
+    "Mod+S" = "screencast-follow-output";
+    "Mod+Ctrl+S" = "screencast-follow-window";
+    "Mod+Shift+S" = "screencast-set-output";
+    "Mod+Ctrl+Shift+S" = "screencast-set-window";
 
     "Mod+WheelUp" = {
       action = "workspace-previous";
@@ -54,13 +58,6 @@ in
 
     "Mod+Shift+Left" = "window-modify-primary-extent:-0.1";
     "Mod+Shift+Right" = "window-modify-primary-extent:0.1";
-
-    # Named submap for testing `umbriel submap`.
-    "Mod+S" = {
-      action = "submap:test";
-      repeat = false;
-    };
-    "submap[test],Escape" = "submap:reset";
 
     # Scratchpads
     "Mod+Space" = "scratchpad-toggle:terminal";

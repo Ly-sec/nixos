@@ -53,6 +53,12 @@ in
 {
   programs.fish = {
     enable = true;
+    shellAliases = {
+      umb = "cd /mnt/storage/GitHub/noctalia-dev/umbriel";
+      umb-portal = "cd /mnt/storage/GitHub/noctalia-dev/xdg-desktop-portal-umbriel";
+      noc = "cd /mnt/storage/GitHub/noctalia-dev/noctalia";
+      noc-greet = "cd /mnt/storage/GitHub/noctalia-dev/noctalia-greeter";
+    };
     plugins = [
       { name = "tide"; src = pkgs.fishPlugins.tide.src; }
     ];

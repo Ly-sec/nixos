@@ -58,7 +58,7 @@ Shared Wayland defaults (cursor, Electron/Qt hints): [`desktops/shared/home.nix`
 
 [`home/default.nix`](home/default.nix) pulls in the active desktop, Doom/VS Code, fish, and the programs explicitly listed in [`home/programs/default.nix`](home/programs/default.nix).
 
-Notable pieces: fish + tide, Helium, Kitty, Fluxer, Vesktop, signed git (GPG from agenix), Doom under `home/doom/`.
+Notable pieces: fish + tide, Helium, Kitty, Vesktop, signed git (GPG from agenix), Doom under `home/doom/`.
 
 ## Secrets (agenix)
 
@@ -85,4 +85,4 @@ The repository intentionally depends on those local paths and will not evaluate 
 
 ## Inputs
 
-`nixpkgs` (unstable), `home-manager`, `niri`, `agenix`, `xwayland-satellite`, `fluxer`, `helium`, `swash`, `doomemacs`, `nur`, plus the local Noctalia, Noctalia Greeter, and Umbriel path inputs.
+`nixpkgs` (unstable), `home-manager`, `niri`, `agenix`, `xwayland-satellite`, `helium`, `swash`, `doomemacs`, `nur`, plus the local Noctalia, Noctalia Greeter, and Umbriel path inputs.
