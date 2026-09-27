@@ -1,13 +1,73 @@
-{ config, ... }:
+{ config, lib, ... }:
 
 let
-  revealEffect = "${config.programs.umbriel.package}/share/umbriel/effects/animation/reveal/effect.toml";
-in
+  # Change this one value to switch the complete Umbriel effect setup.
+  activeSetup = "sakura-overdrive";
 
-{
-  programs.umbriel.settings.include.files = [ revealEffect ];
+  bundledReveal = "${config.programs.umbriel.package}/share/umbriel/effects/animation/reveal/effect.toml";
+  sakuraEffects = "${./effects/sakura-overdrive}/effect.toml";
 
-  programs.umbriel.settings.animation = {
+  setups = {
+    classic = {
+      files = [ bundledReveal ];
+      appearance.outer_border_width = 13;
+      effects = {
+        border = "";
+        window = "";
+        screen = "";
+        cursor = "";
+        max_fps = 0;
+        in_capture = false;
+      };
+      animation = {
+        windows_in.effect = "reveal";
+        windows_out.effect = "reveal";
+      };
+    };
+
+    sakura-overdrive = {
+      files = [ sakuraEffects ];
+      appearance.outer_border_width = 0;
+      effects = {
+        border = "sakura-vine";
+        window = "";
+        screen = "sakura-dream";
+        cursor = "mahou-twinkle";
+        max_fps = 60;
+        in_capture = false;
+      };
+      animation = {
+        windows_in = {
+          effect = "sakura-materialize";
+          duration_ms = 620;
+          curve = "linear";
+        };
+        windows_out = {
+          effect = "sakura-materialize";
+          duration_ms = 500;
+          curve = "linear";
+        };
+        windows_move = {
+          duration_ms = 240;
+          curve = "window_flow";
+          effect = "sakura-rush";
+        };
+        workspaces.effect = "sakura-shift";
+        scratchpad.effect = "magic-summon";
+        border = {
+          enabled = true;
+          duration_ms = 210;
+          curve = "linear";
+          effect = "sakura-focus";
+        };
+        windows_drag.physics = true;
+      };
+    };
+  };
+
+  selected = setups.${activeSetup} or (throw "unknown Umbriel effect setup: ${activeSetup}");
+
+  baseAnimation = {
     enabled = true;
     duration_ms = 195;
     curve = "cinematic";
@@ -20,15 +80,15 @@ in
         1.0
       ];
       window_flow = [
+        0.20
+        0.75
         0.25
-        0.46
-        0.35
         1.0
       ];
       workspace_flow = [
-        0.38
-        0.0
-        0.22
+        0.20
+        0.80
+        0.24
         1.0
       ];
     };
@@ -41,14 +101,12 @@ in
     windows_in = {
       enabled = true;
       curve = "apparition";
-      effect = "reveal";
     };
 
     windows_out = {
       enabled = true;
       duration_ms = 165;
       curve = "easeoutcubic";
-      effect = "reveal";
     };
 
     windows_move = {
@@ -67,6 +125,7 @@ in
       enabled = true;
       duration_ms = 280;
       curve = "cinematic";
+      workspace_curve = "workspace_flow";
     };
 
     scratchpad = {
@@ -87,5 +146,14 @@ in
       duration_ms = 175;
       curve = "easeoutcubic";
     };
+  };
+in
+
+{
+  programs.umbriel.settings = {
+    include.files = selected.files;
+    appearance = selected.appearance;
+    effects = selected.effects;
+    animation = lib.recursiveUpdate baseAnimation selected.animation;
   };
 }

@@ -1,0 +1,51 @@
+# A cohesive sakura and magical-girl effect suite. Every colored preset reads
+# Umbriel's palette, which is supplied by the active Noctalia theme include.
+
+[effects.preset.sakura-vine-overlay]
+kind = "window"
+shader = "sakura-glass.glsl"
+palette = true
+
+[effects.preset.sakura-vine]
+kind = "border"
+shader = "sakura-ribbon.glsl"
+palette = true
+padding = 3
+speed = 1.0
+overlay = "sakura-vine-overlay"
+
+[effects.preset.mahou-twinkle]
+kind = "cursor"
+shader = "neko-fairy.glsl"
+palette = true
+radius = 32
+
+[effects.preset.sakura-dream]
+kind = "screen"
+shader = "sakura-dream.glsl"
+palette = true
+
+[effects.preset.sakura-materialize]
+kind = "animation"
+shader = "sakura-materialize.glsl"
+palette = true
+
+[effects.preset.sakura-rush]
+kind = "animation"
+shader = "mochi-wobble.glsl"
+palette = true
+
+[effects.preset.sakura-shift]
+kind = "animation"
+shader = "dream-slide.glsl"
+palette = true
+
+[effects.preset.magic-summon]
+kind = "animation"
+shader = "magic-summon.glsl"
+palette = true
+
+[effects.preset.sakura-focus]
+kind = "animation"
+shader = "soft-bloom.glsl"
+palette = true
