@@ -26,7 +26,6 @@ in
   '';
 
   xdg.configFile."labwc/autostart".source = pkgs.writeShellScript "labwc-autostart" ''
-    ${pkgs.xwayland-satellite}/bin/xwayland-satellite &
     ${wlr-randr} --output DP-1 --mode 2560x1440@359.979Hz
     ${wlr-randr} --output DP-2 --mode 1920x1080@164.917Hz
     ${noctalia} &

@@ -15,7 +15,7 @@ in
   programs.umbriel.settings.keybinds = {
     "Mod+Return" = "spawn:${pkgs.kitty}/bin/kitty";
     "Mod+Ctrl+Return" = "spawn:${noctalia} msg panel-toggle launcher";
-    "Alt+Tab" = "spawn:${noctalia} msg window-switcher";
+    "Mod+Tab" = "spawn:${noctalia} msg window-switcher";
     "Mod+B" = "spawn:${browser}";
     "Mod+E" = "spawn:${nautilus}";
 
@@ -63,7 +63,6 @@ in
     "Mod+Space" = "scratchpad-toggle:terminal";
     "Mod+Shift+Space" = "window-move-to-scratchpad:terminal";
     "Mod+Ctrl+Space" = "window-restore-from-scratchpad:terminal";
-    "Mod+Tab" = "scratchpad-focus-next:terminal";
 
     "Mod+Alt+Space" = "scratchpad-toggle:music";
     "Mod+Alt+Shift+Space" = "window-move-to-scratchpad:music";

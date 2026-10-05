@@ -21,6 +21,7 @@
     appearance = {
       prefer_no_csd = true;
       border_width = 2;
+      outer_border_width = 11;
       corner_radius = 0;
 
       shadow = {

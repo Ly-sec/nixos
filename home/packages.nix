@@ -7,7 +7,6 @@ with pkgs;
 [
   noctalia
   agenix
-  xwayland-satellite
   protonplus
   bitwarden-cli
   prismlauncher

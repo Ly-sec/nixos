@@ -23,19 +23,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    xwayland-satellite = {
-      url = "github:Supreeeme/xwayland-satellite";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-overlay.follows = "";
-    };
-
     helium = {
       url = "github:amaanq/helium-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     sonora = {
-      url = "path:/mnt/storage/GitHub/lysec/sonora";
+      url = "github:sonorahq/sonora";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -55,7 +49,7 @@
     };
 
     umbriel = {
-      url = "github:noctalia-dev/umbriel";
+      url = "path:/mnt/storage/GitHub/noctalia-dev/umbriel";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.xdg-desktop-portal-umbriel.follows = "xdg-desktop-portal-umbriel";
     };
@@ -68,8 +62,6 @@
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.darwin.follows = "";
-      inputs.home-manager.follows = "home-manager";
     };
   };
 
