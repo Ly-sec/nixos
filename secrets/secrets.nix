@@ -9,6 +9,8 @@ in
 {
   "gpg-private-key.age".publicKeys = all;
   "noctalia-i18n-push.age".publicKeys = all;
+  "official-plugins-push.age".publicKeys = all;
+  "community-plugins-push.age".publicKeys = all;
   "ssh-noctalia-aur-deploy.age".publicKeys = all;
   "ssh-aur-id.age".publicKeys = all;
   "ssh-codeberg-mirror.age".publicKeys = all;

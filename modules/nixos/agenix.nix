@@ -17,6 +17,18 @@
       mode = "0400";
     };
 
+    official-plugins-push = {
+      file = ../../secrets/official-plugins-push.age;
+      owner = config.lysec.username;
+      mode = "0400";
+    };
+
+    community-plugins-push = {
+      file = ../../secrets/community-plugins-push.age;
+      owner = config.lysec.username;
+      mode = "0400";
+    };
+
     ssh-noctalia-aur-deploy = {
       file = ../../secrets/ssh-noctalia-aur-deploy.age;
       owner = config.lysec.username;

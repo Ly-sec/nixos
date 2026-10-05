@@ -1,7 +1,9 @@
 { pkgs, lib, config, ... }:
 
 let
-  secretFile = "/run/agenix/noctalia-i18n-push";
+  translationPushSecretFile = "/run/agenix/noctalia-i18n-push";
+  officialPluginsPushSecretFile = "/run/agenix/official-plugins-push";
+  communityPluginsPushSecretFile = "/run/agenix/community-plugins-push";
   fishSingleQuotePath = s: "'${lib.replaceStrings [ "'" ] [ "'\\''" ] s}'";
 
   tideVarsRaw = builtins.readFile ./fish/fish_variables;
@@ -66,8 +68,18 @@ in
       (builtins.readFile ./fish/config.fish)
       + ''
 
-        if status is-interactive; and test -r ${fishSingleQuotePath secretFile}
-          set -gx NOCTALIA_TRANSLATION_PUSH_SECRET (string trim (cat ${fishSingleQuotePath secretFile}))
+        if status is-interactive
+          if test -r ${fishSingleQuotePath translationPushSecretFile}
+            set -gx NOCTALIA_TRANSLATION_PUSH_SECRET (string trim (cat ${fishSingleQuotePath translationPushSecretFile}))
+          end
+
+          if test -r ${fishSingleQuotePath officialPluginsPushSecretFile}
+            set -gx OFFICIAL_PLUGINS_PUSH_SECRET (string trim (cat ${fishSingleQuotePath officialPluginsPushSecretFile}))
+          end
+
+          if test -r ${fishSingleQuotePath communityPluginsPushSecretFile}
+            set -gx COMMUNITY_PLUGINS_PUSH_SECRET (string trim (cat ${fishSingleQuotePath communityPluginsPushSecretFile}))
+          end
         end
       ''
       + ''
