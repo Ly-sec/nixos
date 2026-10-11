@@ -1,0 +1,4 @@
+#+title: Inbox
+
+* Notes
+* Tasks

@@ -11,7 +11,6 @@
     (../desktops + "/${desktop}/home")
     ../modules/lysec/cursor/home.nix
     ./editors/vscode.nix
-    ./editors/doom.nix
     ./shell/fish.nix
     ./programs
   ];
@@ -24,6 +23,7 @@
 
   home.sessionVariables = {
     EDITOR = "emacs";
+    VISUAL = "emacs";
     TERMINAL = "kitty";
   };
 

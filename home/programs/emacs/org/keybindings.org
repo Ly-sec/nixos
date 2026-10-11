@@ -1,0 +1,422 @@
+#+title: Emacs · Key guide
+#+startup: overview
+#+options: toc:nil num:nil
+
+*Open* ~SPC h b~ · *Fold a section* ~TAB~ · *Close this pane* ~SPC w c~
+
+*Quick start*
+
+| Key       | Action           |
+|-----------+------------------|
+| ~SPC SPC~ | Run a command    |
+| ~SPC .~   | Open a file      |
+| ~SPC ,~   | Switch buffers   |
+| ~SPC f s~ | Save             |
+| ~SPC w v~ | Split right      |
+| ~SPC w s~ | Split below      |
+| ~SPC o f~ | File manager     |
+| ~SPC q q~ | Close the client |
+
+*Jump to a topic* — follow a link with ~C-c C-o~.
+
+[[*Files and buffers][Files & buffers]] · [[*Split and arrange panes][Panes]] · [[*Editing text with Meow][Meow editing]]
+[[*Dirvish][Dirvish]] · [[*The left file tree][File tree]] · [[*Projects and search][Projects & search]]
+[[*Coding and completion][Coding]] · [[*Markdown preview][Markdown]] · [[*Git with Magit][Git]]
+[[*Notes, journal, and agenda][Notes & agenda]] · [[*Terminal, dashboard, help, and exiting][Terminal & help]]
+
+Expand a heading with ~TAB~. Use ~Shift+TAB~ to show or fold the whole guide.
+Tool bindings apply inside that tool's buffer.
+
+* Reading the keys
+
+- ~SPC~ means Space. ~SPC o f~ means press Space, then ~o~, then ~f~.
+- ~C-x~ means hold Ctrl and press ~x~.
+- ~M-x~ means hold Alt and press ~x~.
+- ~RET~ means Enter. Uppercase letters require Shift.
+
+Meow uses normal mode for editing commands, insert mode for typing, and motion
+mode for tool buffers such as Dirvish and Magit. In normal mode, ~e~ starts
+inserting and ~Esc~ returns to normal mode. Space opens the command menus in
+normal and motion mode. While typing, use ~Alt+Space~ to open them without
+leaving insert mode. Some desktop shortcuts intercept Alt+Space, so ~Esc~
+followed by Space also works in editable buffers.
+
+The text editing layout is QWERTZ. It uses ~j/i/k/l~ for left/up/down/right.
+Tool buffers retain their native actions and use ~j/k~ for down/up. Window
+commands retain ~SPC w h/j/k/l~ for left/down/up/right.
+
+After pressing a prefix such as ~SPC o~ or ~SPC w~, pause to see its available
+keys. ~C-g~ cancels a prompt or command. ~SPC SPC~ opens the command selector,
+so any named command in this guide can also be run there.
+
+* Buffers, windows, and frames
+
+A buffer holds text, a file, a directory listing, or a tool such as Magit.
+A window is a pane showing a buffer. Several windows can show the same buffer.
+A frame contains those panes, such as the terminal client opened by ~emacs~.
+
+Closing a pane keeps its buffer available. Closing a buffer removes it from
+Emacs and may ask to save changes. Neither operation deletes its file from
+disk. ~SPC q q~ closes the terminal client, leaving the daemon running.
+
+* Files and buffers
+
+| Key                         | Action                                                  |
+|-----------------------------+---------------------------------------------------------|
+| ~SPC .~ or ~SPC f f~        | Open a file or directory by path                        |
+| ~SPC f n~                   | Choose a path for a new file                            |
+| ~SPC f s~                   | Save the current buffer, choosing a path if it has none |
+| ~SPC f r~                   | Select from recent files                                |
+| ~SPC ,~ or ~SPC b b~        | Search and switch buffers                               |
+| ~SPC b n~                   | Next buffer, not a new buffer                           |
+| ~SPC b p~                   | Previous buffer                                         |
+| ~SPC b d~                   | Close the current buffer                                |
+| ~SPC b N~                   | Create a blank buffer in the current pane               |
+| ~C-x C-w~                   | Write the current buffer to a chosen filename           |
+| ~SPC SPC rename-buffer RET~ | Give a buffer a different display name                  |
+
+For a temporary scratch buffer, use ~SPC b N~, press ~e~, and start typing. When
+you want to keep it, press ~Esc~, then ~SPC f s~ and choose a filename.
+
+* Split and arrange panes
+
+| Key                         | Action                                                            |
+|-----------------------------+-------------------------------------------------------------------|
+| ~SPC w v~                   | Split side by side, showing the current buffer in both panes      |
+| ~SPC w s~                   | Split into stacked panes, showing the current buffer in both      |
+| ~SPC w n~                   | Create a stacked pane with a new blank buffer                     |
+| ~SPC w N~                   | Create a side-by-side pane with a new blank buffer                |
+| ~SPC w h~                   | Focus the pane to the left                                        |
+| ~SPC w j~                   | Focus the pane below                                              |
+| ~SPC w k~                   | Focus the pane above                                              |
+| ~SPC w l~                   | Focus the pane to the right                                       |
+| ~SPC w w~                   | Cycle forward through panes                                       |
+| ~SPC w W~                   | Cycle backward through panes                                      |
+| ~SPC w c~                   | Close this pane                                                   |
+| ~SPC w o~                   | Keep this pane and close the other panes                          |
+| ~SPC w =~                   | Balance pane sizes                                                |
+| ~SPC w H~ / ~J~ / ~K~ / ~L~ | Swap contents with the adjacent left / lower / upper / right pane |
+| ~SPC w >~ / ~SPC w <~       | Increase / decrease pane width                                    |
+| ~SPC w +~ / ~SPC w -~       | Increase / decrease pane height                                   |
+
+Standard Emacs alternatives are ~C-x 3~ for side-by-side panes, ~C-x 2~ for
+stacked panes, ~C-x o~ to change focus, ~C-x 0~ to close a pane, and ~C-x 1~ to
+keep only the current pane. ~C-w~ cuts the active text selection, so use
+~SPC w~ for window commands.
+
+To edit two files side by side, open the first, press ~SPC w v~, then use
+~SPC f f~ or ~SPC p f~ to open the second in the newly focused pane. Use
+~SPC w h~ and ~SPC w l~ to move between them.
+
+* Open tools
+
+| Key       | Action                                                                     |
+|-----------+----------------------------------------------------------------------------|
+| ~SPC o f~ | Open Dirvish at the current file's directory or buffer's working directory |
+| ~SPC o p~ | Toggle the left file tree, Treemacs                                        |
+| ~SPC o t~ | Open the project shell in a bottom split                                   |
+| ~SPC o n~ | Open ~/mnt/storage/org/~ in Dirvish                                        |
+| ~SPC o m~ | Render the current Markdown file in a reading pane                         |
+| ~SPC o d~ | Return to the dashboard                                                    |
+| ~SPC g g~ | Open Magit status                                                          |
+
+* Dirvish
+
+~SPC o f~ opens the folder containing the file you are editing. In a shell
+buffer it uses that shell's working directory. From the dashboard or another
+buffer without a file, it uses the buffer's ~default-directory~.
+
+| Key inside Dirvish | Action                                                        |
+|--------------------+---------------------------------------------------------------|
+| ~j~ / ~k~          | Move down / up through entries                                |
+| ~RET~              | Open the selected file or enter the selected directory        |
+| ~^~                | Go to the parent directory                                    |
+| ~g~                | Refresh the listing                                           |
+| ~m~                | Mark an entry for a file operation                            |
+| ~u~                | Unmark an entry                                               |
+| ~U~                | Clear all marks                                               |
+| ~C~                | Copy marked entries, or the current entry if none are marked  |
+| ~R~                | Move or rename marked entries, or the current entry           |
+| ~+~                | Create a directory                                            |
+| ~D~                | Delete marked entries or the current entry after confirmation |
+| ~d~                | Flag an entry for deletion                                    |
+| ~x~                | Execute flagged deletions after confirmation                  |
+| ~q~                | Quit the whole Dirvish session and restore the editor layout  |
+
+~M-x dirvish-quit~ also exits the session. In Dirvish, ~h~ opens mode help and
+~l~ redraws the entry. Use ~^~ and Enter for directory navigation.
+
+You can open a different folder with ~SPC f f~ and a directory path. Opening a
+directory through the usual file prompt also uses Dirvish.
+
+* The left file tree
+
+Treemacs is the project sidebar opened by ~SPC o p~ or when choosing a project
+with ~SPC p p~. Dirvish is the fuller file manager opened by ~SPC o f~.
+
+| Key inside Treemacs | Action                                       |
+|---------------------+----------------------------------------------|
+| ~j~ / ~k~           | Move through entries                         |
+| ~TAB~               | Expand or collapse an entry                  |
+| ~RET~ or ~l~        | Open a file or act on the selected directory |
+| ~h~                 | Collapse the selected entry                  |
+| ~g~                 | Refresh                                      |
+| ~?~                 | Show the tree's help menu                    |
+| ~SPC o p~           | Toggle the tree                              |
+
+* Projects and search
+
+| Key                    | Action                                                              |
+|------------------------+---------------------------------------------------------------------|
+| ~SPC p p~              | Choose a project, open a file, and show its tree                    |
+| ~SPC p f~              | Find a file in the current project                                  |
+| ~SPC p s~ or ~SPC s p~ | Search project text with ripgrep                                    |
+| ~SPC s s~              | Search lines in the current buffer                                  |
+| ~SPC s n~              | Find or create a linked note                                        |
+| ~SPC p c~              | Run a project compilation command                                   |
+| ~SPC p e~              | Create and allow a project's ~.envrc~ using its default flake shell |
+| ~SPC p r~              | Reload the current project's environment                            |
+
+Start with ~SPC f f~ and open a file inside your project if it is not yet in
+the remembered project list. For Umbriel, that can be a file under
+~/mnt/storage/GitHub/noctalia-dev/umbriel/~. Use ~SPC p e~ once to enable its
+environment, then ~SPC p f~ for other files in the project.
+
+In selection menus, type to filter, use the arrow keys or ~C-n~ / ~C-p~ to move,
+and Enter to select. Tab completes the input. ~C-g~ cancels. If the directory
+you want already has a ~.envrc~, the setup command keeps it.
+
+* Editing text with Meow
+
+Select text first, then choose an action. For example, ~a f~ selects the word
+at point and replaces it. Type the replacement, then press ~Esc~. ~s c~ copies
+the current line, ~s d~ cuts it, and ~v~ pastes. Use ~p~ to clear a selection
+before moving elsewhere. These commands apply in editable text buffers.
+
+** Insert, move, and select
+
+| Key                   | Action                                                     |
+|-----------------------+------------------------------------------------------------|
+| ~e~ / ~r~             | Insert at the start / end of the selection, or at point    |
+| ~E~ / ~R~             | Open a line above / below and start typing                 |
+| ~Esc~                 | Leave insert mode, or clear a selection in normal mode     |
+| ~j~ / ~i~ / ~k~ / ~l~ | Move left / up / down / right                              |
+| ~J~ / ~I~ / ~K~ / ~L~ | Extend a selection left / up / down / right                |
+| ~u~ / ~o~             | Move by words, extending a word selection if one exists    |
+| ~U~ / ~O~             | Move by symbols, extending a symbol selection if present   |
+| ~a~ / ~A~             | Select the word / symbol at point                          |
+| ~s~                   | Select this line, repeat to extend by lines                |
+| ~S~                   | Prompt for a line number, then select that line            |
+| ~w~                   | Select a syntax block, repeat to expand outward            |
+| ~x~ then a character  | Select up to the next occurrence, excluding that character |
+| ~y~ then a character  | Select through the next occurrence of that character       |
+| ~1~ ... ~9~, ~0~      | Extend to a numbered destination shown by Meow             |
+| ~p~ / ~P~             | Cancel selection / return to a previous selection          |
+| ~ä~                   | Reverse the direction of the selection                     |
+| ~C-a~ / ~C-e~         | Start / end of line                                        |
+| ~M-<~ / ~M->~         | Start / end of buffer                                      |
+| ~C-v~ / ~M-v~         | Scroll down / up a page                                    |
+
+The digit keys choose the numbered hints after a word, line, block, or find
+selection. For a numeric command argument instead, use native ~C-u~ or
+~Alt+number~. To go to line 42, use ~S 42 RET~.
+
+| Key followed by a thing key | Action                                 |
+|-----------------------------+----------------------------------------|
+| ~,~                         | Select to the beginning of a thing     |
+| ~.~                         | Select to the end of a thing           |
+| ~;~                         | Select its contents without delimiters |
+| ~:~                         | Select the thing including delimiters  |
+
+These commands prompt for the kind of thing, such as a word, string, or
+parenthesized expression. The prompt shows the available thing keys.
+
+** Change, copy, and search
+
+| Key           | Action                                                           |
+|---------------+------------------------------------------------------------------|
+| ~f~           | Replace the selection and enter insert mode                      |
+| ~d~           | Cut the selection to the kill ring                               |
+| ~t~           | Delete the selection without copying it                          |
+| ~c~           | Copy the selection and clear it                                  |
+| ~v~ / ~V~     | Paste / replace the last paste with an older kill-ring entry     |
+| ~h~ / ~H~     | Undo / redo                                                      |
+| ~q~           | Join lines                                                       |
+| ~b~ / ~B~     | Add a newline at point / split the line and preserve indentation |
+| ~ü~ / ~+~     | Shift indentation left / right                                   |
+| ~-~           | Prompt for text to find and select                               |
+| ~z~           | Find another occurrence of the selection or last search          |
+| ~SPC s s~     | Search the current buffer with a filtered list of matching lines |
+| ~C-s~ / ~C-r~ | Native incremental search forward / backward                     |
+
+With no selection, some actions use a fallback. For example, ~f~ changes one
+character and ~d~ cuts to the end of the line. Selecting first makes the
+affected text clear.
+The kill ring stores copied and cut text. Clipboard integration is enabled
+for the terminal session.
+
+** Grab and learn more
+
+| Key       | Action                                                         |
+|-----------+----------------------------------------------------------------|
+| ~g~       | Keep the selection as a secondary selection, or mark this spot |
+| ~G~       | Return to the secondary selection or marked spot               |
+| ~m~       | Swap selected text with the secondary selection                |
+| ~M~       | Update the secondary selection from the current selection      |
+| ~SPC h t~ | Open Meow's interactive tutorial                               |
+| ~SPC h ?~ | Show the keyboard cheatsheet                                   |
+
+Meow also provides beacon editing for repeating edits across selections.
+Start with the tutorial before using it. ~SPC h k~ describes any actual key
+binding in the current buffer, including keys supplied by its major mode.
+
+* Coding and completion
+
+| Key       | Action                                   |
+|-----------+------------------------------------------|
+| ~SPC c d~ | Jump to a definition                     |
+| ~SPC c R~ | Find references, uppercase ~R~           |
+| ~M-,~     | Go back after a definition jump          |
+| ~SPC c r~ | Rename a symbol, lowercase ~r~           |
+| ~SPC c a~ | Show language-server code actions        |
+| ~SPC c e~ | Show buffer diagnostics                  |
+| ~SPC c f~ | Format the buffer                        |
+| ~SPC c l~ | Connect its language server manually     |
+| ~SPC t f~ | Fold or unfold the code block at point   |
+| ~SPC t F~ | Toggle formatting on save, uppercase ~F~ |
+| ~SPC t l~ | Toggle line numbers                      |
+| ~SPC t w~ | Toggle visual wrapping                   |
+
+Nix, C++, and Nim buffers connect automatically. Completion suggestions appear
+while typing. Use the arrow keys to select a suggestion and Enter to insert
+it. Tab completes further, and ~C-g~ dismisses the popup. ~M-x completion-at-point~ requests completion manually.
+
+After changing a project's development shell, use ~SPC p r~, then ~M-x eglot-reconnect~ to restart the running language-server connection in that
+environment. Formatting on save is enabled for configured formats except JSON.
+
+* Markdown preview
+
+Open a Markdown file and press ~SPC o m~ to render it in a pane on the right.
+The preview shows headings, lists, tables, links, and code blocks. It includes
+unsaved edits. Press ~g~ in the preview to refresh it after editing the source,
+or use ~SPC o m~ again from the source buffer.
+
+| Key inside the preview | Action                        |
+|------------------------+-------------------------------|
+| ~g~                    | Refresh from the source       |
+| ~j~ / ~k~              | Move down / up                |
+| ~TAB~ / ~Shift+TAB~    | Next / previous link          |
+| ~RET~                  | Follow the link at point      |
+| ~q~                    | Close the preview pane        |
+| ~SPC w h~              | Focus the source pane on left |
+
+The preview is a text view in terminal Emacs. Images appear as descriptions.
+
+* Git with Magit
+
+In tracked Git files, pausing on a line shows its author, relative commit age,
+and commit message at the end of the line. The author is always the name
+stored in Git, including for your own commits. Unsaved text has no recorded
+commit yet, so its annotation still refers to the saved version.
+
+| Key       | Action                                          |
+|-----------+-------------------------------------------------|
+| ~SPC t b~ | Toggle inline blame for the current file        |
+| ~SPC g i~ | Show the current line's full commit information |
+
+Open status with ~SPC g g~. The following keys apply inside Magit.
+
+| Key       | Action                                 |
+|-----------+----------------------------------------|
+| ~j~ / ~k~ | Move through the status buffer         |
+| ~TAB~     | Expand or collapse the current section |
+| ~RET~     | Visit the file, diff, or item at point |
+| ~s~ / ~u~ | Stage / unstage the selected change    |
+| ~c c~     | Start a commit                         |
+| ~b b~     | Switch branches                        |
+| ~F~       | Open the pull menu                     |
+| ~P~       | Open the push menu                     |
+| ~g~       | Refresh status                         |
+| ~q~       | Leave the Magit view                   |
+
+The menus show their own available keys. In a Magit commit-message buffer,
+~C-c C-c~ finishes the commit and ~C-c C-k~ cancels it. When Git launches Emacs
+from a shell, save the message and use ~C-x #~ to finish the waiting client.
+
+* Notes, journal, and agenda
+
+| Key       | Action                        |
+|-----------+-------------------------------|
+| ~SPC n n~ | Find or create a linked note  |
+| ~SPC n i~ | Insert a link to another note |
+| ~SPC n b~ | Toggle the backlinks view     |
+| ~SPC n j~ | Open today's linked journal   |
+| ~SPC n c~ | Open capture templates        |
+| ~SPC n a~ | Open the agenda menu          |
+| ~SPC n e~ | Open export options           |
+| ~SPC o n~ | Browse the notes folder       |
+
+To create a linked note, use ~SPC n n~, type its title, and press Enter.
+Complete the capture with ~C-c C-c~. ~C-c C-k~ cancels a capture. For
+~SPC n c~, the template keys are ~t~ for a task, ~n~ for a quick note, and ~j~
+for a journal entry.
+
+| Key inside an Org document | Action                                                             |
+|----------------------------+--------------------------------------------------------------------|
+| ~TAB~ on a heading         | Cycle its visibility                                               |
+| ~Shift+TAB~                | Cycle visibility for the document                                  |
+| ~C-c C-t~                  | Change the heading's TODO state                                    |
+| ~C-c C-s~                  | Schedule a task                                                    |
+| ~C-c C-d~                  | Set a deadline                                                     |
+| ~C-c C-o~                  | Open the link at point                                             |
+| ~C-c C-c~                  | Context action, such as running a source block or updating a table |
+| ~C-c '~                    | Edit a source block in its language mode and return when finished  |
+
+The TODO sequence is ~TODO~, ~NEXT~, ~WAIT~, then ~DONE~ or ~CANCELLED~.
+Notes and journals are stored under ~/mnt/storage/org/~.
+
+* Terminal, dashboard, help, and exiting
+
+~SPC o t~ opens Eshell in the bottom panel. Type a command and press Enter.
+It starts at the current project root when a project is detected. Eshell
+starts in insert mode. Use ~Alt+Space w c~ to close its pane, or press ~Esc~
+then use the Space window commands. Enter ~exit~ at the shell prompt to end
+the shell.
+~M-x shell~ opens a conventional shell buffer if needed.
+
+On the dashboard, use ~p~ for projects, ~n~ for a new file, ~r~ for recent files,
+~o~ for the notes folder, ~j~ for today's journal, ~a~ for the agenda, and ~g~
+for Git status. Tab selects an action and Enter activates it.
+
+| Key                | Action                                                    |
+|--------------------+-----------------------------------------------------------|
+| ~SPC SPC~ or ~M-x~ | Find and run a command by name                            |
+| ~SPC h k~          | Press a key sequence to see its command and documentation |
+| ~SPC h b~          | Open this key reference in a new right-hand split         |
+| ~SPC h f~          | Describe a function                                       |
+| ~SPC h m~          | Show the current mode's documentation and bindings        |
+| ~SPC h t~          | Open Meow's interactive tutorial                          |
+| ~SPC h ?~          | Show Meow's QWERTZ keyboard cheatsheet                    |
+| ~C-g~              | Cancel a prompt or command                                |
+| ~SPC q q~          | Save as needed and close this terminal client             |
+
+Elcord connects while an editor frame is open. Closing the last frame clears
+the Discord presence, and opening a new client reconnects it. Run
+~M-x elcord-mode~ to toggle it manually.
+
+* Apply configuration changes
+
+The guide lives in =~/nixos/home/programs/emacs/org/keybindings.org=.
+Editing it updates this document directly. If it is already open after an
+external edit, use ~M-x revert-buffer~ to refresh it.
+
+After changing the Emacs configuration, save your open buffers, rebuild from
+=~/nixos=, and restart the daemon to load the updated Lisp:
+
+#+begin_example
+nh os switch path:.
+systemctl --user restart emacs
+emacs
+#+end_example
+
+This restart closes clients attached to that daemon.

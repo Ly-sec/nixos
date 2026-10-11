@@ -57,7 +57,9 @@ Shared Wayland defaults (cursor, Electron/Qt hints): [`desktops/shared/home.nix`
 
 ## Home
 
-[`home/default.nix`](home/default.nix) pulls in the active desktop, Doom/VS Code, fish, and the programs explicitly listed in [`home/programs/default.nix`](home/programs/default.nix).
+[`home/default.nix`](home/default.nix) pulls in the active desktop, VS Code, fish, and the programs explicitly listed in [`home/programs/default.nix`](home/programs/default.nix).
+
+Emacs is configured in [`home/programs/emacs/`](home/programs/emacs/), with Meow editing, Nix-managed packages, and a user daemon. Notes live in `/mnt/storage/org/`. `SPC h b` opens the [key guide](home/programs/emacs/org/keybindings.org) directly from `~/nixos/` in a pane on the right.
 
 ## Secrets (agenix)
 
@@ -84,4 +86,4 @@ The repository intentionally depends on those local paths and will not evaluate 
 
 ## Inputs
 
-`nixpkgs` (unstable), `home-manager`, `niri`, `agenix`, `helium`, `swash`, `doomemacs`, `nur`, plus Umbriel and the local Noctalia and Noctalia Greeter path inputs.
+`nixpkgs` (unstable), `home-manager`, `niri`, `agenix`, `helium`, `swash`, `nur`, plus Umbriel and the local Noctalia and Noctalia Greeter path inputs.

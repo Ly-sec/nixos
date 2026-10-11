@@ -33,11 +33,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    doomemacs = {
-      url = "git+https://github.com/doomemacs/doomemacs.git?submodules=1";
-      flake = false;
-    };
-
     swash = {
       url = "github:ItsLemmy/swash";
       inputs.nixpkgs.follows = "nixpkgs";

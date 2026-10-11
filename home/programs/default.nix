@@ -1,6 +1,7 @@
 {
   imports = [
-#    ./firefox.nix
+    ./emacs
+    ./firefox.nix
     ./git.nix
     ./gtk.nix
     ./helium.nix
