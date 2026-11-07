@@ -40,6 +40,7 @@ let
     };
     cursor = {
       theme = config.lysec.cursor.theme;
+      path = config.lysec.cursor.package;
       size = 24;
     };
     keyboard = {
@@ -60,7 +61,6 @@ in
         package = noctaliaGreeter;
         passwordless-sync-users = [ config.lysec.username ];
         greeter-args = "";
-        cursorTheme.package = config.lysec.cursor.package;
         settings = greeterSettings;
       };
 

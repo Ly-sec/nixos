@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{...}: {
   programs.umbriel.settings.input = {
     middle_click_paste = true;
 

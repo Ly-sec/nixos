@@ -12,18 +12,6 @@
     ];
 
     window_rule = [
-      {
-        match.is_focused = true;
-        blur = true;
-        blur_popups = true;
-        opacity = 1;
-      }
-      {
-        match.is_focused = false;
-        blur = true;
-        blur_popups = true;
-        opacity = 1;
-      }
       # {
       #   match.app_id = "^(steam_app_[0-9]+|gamescope)$";
       #   hdr = "on";

@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{...}: {
   programs.umbriel.settings = {
     layout = {
       mode = "scrolling";
@@ -14,11 +12,17 @@
         default_extent_fraction = 0.5;
         center_underfull_strip = false;
       };
+      stacking.drop_zones = true;
     };
 
     workspaces.back_and_forth = true;
 
     workspace = [
+      {
+        output = "DP-1";
+        index = 5;
+        layout.mode = "stacking";
+      }
       {
         output = "DP-1";
         index = 8;

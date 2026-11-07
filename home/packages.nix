@@ -16,7 +16,7 @@ with pkgs;
   mpv
   gh
   gcc16
-  llvmPackages_22.clang-tools
+  llvmPackages_23.clang-tools
   just
   nodejs
   nim
@@ -24,7 +24,6 @@ with pkgs;
   age
   nwg-look
   heroic
-  lutris
   jq
   eza
   lazygit

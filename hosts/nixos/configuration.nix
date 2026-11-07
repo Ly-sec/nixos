@@ -3,9 +3,7 @@
   desktop,
   host,
   ...
-}:
-
-{
+}: {
   imports = [
     ./hardware-configuration.nix
     ./storage.nix

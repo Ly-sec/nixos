@@ -60,6 +60,8 @@ in
       umb-portal = "cd /mnt/storage/GitHub/noctalia-dev/xdg-desktop-portal-umbriel";
       noc = "cd /mnt/storage/GitHub/noctalia-dev/noctalia";
       noc-greet = "cd /mnt/storage/GitHub/noctalia-dev/noctalia-greeter";
+      cres = "cd /mnt/storage/GitHub/lysec/cressida/cressida";
+      cres-web = "cd /mnt/storage/GitHub/lysec/cressida/cressida-website";
     };
     plugins = [
       { name = "tide"; src = pkgs.fishPlugins.tide.src; }

@@ -1,4 +1,13 @@
-{
+{config, ...}: {
+  # Allow Noctalia's community browser template to update this policy file.
+  # Keep it outside the store and leave the remaining browser policies protected.
+  systemd.tmpfiles.settings."10-noctalia-chromium"."/etc/chromium/policies/managed/noctalia-color.json".f = {
+    user = config.lysec.username;
+    group = config.users.users.${config.lysec.username}.group;
+    mode = "0644";
+    argument = "{}";
+  };
+
   programs.chromium = {
     # Helium reads Chromium's Linux enterprise-policy directory. Bare extension
     # IDs make Helium route installation and updates through its extension proxy.
@@ -7,8 +16,7 @@
     homepageLocation = "https://api.noctalia.dev/repos/dashboard";
     defaultSearchProviderEnabled = true;
     defaultSearchProviderSearchURL = "https://www.google.com/search?q={searchTerms}";
-    defaultSearchProviderSuggestURL =
-      "https://suggestqueries.google.com/complete/search?output=chrome&q={searchTerms}";
+    defaultSearchProviderSuggestURL = "https://suggestqueries.google.com/complete/search?output=chrome&q={searchTerms}";
 
     extensions = [
       "nngceckbapebfimnlniiiahkandclblb" # Bitwarden

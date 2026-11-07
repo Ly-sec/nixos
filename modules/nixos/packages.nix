@@ -6,6 +6,7 @@
     wget
     git
     pavucontrol
+    photocraft
     gnome-themes-extra
     xwayland
     ffmpeg

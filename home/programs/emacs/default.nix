@@ -18,7 +18,7 @@
       direnv
       nixd
       alejandra
-      llvmPackages_22.clang-tools
+      llvmPackages_23.clang-tools
       nim
       nimlsp
       shfmt

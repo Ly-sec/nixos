@@ -3,39 +3,38 @@
   config,
   lib,
   ...
-}:
-
-let
+}: let
   heliumUnwrapped = pkgs.helium-widevine;
   helium = heliumUnwrapped.overrideAttrs (oldAttrs: {
     # Helium disables middle-click autoscroll on Linux by default. Keep its
     # native implementation enabled for every way the browser is launched,
     # and modestly enlarge the entire browser UI (including tab titles).
-    postFixup = (oldAttrs.postFixup or "") + ''
-      wrapProgram "$out/bin/helium" \
-        --add-flags "--enable-features=HeliumMiddleClickAutoscroll" \
-        --add-flags "--force-device-scale-factor=1.1"
-    '';
+    postFixup =
+      (oldAttrs.postFixup or "")
+      + ''
+        wrapProgram "$out/bin/helium" \
+          --add-flags "--enable-features=HeliumMiddleClickAutoscroll" \
+          --add-flags "--force-device-scale-factor=1.1"
+      '';
   });
   widevine = "${pkgs.widevine-cdm}/share/google/chrome/WidevineCdm";
-  heliumDesktop = [ "helium.desktop" ];
+  heliumDesktop = ["helium.desktop"];
   heliumProfileDir = "${config.xdg.configHome}/net.imput.helium/Default";
   heliumPreferences = "${heliumProfileDir}/Preferences";
   heliumSingletonLock = "${config.xdg.configHome}/net.imput.helium/SingletonLock";
-in
-{
+in {
   home = {
-    packages = [ helium ];
+    packages = [helium];
     sessionVariables.BROWSER = lib.getExe helium;
   };
 
   xdg.configFile."net.imput.helium/WidevineCdm/latest-component-updated-widevine-cdm".text =
-    builtins.toJSON { Path = widevine; };
+    builtins.toJSON {Path = widevine;};
 
   # Helium exposes this as a normal profile preference rather than an enterprise
   # policy. Converge it during activation, but never rewrite Preferences while
   # the browser owns the profile.
-  home.activation.disableHeliumRoundedFrame = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.disableHeliumRoundedFrame = lib.hm.dag.entryAfter ["writeBoundary"] ''
     preferences=${lib.escapeShellArg heliumPreferences}
     profileDir=${lib.escapeShellArg heliumProfileDir}
     singletonLock=${lib.escapeShellArg heliumSingletonLock}
@@ -68,7 +67,7 @@ in
 
   xdg.mimeApps = {
     enable = true;
-    defaultApplicationPackages = [ helium ];
+    defaultApplicationPackages = [helium];
 
     defaultApplications = {
       "application/vnd.mozilla.xul+xml" = heliumDesktop;
@@ -77,9 +76,9 @@ in
 
       # Preserve the existing application-specific handlers when Home Manager
       # takes ownership of mimeapps.list.
-      "x-scheme-handler/discord" = [ "vesktop.desktop" ];
+      "x-scheme-handler/discord" = ["vesktop.desktop"];
     };
 
-    associations.added."x-scheme-handler/discord" = [ "vesktop.desktop" ];
+    associations.added."x-scheme-handler/discord" = ["vesktop.desktop"];
   };
 }

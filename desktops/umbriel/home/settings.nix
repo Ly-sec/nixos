@@ -1,12 +1,10 @@
-{ config, ... }:
-
-{
+{config, ...}: {
   programs.umbriel.settings = {
     general.show_cheatsheet = false;
 
     scratchpad = [
-      { name = "terminal"; }
-      { name = "music"; }
+      {name = "terminal";}
+      {name = "music";}
     ];
 
     environment = {
@@ -16,13 +14,18 @@
       XCURSOR_SIZE = "24";
     };
 
-    colors.shadow = "#00FFFFAA";
+    colors = {
+      shadow = "#00FFFFAA";
+    };
 
     appearance = {
       prefer_no_csd = true;
       border_width = 2;
-      outer_border_width = 11;
-      corner_radius = 0;
+      outer_border_width = 0;
+      corner_radius = 12;
+      title_bar = {
+        mode = "forced";
+      };
 
       shadow = {
         enabled = false;

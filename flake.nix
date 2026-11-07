@@ -43,6 +43,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    noctalia-plymouth = {
+      url = "github:VuiMuich/noctalia-plymouth-theme";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     umbriel = {
       url = "path:/mnt/storage/GitHub/noctalia-dev/umbriel";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -60,57 +65,52 @@
     };
   };
 
-  outputs =
-    {
-      nixpkgs,
-      home-manager,
-      agenix,
-      ...
-    }@inputs:
+  outputs = {
+    nixpkgs,
+    home-manager,
+    agenix,
+    ...
+  } @ inputs: let
+    host = import ./hosts/nixos/settings.nix;
+    inherit (host) desktop system username;
+  in {
+    formatter = nixpkgs.legacyPackages.${system}.alejandra;
 
-    let
-      host = import ./hosts/nixos/settings.nix;
-      inherit (host) desktop system username;
-    in
-    {
-      formatter = nixpkgs.legacyPackages.${system}.alejandra;
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      inherit system;
 
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        inherit system;
-
-        specialArgs = {
-          inherit inputs host desktop;
-        };
-
-        modules = [
-          agenix.nixosModules.default
-          ./hosts/nixos/configuration.nix
-          home-manager.nixosModules.home-manager
-
-          (
-            { lib, ... }:
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                backupFileExtension = "backup";
-                overwriteBackup = true;
-                extraSpecialArgs = {
-                  inherit inputs desktop;
-                };
-                sharedModules = [
-                  ./modules/lysec
-                  { lysec = host; }
-                ];
-
-                users.${username} = import ./home/default.nix;
-              };
-
-              systemd.services."home-manager-${username}".serviceConfig.TimeoutStartSec =
-                lib.mkForce "30m";
-            }
-          )
-        ];
+      specialArgs = {
+        inherit inputs host desktop;
       };
+
+      modules = [
+        agenix.nixosModules.default
+        ./hosts/nixos/configuration.nix
+        home-manager.nixosModules.home-manager
+
+        (
+          {lib, ...}: {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "backup";
+              overwriteBackup = true;
+              extraSpecialArgs = {
+                inherit inputs desktop;
+              };
+              sharedModules = [
+                ./modules/lysec
+                {lysec = host;}
+              ];
+
+              users.${username} = import ./home/default.nix;
+            };
+
+            systemd.services."home-manager-${username}".serviceConfig.TimeoutStartSec =
+              lib.mkForce "30m";
+          }
+        )
+      ];
     };
+  };
 }

@@ -5,6 +5,7 @@
 
   boot.kernelParams = [ "video=DP-1:2560x1440@360" ];
   boot.kernelModules = [ "i2c-dev" ];
+  boot.initrd.kernelModules = [ "amdgpu" ];
   boot.initrd.availableKernelModules = [ "i2c-dev" ];
 
   services.xserver.videoDrivers = [ "amdgpu" ];

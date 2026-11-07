@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{...}: {
   programs.umbriel.settings.output = {
     "DP-1" = {
       mode = "2560x1440@359.979";

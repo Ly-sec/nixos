@@ -36,7 +36,7 @@
       };
 
       springs.apparition = {
-        damping = 0.70;
+        damping = 1.0;
         stiffness = 240;
       };
 
@@ -82,9 +82,6 @@
         curve = "easeinoutcubic";
         dim = 0.42;
         blur = false;
-        scale = 0.0;
-        maximize = false;
-        fullscreen = false;
       };
 
       border = {
