@@ -5,8 +5,7 @@ let
     nixosHost
     recovery
   ];
-in
-{
+in {
   "gpg-private-key.age".publicKeys = all;
   "gpg-cressida-private-key.age".publicKeys = all;
   "noctalia-i18n-push.age".publicKeys = all;
@@ -15,4 +14,5 @@ in
   "ssh-noctalia-aur-deploy.age".publicKeys = all;
   "ssh-aur-id.age".publicKeys = all;
   "ssh-codeberg-mirror.age".publicKeys = all;
+  "wallhaven.age".publicKeys = all;
 }

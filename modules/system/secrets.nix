@@ -1,0 +1,71 @@
+{
+  inputs,
+  config,
+  ...
+}: let
+  flakeConfig = config;
+in {
+  flake.modules.nixos.secrets = {config, ...}: {
+    imports = [inputs.agenix.nixosModules.default];
+    # Decrypt with the host SSH key at activation.
+    age.identityPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+
+    age.secrets = {
+      gpg-private-key = {
+        file = ../../secrets/gpg-private-key.age;
+        owner = config.lysec.username;
+        mode = "0400";
+      };
+
+      gpg-cressida-private-key = {
+        file = ../../secrets/gpg-cressida-private-key.age;
+        owner = config.lysec.username;
+        mode = "0400";
+      };
+
+      noctalia-i18n-push = {
+        file = ../../secrets/noctalia-i18n-push.age;
+        owner = config.lysec.username;
+        mode = "0400";
+      };
+
+      official-plugins-push = {
+        file = ../../secrets/official-plugins-push.age;
+        owner = config.lysec.username;
+        mode = "0400";
+      };
+
+      community-plugins-push = {
+        file = ../../secrets/community-plugins-push.age;
+        owner = config.lysec.username;
+        mode = "0400";
+      };
+
+      ssh-noctalia-aur-deploy = {
+        file = ../../secrets/ssh-noctalia-aur-deploy.age;
+        owner = config.lysec.username;
+        mode = "0400";
+      };
+
+      ssh-aur-id = {
+        file = ../../secrets/ssh-aur-id.age;
+        owner = config.lysec.username;
+        mode = "0400";
+      };
+
+      ssh-codeberg-mirror = {
+        file = ../../secrets/ssh-codeberg-mirror.age;
+        owner = config.lysec.username;
+        mode = "0400";
+      };
+    };
+
+    home-manager.sharedModules = [flakeConfig.flake.modules.homeManager.secrets];
+    nixpkgs.overlays = [
+      (final: _: {agenix = inputs.agenix.packages.${final.stdenv.hostPlatform.system}.default;})
+    ];
+  };
+  flake.modules.homeManager.secrets = {pkgs, ...}: {
+    home.packages = [pkgs.agenix pkgs.age];
+  };
+}

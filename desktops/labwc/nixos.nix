@@ -1,5 +1,0 @@
-{ ... }:
-
-{
-  programs.labwc.enable = true;
-}

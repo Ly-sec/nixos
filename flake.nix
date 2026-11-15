@@ -2,6 +2,12 @@
   description = "My NixOS config";
 
   inputs = {
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+    import-tree.url = "github:denful/import-tree";
+
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     nur.url = "github:nix-community/NUR";
@@ -19,7 +25,7 @@
     };
 
     xdg-desktop-portal-umbriel = {
-      url = "github:noctalia-dev/xdg-desktop-portal-umbriel";
+      url = "path:/mnt/storage/GitHub/noctalia-dev/xdg-desktop-portal-umbriel";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -30,12 +36,8 @@
 
     sonora = {
       url = "github:sonorahq/sonora";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    swash = {
-      url = "github:ItsLemmy/swash";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # Match the dependency graph used by Sonora's published binary cache.
+      inputs.nixpkgs.url = "github:NixOS/nixpkgs/c59305bab2065cfecc4944690d9eedbb56f3a9fa";
     };
 
     luciole = {
@@ -70,52 +72,7 @@
     };
   };
 
-  outputs = {
-    nixpkgs,
-    home-manager,
-    agenix,
-    ...
-  } @ inputs: let
-    host = import ./hosts/nixos/settings.nix;
-    inherit (host) desktop system username;
-  in {
-    formatter = nixpkgs.legacyPackages.${system}.alejandra;
-
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      inherit system;
-
-      specialArgs = {
-        inherit inputs host desktop;
-      };
-
-      modules = [
-        agenix.nixosModules.default
-        ./hosts/nixos/configuration.nix
-        home-manager.nixosModules.home-manager
-
-        (
-          {lib, ...}: {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "backup";
-              overwriteBackup = true;
-              extraSpecialArgs = {
-                inherit inputs desktop;
-              };
-              sharedModules = [
-                ./modules/lysec
-                {lysec = host;}
-              ];
-
-              users.${username} = import ./home/default.nix;
-            };
-
-            systemd.services."home-manager-${username}".serviceConfig.TimeoutStartSec =
-              lib.mkForce "30m";
-          }
-        )
-      ];
-    };
-  };
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake {inherit inputs;}
+    (inputs.import-tree ./modules);
 }

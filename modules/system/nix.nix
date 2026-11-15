@@ -1,0 +1,36 @@
+{
+  nixos.base = {
+    config,
+    pkgs,
+    ...
+  }: {
+    systemd.services.nix-daemon.path = [pkgs.git];
+
+    nix.settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      auto-optimise-store = true;
+    };
+
+    nix.gc = {
+      automatic = true;
+      dates = "daily";
+      options = "--delete-older-than 5d";
+    };
+
+    nixpkgs.config.allowUnfree = true;
+    nixpkgs.config.permittedInsecurePackages = [
+      "pnpm-10.29.2"
+      "electron-40.10.5" # vesktop
+    ];
+
+    programs.nh = {
+      enable = true;
+      flake = "/home/${config.lysec.username}/nixos";
+    };
+
+    programs.nix-ld.enable = true;
+  };
+}
