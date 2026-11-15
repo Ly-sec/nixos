@@ -55,11 +55,21 @@ Non-Plasma sessions use **greetd** + **Noctalia Greeter** ([`modules/nixos/greet
 
 Shared Wayland defaults (cursor, Electron/Qt hints): [`desktops/shared/home.nix`](desktops/shared/home.nix).
 
+`Super+E` opens Luciole on every desktop, using the local flake at `/mnt/storage/GitHub/noctalia-dev/luciole`. Plasma assigns the shortcut to Luciole's desktop entry and disables Dolphin's competing default.
+
 ## Home
 
 [`home/default.nix`](home/default.nix) pulls in the active desktop, VS Code, fish, and the programs explicitly listed in [`home/programs/default.nix`](home/programs/default.nix).
 
 Emacs is configured in [`home/programs/emacs/`](home/programs/emacs/), with Meow editing, Nix-managed packages, and a user daemon. Notes live in `/mnt/storage/org/`. `SPC h b` opens the [key guide](home/programs/emacs/org/keybindings.org) directly from `~/nixos/` in a pane on the right.
+
+Gruvbox Plus icons follow Noctalia's palette through [`home/programs/noctalia/icons.nix`](home/programs/noctalia/icons.nix). Colored app icons link directly to the installed originals, preserving logos and avoiding recoloring or copying them during theme changes. Monochrome icons adapt fully to the foreground, folder highlights use the primary accent, and neutral shading adapts to dark and light mode. Noctalia renders the palette and generates the icons in a background hook, then selects the completed theme through GSettings. GTK's settings files retain the installed Gruvbox Plus theme as a fallback; Noctalia owns the live GSettings selection so rebuilds do not reset it.
+
+Generated themes live in `$XDG_DATA_HOME/icons` (default `~/.local/share/icons`). Four palettes are retained, including the current and previous themes; revisiting one reuses its files. Package, generator, and palette changes invalidate the cache. To reapply the last rendered palette manually:
+
+```bash
+generate-noctalia-icons "${XDG_CONFIG_HOME:-$HOME/.config}/noctalia/gruvbox-icons.json"
+```
 
 ## Secrets (agenix)
 
@@ -75,10 +85,10 @@ Do not commit `~/.config/age/keys.txt`. Back it up offline.
 
 ## Local project inputs
 
-Noctalia and its greeter are path inputs pointing at the development checkouts under `/mnt/storage`. The Noctalia overlay calls its package expression directly with `rev = "local"`, because path inputs do not provide Git revision metadata. Umbriel currently uses its upstream GitHub input. After editing a local project, refresh its lock entry and rebuild:
+Luciole, Noctalia, its greeter, and Umbriel are path inputs pointing at the development checkouts under `/mnt/storage`. The Noctalia overlay calls its package expression directly with `rev = "local"`, because path inputs do not provide Git revision metadata. After editing a local project, refresh its lock entry and rebuild:
 
 ```bash
-nix flake update noctalia noctalia-greeter
+nix flake update luciole noctalia noctalia-greeter umbriel
 nh os switch path:.
 ```
 
@@ -86,4 +96,4 @@ The repository intentionally depends on those local paths and will not evaluate 
 
 ## Inputs
 
-`nixpkgs` (unstable), `home-manager`, `niri`, `agenix`, `helium`, `swash`, `nur`, plus Umbriel and the local Noctalia and Noctalia Greeter path inputs.
+`nixpkgs` (unstable), `home-manager`, `niri`, `agenix`, `helium`, `swash`, `nur`, plus the local Luciole, Umbriel, Noctalia, and Noctalia Greeter path inputs.

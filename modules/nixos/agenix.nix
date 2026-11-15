@@ -11,6 +11,12 @@
       mode = "0400";
     };
 
+    gpg-cressida-private-key = {
+      file = ../../secrets/gpg-cressida-private-key.age;
+      owner = config.lysec.username;
+      mode = "0400";
+    };
+
     noctalia-i18n-push = {
       file = ../../secrets/noctalia-i18n-push.age;
       owner = config.lysec.username;

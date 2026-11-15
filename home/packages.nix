@@ -10,7 +10,7 @@ with pkgs;
   protonplus
   bitwarden-cli
   prismlauncher
-  nautilus
+  luciole
   file-roller
   btop
   mpv

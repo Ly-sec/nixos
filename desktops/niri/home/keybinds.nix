@@ -10,7 +10,7 @@ let
 
   kitty = "${pkgs.kitty}/bin/kitty";
   browser = config.home.sessionVariables.BROWSER;
-  nautilus = "${pkgs.nautilus}/bin/nautilus";
+  luciole = lib.getExe pkgs.luciole;
   noctalia = lib.getExe pkgs.noctalia;
 in
 {
@@ -34,8 +34,8 @@ in
       action = spawn browser;
     };
     "Mod+E" = {
-      hotkey-overlay.title = "File Manager: Nautilus";
-      action = spawn nautilus;
+      hotkey-overlay.title = "File Manager: Luciole";
+      action = spawn luciole;
     };
 
     "XF86AudioMute" = {

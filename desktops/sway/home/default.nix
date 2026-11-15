@@ -9,11 +9,12 @@ let
   kitty = "${pkgs.kitty}/bin/kitty";
   browser = config.home.sessionVariables.BROWSER;
   noctalia = lib.getExe pkgs.noctalia;
+  luciole = lib.getExe pkgs.luciole;
 in
 {
   wayland.windowManager.sway = {
     enable = true;
-    xwayland.enable = true;
+    xwayland = true;
     config = {
       modifier = "Mod4";
       terminal = kitty;
@@ -34,6 +35,7 @@ in
       keybindings = {
         "Mod4+Return" = "exec ${kitty}";
         "Mod4+b" = "exec ${browser}";
+        "Mod4+e" = "exec ${luciole}";
         "Mod4+Control+Return" = "exec ${noctalia} msg panel-toggle launcher";
         "Mod4+Shift+q" = "kill";
         "Mod4+Shift+e" = "exit";

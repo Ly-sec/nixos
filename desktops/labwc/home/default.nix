@@ -10,6 +10,7 @@ let
   browser = config.home.sessionVariables.BROWSER;
   wlr-randr = "${pkgs.wlr-randr}/bin/wlr-randr";
   noctalia = lib.getExe pkgs.noctalia;
+  luciole = lib.getExe pkgs.luciole;
 
   workspaceKeybinds = lib.concatMapStringsSep "\n" (i: ''
     <keybind key="W-${toString i}">
@@ -46,6 +47,9 @@ in
         </keybind>
         <keybind key="W-C-Return">
           <action name="Execute" command="${noctalia} msg panel-toggle launcher" />
+        </keybind>
+        <keybind key="W-e">
+          <action name="Execute" command="${luciole}" />
         </keybind>
         <keybind key="W-q">
           <action name="Close" />

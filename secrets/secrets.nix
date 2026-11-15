@@ -8,6 +8,7 @@ let
 in
 {
   "gpg-private-key.age".publicKeys = all;
+  "gpg-cressida-private-key.age".publicKeys = all;
   "noctalia-i18n-push.age".publicKeys = all;
   "official-plugins-push.age".publicKeys = all;
   "community-plugins-push.age".publicKeys = all;

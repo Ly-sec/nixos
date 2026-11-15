@@ -27,6 +27,6 @@
       hide_timeout_ms = 30000;
     };
 
-    focus.follows_mouse = true;
+    focus.follows_mouse = "sloppy";
   };
 }

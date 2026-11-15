@@ -5,7 +5,7 @@
   ...
 }: let
   browser = config.home.sessionVariables.BROWSER;
-  nautilus = "${pkgs.nautilus}/bin/nautilus";
+  luciole = lib.getExe pkgs.luciole;
   noctalia = lib.getExe pkgs.noctalia;
   wpctl = "${pkgs.wireplumber}/bin/wpctl";
 in {
@@ -14,7 +14,7 @@ in {
     "Mod+Ctrl+Return" = "spawn ${noctalia} msg panel-toggle launcher";
     "Mod+Tab" = "spawn ${noctalia} msg window-switcher";
     "Mod+B" = "spawn ${browser}";
-    "Mod+E" = "spawn ${nautilus}";
+    "Mod+E" = "spawn ${luciole}";
 
     "XF86AudioMute" = "spawn ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle";
     "Mod+Delete" = "spawn ${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle";

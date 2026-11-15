@@ -38,6 +38,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    luciole = {
+      url = "path:/mnt/storage/GitHub/noctalia-dev/luciole";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     noctalia = {
       url = "path:/mnt/storage/GitHub/noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";

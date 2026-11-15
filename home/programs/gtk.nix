@@ -8,8 +8,8 @@
       package = pkgs.adw-gtk3;
     };
     iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
+      name = "Gruvbox-Plus-Dark";
+      package = pkgs.gruvbox-plus-icons;
     };
   };
 }

@@ -8,6 +8,10 @@ in
 {
   agenix = inputs.agenix.packages.${system}.default;
   helium-widevine = inputs.helium.packages.${system}.helium-widevine;
+  # GCC 16 rejects the release build's std::expected moves as maybe-uninitialized.
+  luciole = inputs.luciole.packages.${system}.default.override {
+    stdenv = final.llvmPackages_23.stdenv;
+  };
   # Path inputs have no Git revision metadata; label this development build local.
   noctalia = final.callPackage (inputs.noctalia.outPath + "/nix/package.nix") {
     rev = "local";

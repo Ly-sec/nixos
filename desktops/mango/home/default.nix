@@ -8,7 +8,7 @@
 let
   kitty = "${pkgs.kitty}/bin/kitty";
   browser = config.home.sessionVariables.BROWSER;
-  nautilus = "${pkgs.nautilus}/bin/nautilus";
+  luciole = lib.getExe pkgs.luciole;
   noctalia = lib.getExe pkgs.noctalia;
   wpctl = "${pkgs.wireplumber}/bin/wpctl";
 
@@ -76,7 +76,7 @@ in
     bind=SUPER+CTRL,Return,spawn,${noctalia} msg panel-toggle launcher
     bind=ALT,Tab,spawn,${noctalia} msg window-switcher
     bind=SUPER,B,spawn,${browser}
-    bind=SUPER,E,spawn,${nautilus}
+    bind=SUPER,E,spawn,${luciole}
 
     # Audio
     bind=NONE,XF86AudioMute,spawn,${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle
