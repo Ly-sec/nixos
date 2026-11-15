@@ -1,30 +1,58 @@
-# nixos
+<h1 align="center">lysec / nixos</h1>
 
-My NixOS config. Umbriel + Noctalia, with Home Manager and flake-parts.
+<p align="center">
+  My everyday desktop, built around <a href="modules/desktops/umbriel"><strong>Umbriel</strong></a>
+  and <a href="modules/programs/noctalia"><strong>Noctalia</strong></a>.
+</p>
 
-![Desktop](https://i.imgur.com/YehAwnl.jpeg)
+<p align="center">
+  <a href="flake.nix"><img alt="NixOS unstable" src="https://img.shields.io/badge/NixOS-unstable-adc178?style=flat-square&amp;logo=nixos&amp;logoColor=adc178&amp;labelColor=0b1822"></a>
+  <a href="modules/users/lysec"><img alt="Home Manager" src="https://img.shields.io/badge/Home_Manager-0b1822?style=flat-square&amp;logoColor=adc178"></a>
+  <a href="modules/system/base.nix"><img alt="Dendritic flake-parts" src="https://img.shields.io/badge/flake--parts-dendritic-adc178?style=flat-square&amp;labelColor=0b1822"></a>
+</p>
 
-|               |                                       |
-| ------------- | ------------------------------------- |
-| Compositor    | [Umbriel](modules/desktops/umbriel)   |
-| Desktop shell | [Noctalia](modules/programs/noctalia) |
-| Terminal      | Kitty                                 |
-| Shell         | Fish + Tide                           |
-| Editors       | Emacs, VS Code                        |
-| Browsers      | Helium, Firefox                       |
-| Music         | Sonora                                |
+![Umbriel and Noctalia desktop](https://i.imgur.com/YehAwnl.jpeg)
 
-Noctalia handles the colors, icons and cursor.
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>Umbriel</h3>
+      <p>Keyboard-driven windows, scratchpads, and a layout across two monitors.</p>
+    </td>
+    <td width="50%" valign="top">
+      <h3>Noctalia</h3>
+      <p>The bar, launcher, lock screen, and screenshot annotation. Its palette carries through the apps, icons, and cursor.</p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <a href="modules/desktops/umbriel">Desktop configuration →</a>
+    </td>
+    <td valign="top">
+      <a href="modules/programs/noctalia">Shell configuration →</a>
+    </td>
+  </tr>
+</table>
 
-Umbriel is my main desktop. There are also configs for Niri, Hyprland, Sway, Labwc, Mango and Plasma.
+**Apps** · [Kitty](modules/programs/kitty.nix) · [Fish + Tide](modules/programs/fish)
+· [Emacs](modules/programs/emacs) · [VS Code](modules/programs/vscode.nix)
+· [Helium](modules/programs/helium) · [Firefox](modules/programs/firefox)
+· [Sonora](modules/programs/sonora.nix)
 
-The desktop is set in [host settings](modules/hosts/nixos/settings.nix).
+<details>
+<summary>Build and desktop selection</summary>
 
-Build or switch from this checkout:
+From this checkout:
 
 ```sh
 nh os build path:.
 nh os switch path:.
 ```
 
-Some inputs use my local checkouts. The paths are in [flake.nix](flake.nix).
+Niri, Hyprland, Sway, Labwc, Mango, and Plasma are also configured.
+The active desktop is set in [host settings](modules/hosts/nixos/settings.nix).
+
+Some inputs use my local development checkouts. Their paths are in
+[flake.nix](flake.nix).
+
+</details>
